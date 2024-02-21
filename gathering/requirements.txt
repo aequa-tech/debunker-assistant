@@ -1,0 +1,7 @@
+pandas
+tqdm
+numpy
+regex
+beautifulsoup4
+nltk
+psycopg2
