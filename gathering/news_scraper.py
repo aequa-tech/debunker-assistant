@@ -30,10 +30,14 @@ class SessionHandler:
         
         return session
 
-    def screenscraper(self):
+    def screenscraper(self,path='.'):
         '''
         a function that implements a screen scraper with Selenium
         
+        PARAMETERS:
+
+        **path**: the path of the driver. 
+
         OUTPUT:
         
         a Selenium driver
@@ -41,7 +45,7 @@ class SessionHandler:
 
         options = Options()
         options.add_argument("--headless")
-        driver = webdriver.Firefox(options=options)
+        driver = webdriver.Firefox(executable_path=path,options=options)
 
         return driver
 
