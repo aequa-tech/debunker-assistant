@@ -30,7 +30,7 @@ class SessionHandler:
         
         return session
 
-    def screenscraper(self,path='.'):
+    def screenscraper(self,path='./geckodriver'):
         '''
         a function that implements a screen scraper with Selenium
         
