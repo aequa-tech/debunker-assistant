@@ -2,52 +2,14 @@ import requests,random,time
 from requests.adapters import HTTPAdapter, Retry
 from selenium.webdriver.firefox.options import Options
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 import regex as re
 import numpy as np
 from nltk.tokenize import sent_tokenize
+from typing import List
 
-class SessionHandler:
-    def __init__(self):
-        pass
-    
-    def urllib(self,retries=3,backoff=1):
-        '''
-        a function that implements a scraper with requests
-        
-        PARAMETERS
-        **retries**: the number of connection attempts after a fail. By default it is set to 3
-        **backoff**: it sets the backoff_factor, which impacts on the waiting time between retries. By default it is set to 1
-
-        OUTPUT:
-
-        a requests session
-        '''
-
-        session = requests.Session()
-        retries = Retry(total=retries, backoff_factor=backoff, status_forcelist=[ 502, 503, 504 ])
-        session.mount('http://', HTTPAdapter(max_retries=retries))
-        
-        return session
-
-    def screenscraper(self,path='./geckodriver'):
-        '''
-        a function that implements a screen scraper with Selenium
-        
-        PARAMETERS:
-
-        **path**: the path of the driver. 
-
-        OUTPUT:
-        
-        a Selenium driver
-        '''
-
-        options = Options()
-        options.add_argument("--headless")
-        driver = webdriver.Firefox(executable_path=path,options=options)
-
-        return driver
 
 
 class NewsScraper:
@@ -68,7 +30,7 @@ class NewsScraper:
 
         the url
         '''
-        url = 'http://{}'.format(domain)
+        url = 'http://{}'.format(domain) #da capire
 
         return url
     
@@ -88,7 +50,7 @@ class NewsScraper:
         '''
 
         html = driver.get(url)
-        time.sleep(random.random(1,5))
+        time.sleep(random.randint(1,5))
         html.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         page = html.page_source
 
@@ -178,9 +140,23 @@ class NewsScraper:
         return claims
     
 
-    def check_domain(self,link,flag='both'):
+    def check_domain(self,link:str,flag='both') -> int:
 
-        
+        '''
+        This function add a flag to a page if the url match some strings that may correlate with non-relevant contents (eg: privacy policy page)
+
+        PARAMETERS:
+
+        **link**: the link to be checked
+        **flag**: the type of check. 'internal' only checks for internal non-relevant pages (eg: subscribe page); `external' for external ones 
+        (eg: links to whatsapp). 'both' checks for both
+
+        OUTPUT:
+        value 1 if there are some flags, 1 if there aren't
+        '''
+
+        assert type(link) is str, "wrong type for link"
+
         external_block = ['amazon','amzn','twitter','facebook','instagram','cookies','t.co','t.me','tiktok','pinterest','youtube']
 
         internal_block = ['subscribe\.','abbonati\.','privacy','cooki(e|es)','edicola\.','shop\.','login','log-in','signin','sign-in','wp-','signup','sign-up']
@@ -195,6 +171,37 @@ class NewsScraper:
             flag = 1 if re.search('|'.join(external_block+internal_block,link)) else 0
         
         return flag
+
+class FacebookScraper:
+    def __init__(self):
+        pass
+
+    def login(self,driver,user,passw):
+        
+
+        driver.get("http://www.facebook.com")
+        time.sleep(3)
+
+        accept = driver.find_element(By.XPATH,"//button[@title='Decline optional cookies']")
+        driver.execute_script("arguments[0].click();" ,accept)
+        time.sleep(2)
+
+        username = driver.find_element(By.ID,"email")
+        password = driver.find_element(By.ID,"pass")
+
+        submit   = driver.find_element(By.XPATH,"//button[text()='Log In']")
+        
+        username.send_keys(user)
+        password.send_keys(passw)
+
+        time.sleep(2)
+        driver.execute_script("arguments[0].click();" ,submit)
+
+        return driver
+
+
+
+
 
 
 

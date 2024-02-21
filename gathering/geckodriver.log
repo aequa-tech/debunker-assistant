@@ -9,3 +9,5 @@ Read port: 36021
 1708516082702	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
 [GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
 console.error: ({})
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1708516113870	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
