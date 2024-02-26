@@ -779,6 +779,8 @@ if __name__ == '__main__':
     start_time = time.perf_counter()
 
     #for i in range(0,10000):
+    print(json.dumps(scores.use_of_first_and_second_person(title, content), indent=4))
+    exit()
     print(json.dumps(scores.use_of_interrogative_score(title, content), indent=4))
     print(json.dumps(scores.use_of_personal_style(title, content), indent=4))
     print(json.dumps(scores.use_of_modals_score(title, content), indent=4))
@@ -790,7 +792,7 @@ if __name__ == '__main__':
     print(json.dumps(scores.use_of_uncommon_punctuation(title, content), indent=4))
     print(json.dumps(scores.use_of_uppercase_words(title, content), indent=4))
     print(json.dumps(scores.use_of_repeated_letters(title, content), indent=4))
-    print(json.dumps(scores.use_of_first_and_second_person(title, content), indent=4))
+    print(json.dumps(scores.readability_score(title, content), indent=4))
     # End timer
     end_time = time.perf_counter()
 
