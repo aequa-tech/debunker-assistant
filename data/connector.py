@@ -1,4 +1,6 @@
-from sqlalchemy import create_engine, MetaData, Table
+from sqlalchemy import create_engine, MetaData, Table, Column, Text, Date, Integer, Boolean
+from sqlalchemy.ext.declarative import declarative_base
+from typing import Tuple,List
 import logging as log
 import psycopg2
 
@@ -45,22 +47,58 @@ class Connector:
             log.info(f"Unable to connect to the database for the following error: {e}")
     
     
-    def read_table(self,name,engine,query:str='SELECT * FROM {}'):
+    def open_table(self,name,engine):
 
         metadata = MetaData()
-        metadata.reflect(bind=engine)
+        
 
         # Replace 'your_table' with the name of the table you want to open
         table_name = name
 
         # Access the table object
-        table = metadata.tables.get(table_name)
+        table = Table(table_name, metadata, autoload_with=engine)
+        #table = metadata.tables.get(table_name)
 
-        with engine.connect() as connection:
-            result = connection.execute(query.format(name))
-            rows = result.fetchall()
+        
+        return table
+    
+    def create_table(self,name,engine,cols:List[Tuple]):
+        
+        data_types = {'integer':Integer,'text':Text,'bool':Boolean,'date':Date}
+        metadata = MetaData()
 
-        return rows
+        columns = list()
+        for col in cols:
+            columns.append(Column(col[0],data_types[col[1]]))
+
+        table_name = name
+
+        table = Table(table_name, metadata, *columns)
+
+        table = metadata.create_all(engine)
+        
+        return table
+    
+    def check_table(self,name,engine):
+
+        metadata = MetaData()
+        metadata.reflect(bind=engine)
+
+        table_name = name
+
+        if table_name in metadata.tables:
+            log.info('The table exists')
+
+            return True
+
+        else:
+            log.info('The table exists')
+            
+            return False
+        
+
+
+    
     
 
 
