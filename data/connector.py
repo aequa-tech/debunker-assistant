@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine, MetaData, Table
 import logging as log
+import psycopg2
 
 log.basicConfig(
     format="%(asctime)s %(levelname)s %(message)s",
@@ -18,7 +19,7 @@ class Connector:
         host = host
         db = db
 
-        connection_string = f'postgresql://{user}:{passw}@{host}/{db}'
+        connection_string = f'postgresql+psycopg2://{user}:{passw}@{host}/{db}'
 
         engine = create_engine(connection_string)
 
