@@ -42,7 +42,7 @@ class SessionHandler:
         '''
 
         options = Options()
-        #options.add_argument("--headless")
+        options.add_argument("--headless")
         driver = webdriver.Firefox(executable_path=path,options=options)
 
         return driver

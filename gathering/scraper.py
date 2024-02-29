@@ -51,8 +51,8 @@ class NewsScraper:
 
         html = driver.get(url)
         time.sleep(random.randint(1,5))
-        html.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        page = html.page_source
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);",html)
+        page = driver.page_source
 
         return page            
 
@@ -93,11 +93,17 @@ class NewsScraper:
         **internal**: a list of internal links
         **external**: a list of external links
         '''
-
+        
         domain = domain[:-1] if domain.endswith('/') else domain
-        links = [x['href'] for x in page.find_all('a')]
+        links = list()
+        for item in page.find_all('a'):
+            try:
+                links.append(item['href'])
+            except: continue
+        #links = [x['href'] for x in page.find_all('a') if 'href' in x]
+        
         internal_a = [x.split('?')[0].split('//')[-1] for x in links if domain in links]
-        internal_b = ['{}{}'.format(x,domain) for x in links if x.startswith('/')]
+        internal_b = ['{}{}'.format(domain,x) for x in links if x.startswith('/')]
 
         internal = list(set(internal_a+internal_b))
         
@@ -105,7 +111,7 @@ class NewsScraper:
         for link in links:
             try:
                 if domain not in link and link.startswith('http'):
-                    external.append(re.search('(http|https)://.+?/',link))
+                    external.append(re.search('(http|https)://.+?/',link).group())
             except: continue
         
         return internal,external
@@ -113,6 +119,39 @@ class NewsScraper:
     def find_claims(self,domain,page):
 
         ''' this function retrieves all claims in form of triples of the type (domain,url,text)
+        
+        PARAMETERS
+        
+        **domain**: a domain without any 'http' or 'www' at the beginning
+        **page**: a parsed page with BeutifulSoup. If you want, you can use the function 'parse_page()' to do that before calling this function
+
+        OUTPUT
+
+        a list of triples of the type (domain,url,text)
+'''
+
+        claims = list()
+        divs = page.find_all('div')
+        
+        
+        if len(divs)>0:
+            max_length = np.argmax([len(x.text) for x in divs])
+            pars = divs[max_length].find_all('p')
+            
+        else:
+            pars = page.find_all('p')
+        
+        for par in pars:
+            claims.extend([(domain,x['href'],x.text) for x in par.find_all('a')])
+        
+        
+
+
+        return claims
+    
+    def find_page(self,page):
+        
+        ''' this function retrieves a page
         
         PARAMETERS
         
@@ -133,12 +172,13 @@ class NewsScraper:
         else:
             pars = page.find_all('p')
         
-        for par in pars:
-            claims.extend([(domain,x['href'],x.text) for x in par.find_all('a')])
+        text = ''
 
-
-        return claims
-    
+        for p in pars:
+            text+='{} '.format(p.text)
+        
+        return text
+        
 
     def check_domain(self,link:str,flag='both') -> int:
 
@@ -157,18 +197,18 @@ class NewsScraper:
 
         assert type(link) is str, "wrong type for link"
 
-        external_block = ['amazon','amzn','twitter','facebook','instagram','cookies','t.co','t.me','tiktok','pinterest','youtube']
+        external_block = ['amazon','amzn','twitter','facebook','instagram','cookies','t.co','t.me','tiktok','pinterest','youtube','whatsapp','telegram','apple']
 
-        internal_block = ['subscribe\.','abbonati\.','privacy','cooki(e|es)','edicola\.','shop\.','login','log-in','signin','sign-in','wp-','signup','sign-up']
+        internal_block = ['subscribe\.','abbonati\.','privacy','cooki(e|es)','edicola\.','shop\.','login','log-in','signin','sign-in','wp-','signup','sign-up','paywall']
 
         if flag == 'external':
-            flag = 1 if re.search('|'.join(external_block,link)) else 0
+            flag = 1 if re.search('|'.join(external_block),link) else 0
         
         elif flag == 'internal':
-            flag = 1 if re.search('|'.join(internal_block,link)) else 0
+            flag = 1 if re.search('|'.join(internal_block),link) else 0
         
         else:
-            flag = 1 if re.search('|'.join(external_block+internal_block,link)) else 0
+            flag = 1 if re.search('|'.join(external_block+internal_block),link) else 0
         
         return flag
 

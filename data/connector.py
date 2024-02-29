@@ -24,7 +24,7 @@ class Connector:
 
         connection_string = f'postgresql+psycopg2://{user}:{passw}@{host}/{db}'
 
-        engine = create_engine(connection_string,echo=True)
+        engine = create_engine(connection_string,echo=True,connect_args={'connect_timeout': 10})
 
         return engine
     
