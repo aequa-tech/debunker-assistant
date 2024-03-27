@@ -24,6 +24,11 @@ class Sentiment():
         """
         self.model_name = model_name
 
+    @lru_cache(maxsize=32)
+    def my_pipeline(self, model_name):
+        classifier = pipeline("text-classification", model_name)
+        return classifier
+
     def prediction(self, title: str, content: str):
         """
         input:
@@ -37,8 +42,9 @@ class Sentiment():
         }
 
         features = {"title" : title, "content" : content}
+        classifier=self.my_pipeline(self.model_name)
 
-        classifier = pipeline("text-classification", model=model_name)
+
 
         for key, value in features.items():
             results = classifier(value)
