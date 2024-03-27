@@ -21,6 +21,7 @@ filelock==3.13.3
 fonttools==4.50.0
 fsspec==2024.3.1
 greenlet==3.0.3
+h11==0.14.0
 htmldate==1.8.0
 huggingface-hub==0.22.1
 idna==3.6
@@ -77,6 +78,7 @@ typing_extensions==4.9.0
 tzdata==2024.1
 tzlocal==5.2
 urllib3==2.2.0
+uvicorn==0.29.0
 wasabi==1.1.2
 weasel==0.3.4
 whois==1.20240129.2

@@ -2,6 +2,7 @@ import json
 from urllib.parse import urlparse
 import numpy
 from sqlalchemy.exc import IntegrityError
+import uvicorn
 
 from features.nlp.Scores import InformalStyle, ClickBait, Readability
 from webScraper.WebScraper import WebScraper
@@ -50,16 +51,12 @@ apis = {
          'use_of_aggressive_punctuation' : informalStyle.use_of_aggressive_punctuation,
          'use_of_uncommon_punctuation' : informalStyle.use_of_uncommon_punctuation,
          'use_of_emoji' : informalStyle.use_of_emoji,
-
-
     },
     "readability" : {
-        'use_of_emoji': readability.readability_score,
-
+         'use_of_emoji': readability.readability_score,
     },
     "click_bait" : {
-        'misleading_headline': clickBait.misleading_headline,
-
+         'misleading_headline': clickBait.misleading_headline,
     },
 
 }
@@ -170,7 +167,6 @@ async def getReportDomain(url : str, db: Session = Depends(get_db)):
         return {'status': 400, 'message': 'the domain is not available or does not exist'}
 
 
-
 @app.get("/api/v1/available_domains/{page}/{page_size}")
 async def getAvailableDomains(page: int, page_size: int, db: Session = Depends(get_db)):
 
@@ -184,7 +180,6 @@ async def getAvailableDomains(page: int, page_size: int, db: Session = Depends(g
                              'urls': [domain.domain for domain in domains ]
                         }
            }
-
 
 @app.get("/api/v1/available_urls/{page}/{page_size}")
 async def getAvailableUrls(page: int, page_size: int, db: Session = Depends(get_db)):
@@ -200,7 +195,6 @@ async def getAvailableUrls(page: int, page_size: int, db: Session = Depends(get_
                         }
            }
 
-
 @app.get("/api/v2/{group}/{phenomenon}/{request_id}")
 async def getGeneralAPI(group : str, phenomenon : str, request_id : str, db: Session = Depends(get_db)):
     url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
@@ -212,8 +206,36 @@ async def getGeneralAPI(group : str, phenomenon : str, request_id : str, db: Ses
 
     else:
 
-        return {'status':400,'message':'request_id not available. Recover the content of the url by /api/v1/scrape first.'}
+        return {'status':400,'message':'request_id not available. Recover the content of the url by /api/v2/scrape first.'}
 
+@app.get("/api/v2/{group}/{request_id}")
+async def getGeneralAggregateAPIs(group : str, request_id : str, db: Session = Depends(get_db)):
+    url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
+    result={}
+    result["description"]={
+                                "en": f"Aggregation of {group.replace('_',' ')} features.",
+                                "it": "descrizione in italiano"
+                          }
+
+    if url_object is not None:
+
+        overall_title   = []
+        overall_content = []
+        result['features']=[]
+        for key, value in apis[group].items():
+            res = value(url_object.title,url_object.content)
+            overall_title.append(res['title']['values']['local_normalisation'])
+            overall_content.append(res['content']['values']['local_normalisation'])
+            result['features'].append(res.copy())
+
+        result['title']   = { 'overall'  :numpy.average(overall_title) }
+        result['content'] = { 'overall':numpy.average(overall_content) }
+
+        return { 'status': 200, 'message':'the request was successful', 'result': result  }
+
+    else:
+
+        return {'status':400,'message':'request_id not available. Recover the content of the url by /api/v2/scrape first.'}
 
 
 
@@ -237,3 +259,7 @@ scheduler.add_job(NetworkCrawler, 'interval', hours=24,max_instances=1,next_run_
 #scheduler.add_job(NetworkCrawler, 'interval', minutes=1,max_instances=1)#,next_run_time=tomorrow_start)
 scheduler.start()
 
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8090)
