@@ -86,7 +86,7 @@ class Emotion():
             @param title: str: string containing the title of a news
             @param content: str: string containing the textual content of a news
         output:
-            - dictionary of the prediction in the form {'positive': 1, 'negative': -1, 'overall': 0.5}
+            - dictionary of the prediction of each emotion
         """
         result={
             "description" : "Emotion Analysis reports the set of emotions expressed in the text. A score near to 1 shows the expression of an intense emotion, while a score near to 0 shows a low intensity."
