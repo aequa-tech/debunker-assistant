@@ -1,11 +1,4 @@
 import json
-from typing import Tuple
-
-import spacy
-import hashlib
-import random
-import sys
-import re
 from functools import lru_cache
 from transformers import pipeline
 
