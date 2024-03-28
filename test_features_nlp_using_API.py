@@ -15,7 +15,7 @@ request_id=json.loads(page.text)['result']['request_id']
 
 page=requests.get(domain+'/api/v2/informal_style/use_of_first_and_second_person/'+request_id)
 
-print(json.loads(page.text))
+print(page.text)
 
 page=requests.get(domain+'/api/v2/informal_style/'+request_id)
 print(page)

@@ -53,9 +53,9 @@ apis = {
          'use_of_emoji' : informalStyle.use_of_emoji,
     },
     "readability" : {
-         'use_of_emoji': readability.readability_score,
+         'flesch_reading_ease': readability.flesch_reading_ease,
     },
-    "click_bait" : {
+    "clickbait" : {
          'misleading_headline': clickBait.misleading_headline,
     },
 
@@ -221,12 +221,12 @@ async def getGeneralAggregateAPIs(group : str, request_id : str, db: Session = D
 
         overall_title   = []
         overall_content = []
-        result['features']=[]
+        result['disaggregated']={}
         for key, value in apis[group].items():
             res = value(url_object.title,url_object.content)
             overall_title.append(res['title']['values']['local_normalisation'])
             overall_content.append(res['content']['values']['local_normalisation'])
-            result['features'].append(res.copy())
+            result['disaggregated'][key]=res.copy()
 
         result['title']   = { 'overall'  :numpy.average(overall_title) }
         result['content'] = { 'overall':numpy.average(overall_content) }

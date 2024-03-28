@@ -1411,7 +1411,7 @@ class InformalStyle:
 class Readability:
     """It says how easy something is to read."""
     @lru_cache(maxsize=32)
-    def readability_score(self, title: str, content: str):
+    def flesch_reading_ease(self, title: str, content: str):
         """
         The readability score is computes with the Flesch Reading Ease (FRES) score. It says how easy something is to read.
         This function evaluate the presence of that phenomenon.
@@ -1692,7 +1692,7 @@ if __name__ == '__main__':
     print(json.dumps(scores.use_of_uncommon_punctuation(title, content), indent=4))
     print(json.dumps(scores.use_of_uppercase_words(title, content), indent=4))
     print(json.dumps(scores.use_of_repeated_letters(title, content), indent=4))
-    print(json.dumps(scores3.readability_score(title, content), indent=4))
+    print(json.dumps(scores3.flesch_reading_ease(title, content), indent=4))
     # End timer
     end_time = time.perf_counter()
 
