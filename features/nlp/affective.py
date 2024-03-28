@@ -36,8 +36,6 @@ class Sentiment():
         features = {"title" : title, "content" : content}
         classifier=self.my_pipeline(self.model_name)
 
-
-
         for key, value in features.items():
             results = classifier(value)
             # print(key, results)
@@ -107,36 +105,54 @@ class Emotion():
         for key, value in features.items():
             results = classifier(value)
             print(key, results)
-            # positivity = 0.0
-            # negativity = 0.0
-            # if results[0]['label'] == 'positive':
-            #     positivity = results[0]['score']
-            #     positivity_absolute = 1 else 0 if results[0]['score'] >= 0.5
-            # if results[0]['label'] == 'negative':
-            #     negativity = - results[0]['score']
-            #     negativity_absolute = 1 else 0 if results[0]['score'] >= 0.5
-                        
-            # result[key]={
-            #             "positive":
-            #             { "description" : f"The score of positive sentiment expressed in the text.",
-            #              "absolute": positivity_absolute,   
-            #              "local_normalisation": round(positivity,3),
-            #              "global_normalisation": None,
-            #             },
-            #             "negative":
-            #             { "description" : f"The score of negative sentiment expressed in the text.",
-            #              "absolute": negativity_absolute,   
-            #              "local_normalisation": round(negativity,3),
-            #              "global_normalisation": None,
-            #             },
-            #             "overall":                                                
-            #             { "description" : f"The overall score of sentiment expressed in the text.",
-            #              "absolute": None,
-            #              "local_normalization": round(overall,3),
-            #              "global_normalisation": None,
-            #             } }
+            joy = 0.0
+            sadness = 0.0
+            fear = 0.0
+            anger = 0.0
+            joy_absolute = 0
+            sadness_absolute=0
+            fear_absolute =0
+            anger_absolute =0
+            if results[0]['label'] == 'joy':
+                joy = results[0]['score']
+                joy_absolute = 1 if results[0]['score'] >= 0.5 else 0
+            if results[0]['label'] == 'sadness':
+                sadness = - results[0]['score']
+                sadness_absolute = 1 if results[0]['score'] >= 0.5 else 0
+            if results[0]['label'] == 'fear':
+                fear = - results[0]['score']
+                fear_absolute = 1 if results[0]['score'] >= 0.5 else 0
+            if results[0]['label'] == 'anger':
+                anger = - results[0]['score']
+                anger_absolute = 1 if results[0]['score'] >= 0.5 else 0
+                
+            result[key]={
+                        "joy":
+                        { "description" : f"The score of joy emotion expressed in the text.",
+                         "absolute": joy_absolute,   
+                         "local_normalisation": round(joy,3),
+                         "global_normalisation": None,
+                        },
+                        "sadness":
+                        { "description" : f"The score of negative sentiment expressed in the text.",
+                         "absolute": sadness_absolute,   
+                         "local_normalisation": round(sadness,3),
+                         "global_normalisation": None,
+                        },
+                        "fear":                                                
+                        { "description" : f"The overall score of sentiment expressed in the text.",
+                         "absolute": fear_absolute,
+                         "local_normalization": round(fear,3),
+                         "global_normalisation": None,
+                        },
+                        "anger":                                                
+                        { "description" : f"The overall score of sentiment expressed in the text.",
+                         "absolute": anger_absolute,
+                         "local_normalization": round(anger,3),
+                         "global_normalisation": None,
+                        } }
 
-        # return result
+        return result
 
 
 if __name__ == '__main__':
