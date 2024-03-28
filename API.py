@@ -5,7 +5,7 @@ from sqlalchemy.exc import IntegrityError
 import uvicorn
 
 from features.nlp.Scores import InformalStyle, ClickBait, Readability
-from webScraper.WebScraper import WebScraper
+from webScraper.WebScraper import News
 import hashlib
 from fastapi import FastAPI, Depends
 from database import engine, SessionLocal,Base,Urls,DomainsWhois, DomainsNetworkMetrics, get_db
@@ -67,7 +67,7 @@ async def retrieveUrl(url : str, db: Session = Depends(get_db)):
     hash_id = hashlib.md5(url.encode('utf-8')).hexdigest()
     url_object=db.query(Urls).filter(Urls.request_id == hash_id).first()
     if url_object is None:
-        webScraper=WebScraper()
+        webScraper=News()
         result=webScraper.scrape(url)
         jsonResult=json.loads(result)
 
@@ -137,7 +137,7 @@ async def getReportUrl(request_id : str, db: Session = Depends(get_db)):
 
 @app.post("/api/v2/report_domain")
 async def getReportDomain(url : str, db: Session = Depends(get_db)):
-    webScraper = WebScraper()
+    webScraper = News()
     result = webScraper.scrape(url)
     jsonResult = json.loads(result)
 
