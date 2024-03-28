@@ -11,20 +11,20 @@ engine = connector.engine_postgres(user='debunker',passw='A283hnd(902!)?]',host=
 
 hand = hd.SessionHandler()
 
-url = hand.urllib()
-scrap = gat.NewsScraper()
+url = hand.static_session()
+scrap = gat.NewsCrawling()
 df = pd.read_csv('/home/marco/seeds.csv')
 
 for i,row in tqdm(df[304:].iterrows()):
-    link = scrap.build_url(row[0])
+    link = scrap._build_url(row[0])
     try:
         pg = url.get(link)
     except Exception as e:print(e)
     
     try:
         if pg.status_code == 403:
-            screen = hand.screenscraper()
-            pg = scrap.get_page(screen,link)
+            screen = hand.dynamic_session()
+            pg = scrap.scrape_page(screen, link)
     except Exception as e: print(e)
     
     try:

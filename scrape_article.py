@@ -12,8 +12,8 @@ engine = connector.engine_postgres(user='debunker',passw='A283hnd(902!)?]',host=
 
 hand = hd.SessionHandler()
 
-url = hand.urllib()
-scrap = gat.NewsScraper()
+url = hand.static_session()
+scrap = gat.NewsCrawling()
 
 tab = connector.read(engine,'select distinct url,domain from seed where flag = 0')
 
@@ -21,7 +21,7 @@ tab = [row for row in tab if not row[0].startswith('http')]
 print(tab)
 tab = [('ilpost.it/2024/02/29/sgomberi-case-occupate-caivano','ilpost.it')]
 for row in tab:
-    link = scrap.build_url(row[0])
+    link = scrap._build_url(row[0])
     d = dict()
     d['url'] = row[0]
 
@@ -31,8 +31,8 @@ for row in tab:
     
     try:
         if pg.status_code == 403:
-            screen = hand.screenscraper()
-            pg = scrap.get_page(screen,link)
+            screen = hand.dynamic_session()
+            pg = scrap.scrape_page(screen, link)
     except Exception as e: print(e)
     
     try:
