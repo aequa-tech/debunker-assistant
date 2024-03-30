@@ -2,3 +2,6 @@
 venv/
 .idea
 /debunker.db
+features/nlp/__pycache__/
+Background/__pycache__/
+__pycache__/

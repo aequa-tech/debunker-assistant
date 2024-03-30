@@ -9,7 +9,7 @@ import numpy as np
 from functools import lru_cache
 import json
 
-class IronyDetection():
+class Irony():
     """
     Class that implements the detection of irony/sarcasm.
     The detection of this pragmatic phenomenon in the texts is obtained thanks to a fine-tuned model starting from Language Models available for Italian.
@@ -39,12 +39,12 @@ class IronyDetection():
    
     @lru_cache(maxsize=32)
     def my_tokenizer(self, text):
-        tokenized = self.tokenizer.encode_plus(text,return_tensors='pt')
+        tokenized = self.tokenizer.encode_plus(text,return_tensors='pt',max_length=512)
         feat = tokenized['input_ids']
         attention = tokenized['attention_mask']
         return feat, attention
         
-    def prediction(self, title: str, content: str):
+    def get_irony(self, title: str, content: str):
         """
         input:
             @param title: str: string containing the title of a news
@@ -52,7 +52,7 @@ class IronyDetection():
         output:
             - dictionary of the prediction: the absolute value = 1/0, local_normalisation = logit coming from sigmoid function, global_normalisation = None
         """
-        cp = 'models/adapter_irony.safetensors'
+        cp = 'features/nlp/models/adapter_irony.safetensors'
         full_state_dict = load_file(cp)
 
         #adatta il modello generale con i pesi del task specifico
@@ -83,10 +83,15 @@ class IronyDetection():
                          "local_normalisation": round(local,3),
                          "global_normalisation": None,
                         },
+                        'descriptions': {
+                              'absolute': {'en': '', 'it': ''},
+                              'local_normalisation': {'en': '', 'it': ''},
+                              'global_normalisation': {'en': None, 'it': None}
+                        }
             }
         return result
 
-class FlameDetection():
+class Flame():
     """
     Class that implements the detection of flame.
     The detection of this pragmatic phenomenon in the texts is obtained thanks to a fine-tuned model starting from Language Models available for Italian.
@@ -116,12 +121,12 @@ class FlameDetection():
    
     @lru_cache(maxsize=32)
     def my_tokenizer(self, text):
-        tokenized = self.tokenizer.encode_plus(text,return_tensors='pt')
+        tokenized = self.tokenizer.encode_plus(text,return_tensors='pt',max_length=512)
         feat = tokenized['input_ids']
         attention = tokenized['attention_mask']
         return feat, attention
         
-    def prediction(self, title: str, content: str):
+    def get_flame(self, title: str, content: str):
         """
         input:
             @param title: str: string containing the title of a news
@@ -129,7 +134,7 @@ class FlameDetection():
         output:
             - dictionary of the prediction: the absolute value = 1/0, local_normalisation = logit coming from sigmoid function, global_normalisation = None
         """
-        cp = 'models/adapter_hs.safetensors'
+        cp = 'features/nlp/models/adapter_hs.safetensors'
         full_state_dict = load_file(cp)
 
         #adatta il modello generale con i pesi del task specifico
@@ -160,9 +165,15 @@ class FlameDetection():
                          "local_normalisation": round(local,3),
                          "global_normalisation": None,
                         },
+                        'descriptions': {
+                              'absolute': {'en': '', 'it': ''},
+                              'local_normalisation': {'en': '', 'it': ''},
+                              'global_normalisation': {'en': None, 'it': None}
+                        }
             }
         return result
-class StereotypesDetection():
+
+class Stereotype():
     """
     Class that implements the detection of stereotypes.
     The detection of this pragmatic phenomenon in the texts is obtained thanks to a fine-tuned model starting from Language Models available for Italian.
@@ -192,12 +203,12 @@ class StereotypesDetection():
    
     @lru_cache(maxsize=32)
     def my_tokenizer(self, text):
-        tokenized = self.tokenizer.encode_plus(text,return_tensors='pt')
+        tokenized = self.tokenizer.encode_plus(text,return_tensors='pt',max_length=512)
         feat = tokenized['input_ids']
         attention = tokenized['attention_mask']
         return feat, attention
         
-    def prediction(self, title: str, content: str):
+    def get_stereotype(self, title: str, content: str):
         """
         input:
             @param title: str: string containing the title of a news
@@ -205,7 +216,7 @@ class StereotypesDetection():
         output:
             - dictionary of the prediction: the absolute value = 1/0, local_normalisation = logit coming from sigmoid function, global_normalisation = None
         """
-        cp = 'models/adapter_stereotype.safetensors'
+        cp = 'features/nlp/models/adapter_stereotype.safetensors'
         full_state_dict = load_file(cp)
 
         #adatta il modello generale con i pesi del task specifico
@@ -236,29 +247,28 @@ class StereotypesDetection():
                          "local_normalisation": round(local,3),
                          "global_normalisation": None,
                         },
+                        'descriptions': {
+                              'absolute': {'en': '', 'it': ''},
+                              'local_normalisation': {'en': '', 'it': ''},
+                              'global_normalisation': {'en': None, 'it': None}
+                        }
             }
         return result
 
 if __name__ == '__main__':
-    irony = IronyDetection()
-    flame = FlameDetection()
-    stereotypes = StereotypesDetection()
 
     title="l'arresto è avvenuto alle 3 del pomeriggio, poverino"
     content='era un albanese, dobbiamo continuare con questo processo di integrazione?'
-    
-    import time
 
-    # Start timer
-    start_time = time.perf_counter()
+    print("IRONY")
+    irony = Irony()
+    print(json.dumps(irony.get_irony(title, content), indent=4))
 
-    print(json.dumps(irony.prediction(title, content), indent=4))
-    print(json.dumps(flame.prediction(title, content), indent=4))
-    print(json.dumps(stereotypes.prediction(title, content), indent=4))
-    exit()
-    # End timer
-    end_time = time.perf_counter()
+    print("FLAME")
+    flame = Flame()
+    print(json.dumps(flame.get_flame(title, content), indent=4))
 
-    # Calculate elapsed time
-    elapsed_time = end_time - start_time
-    print("Elapsed time: ", elapsed_time)
+    print("STEREOTYPE")
+    stereotypes = Stereotype()
+    print(json.dumps(stereotypes.get_stereotype(title, content), indent=4))
+

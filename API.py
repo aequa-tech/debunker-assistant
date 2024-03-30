@@ -4,8 +4,9 @@ import numpy
 from sqlalchemy.exc import IntegrityError
 import uvicorn
 
-from features.nlp.Scores import InformalStyle, ClickBait, Readability
-from webScraper.WebScraper import News
+from features.nlp.danger import Irony, Flame, Stereotype
+from features.nlp.scores import InformalStyle, ClickBait, Readability
+import News
 import hashlib
 from fastapi import FastAPI, Depends
 from database import engine, SessionLocal,Base,Urls,DomainsWhois, DomainsNetworkMetrics, get_db
@@ -20,6 +21,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from Background.ThreadNetworkCrawler import ThreadNetworkCrawler
 from Background.ThreadNetworkMetrics import ThreadNetworkMetrics
 from Background.ThreadWhoIs import ThreadWhoIs
+from features.nlp.affective import Sentiment, Emotion
+
 """from fastapi_utils.tasks import repeat_every"""
 
 
@@ -38,6 +41,12 @@ Base.metadata.create_all(bind=engine)
 informalStyle = InformalStyle()
 clickBait = ClickBait()
 readability = Readability()
+sentiment = Sentiment()
+emotion = Emotion()
+irony = Irony()
+flame = Flame()
+stereotype = Stereotype()
+
 apis = {
     'informal_style' : {
          'use_of_first_and_second_person' : informalStyle.use_of_first_and_second_person,
@@ -58,6 +67,23 @@ apis = {
     "clickbait" : {
          'misleading_headline': clickBait.misleading_headline,
     },
+    "sentiment" : {
+         'positive': sentiment.get_sentiment_positive,
+         'negative': sentiment.get_sentiment_negative,
+    },
+    "emotion" : {
+         'joy': emotion.get_emotion_joy,
+         'sadness': emotion.get_emotion_sadness,
+         'fear': emotion.get_emotion_fear,
+         'anger': emotion.get_emotion_anger,
+    },
+    "dangerous_speech_acts" : {
+
+        'irony': irony.get_irony,
+        'flame': flame.get_flame,
+        'stereotype': stereotype.get_stereotype,
+
+        }
 
 }
 

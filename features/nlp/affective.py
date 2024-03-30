@@ -8,13 +8,15 @@ class Sentiment():
     """
     def __init__(self):
         self.model_name = 'neuraly/bert-base-italian-cased-sentiment'
+        self.classifier = pipeline("text-classification", self.model_name)
 
     @lru_cache(maxsize=32)
-    def my_pipeline(self, model_name):
+    def __my_pipeline(self, model_name):
         classifier = pipeline("text-classification", model_name)
         return classifier
 
-    def prediction(self, title: str, content: str):
+    @lru_cache(maxsize=32)
+    def __prediction(self, title: str, content: str):
         """
         input:
             @param title: str: string containing the title of a news
@@ -23,14 +25,31 @@ class Sentiment():
             - dictionary of the prediction in the form {'positive': 1, 'negative': -1, 'overall': 0.5}
         """
         result={
-            "description" : "Sentiment Analysis reports the sentiment expressed in the text. A score near to 1 shows a general positive opinion, while a score near to -1 shows a general negative opinion."
+            'positive' : {
+
+                'description': {
+                                'en': 'The score of positive sentiment expressed in the text.',
+                                'it': 'descrizione in italiano'
+                               }
+
+            },
+            'negative' :{
+                'description': {
+                                'en': 'The score of negative sentiment expressed in the text.',
+                                'it': 'descrizione in italiano'
+                               }
+
+             }
         }
 
         features = {"title" : title, "content" : content}
-        classifier=self.my_pipeline(self.model_name)
+        #classifier= pipeline("text-classification", self.model_name)
+        #classifier=self.__my_pipeline(self.model_name)
 
         for key, value in features.items():
-            results = classifier(value)
+            print(value)
+            results = self.classifier(value,truncation=True)
+            #results = classifier(value)
             # print(key, results)
             positivity = 0.0
             negativity = 0.0
@@ -45,28 +64,56 @@ class Sentiment():
             
             # overall = positivity + negativity
             
-            result[key]={
-                        "positive":
-                        { "description" : f"The score of positive sentiment expressed in the text.",
-                         "absolute": positivity_absolute,   
-                         "local_normalisation": round(positivity,3),
-                         "global_normalisation": None,
-                        },
-                        "negative":
-                        { "description" : f"The score of negative sentiment expressed in the text.",
-                         "absolute": negativity_absolute,   
-                         "local_normalisation": round(negativity,3),
-                         "global_normalisation": None,
-                        },
-                        # "overall":                                                
-                        # { "description" : f"The overall score of sentiment expressed in the text.",
-                        #  "absolute": None,
-                        #  "local_normalization": round(overall,3),
-                        #  "global_normalisation": None,
-                        # }
+            result['positive'][key]={
+                           "values" : {
+
+                               "absolute": positivity_absolute,
+                               "local_normalisation": round(positivity, 3),
+                               "global_normalisation": None,
+                           },
+
+                          'descriptions': {
+                              'absolute': {'en': '', 'it': ''},
+                              'local_normalisation': {'en': '', 'it': ''},
+                              'global_normalisation': {'en': None, 'it': None}
+                          }
             }
 
+            result['negative'][key]={
+                           "values" : {
+
+                               "absolute": negativity_absolute,
+                               "local_normalisation": round(negativity, 3),
+                               "global_normalisation": None,
+                           },
+
+                          'descriptions': {
+                              'absolute': {'en': '', 'it': ''},
+                              'local_normalisation': {'en': '', 'it': ''},
+                              'global_normalisation': {'en': None, 'it': None}
+                          }
+            }
+
+
         return result
+
+
+
+    def __get_sentiment(self, title: str, content: str, phenomena):
+        prediction = self.__prediction(title, content)
+        result = prediction[phenomena]
+
+
+        return result
+
+
+    def get_sentiment_positive(self,title, content):
+
+        return self.__get_sentiment(title, content, phenomena="positive")
+
+    def get_sentiment_negative(self,title, content):
+
+        return self.__get_sentiment(title, content, phenomena="positive")
 
 class Emotion():
     """
@@ -74,13 +121,15 @@ class Emotion():
     """
     def __init__(self):
         self.model_name = "MilaNLProc/feel-it-italian-emotion"
+        self.classifier = pipeline("text-classification", self.model_name)
 
     @lru_cache(maxsize=32)
     def my_pipeline(self, model_name):
         classifier = pipeline("text-classification", model_name)
         return classifier
 
-    def prediction(self, title: str, content: str):
+    @lru_cache(maxsize=32)
+    def __prediction(self, title: str, content: str):
         """
         input:
             @param title: str: string containing the title of a news
@@ -89,15 +138,39 @@ class Emotion():
             - dictionary of the prediction of each emotion
         """
         result={
-            "description" : "Emotion Analysis reports the set of emotions expressed in the text. A score near to 1 shows the expression of an intense emotion, while a score near to 0 shows a low intensity."
+
+            "joy" : {
+                "description" : {
+                "en" : "",
+                "it" : ""
+              }
+            },
+            "sadness" :  {
+                "description" : {
+                "en" : "",
+                "it" : ""
+              }
+            },
+            "fear" :  {
+                "description" : {
+                "en" : "",
+                "it" : ""
+              }
+            },
+            "anger" :  {
+                "description" : {
+                "en" : "",
+                "it" : ""
+              }
+            },
+
         }
 
         features = {"title" : title, "content" : content}
-        classifier=self.my_pipeline(self.model_name)
-
+        #classifier=self.my_pipeline(self.model_name)
+        #classifier = pipeline("text-classification", self.model_name)
         for key, value in features.items():
-            results = classifier(value)
-            print(key, results)
+            results = self.classifier(value,max_length=512,truncation=True)
             joy = 0.0
             sadness = 0.0
             fear = 0.0
@@ -119,55 +192,96 @@ class Emotion():
                 anger = - results[0]['score']
                 anger_absolute = 1 if results[0]['score'] >= 0.5 else 0
                 
-            result[key]={
-                        "joy":
-                        { "description" : f"The score of joy emotion expressed in the text.",
+            result["joy"][key]={
+                        "values" : {
                          "absolute": joy_absolute,   
                          "local_normalisation": round(joy,3),
                          "global_normalisation": None,
                         },
-                        "sadness":
-                        { "description" : f"The score of negative sentiment expressed in the text.",
-                         "absolute": sadness_absolute,   
+                        'descriptions': {
+                              'absolute': {'en': '', 'it': ''},
+                              'local_normalisation': {'en': '', 'it': ''},
+                              'global_normalisation': {'en': None, 'it': None}
+                        }
+            }
+            result["sadness"][key]={
+                        "values" : {
+                         "absolute": sadness_absolute,
                          "local_normalisation": round(sadness,3),
                          "global_normalisation": None,
                         },
-                        "fear":                                                
-                        { "description" : f"The overall score of sentiment expressed in the text.",
+                        'descriptions': {
+                              'absolute': {'en': '', 'it': ''},
+                              'local_normalisation': {'en': '', 'it': ''},
+                              'global_normalisation': {'en': None, 'it': None}
+                        }
+            }
+            result["fear"][key]={
+                        "values" : {
                          "absolute": fear_absolute,
-                         "local_normalization": round(fear,3),
+                         "local_normalisation": round(fear,3),
                          "global_normalisation": None,
                         },
-                        "anger":                                                
-                        { "description" : f"The overall score of sentiment expressed in the text.",
+                        'descriptions': {
+                              'absolute': {'en': '', 'it': ''},
+                              'local_normalisation': {'en': '', 'it': ''},
+                              'global_normalisation': {'en': None, 'it': None}
+                        }
+            }
+            result["anger"][key]={
+                        "values" : {
                          "absolute": anger_absolute,
-                         "local_normalization": round(anger,3),
+                         "local_normalisation": round(anger,3),
                          "global_normalisation": None,
-                        } }
+                        },
+                        'descriptions': {
+                              'absolute': {'en': '', 'it': ''},
+                              'local_normalisation': {'en': '', 'it': ''},
+                              'global_normalisation': {'en': None, 'it': None}
+                        }
+            }
+
+        return result
+
+    def __get_emotion(self, title: str, content: str, phenomena):
+        prediction = self.__prediction(title, content)
+        result = prediction[phenomena]
+
 
         return result
 
 
+    def get_emotion_joy(self,title, content):
+
+        return self.__get_emotion(title, content, phenomena="joy")
+
+
+    def get_emotion_sadness(self,title, content):
+
+        return self.__get_emotion(title, content, phenomena="sadness")
+
+
+    def get_emotion_fear(self,title, content):
+
+        return self.__get_emotion(title, content, phenomena="fear")
+
+
+    def get_emotion_anger(self,title, content):
+
+        return self.__get_emotion(title, content, phenomena="anger")
+
+
+
 if __name__ == '__main__':
-    sentiment = Sentiment()
-    emotion = Emotion()
-    
-    # title="l'arresto è avvenuto alle 3 del pomeriggio, poverino"
-    # content='mi piace giocare anche se mi stanca'
     title="l'arresto è avvenuto alle 3 del pomeriggio, non se ne può più!"
     content='mi piace giocare anche se non con te'
-    
-    import time
+    sentiment = Sentiment()
+    print(json.dumps(sentiment.get_sentiment_positive(title,content)))
+    print(json.dumps(sentiment.get_sentiment_negative(title,content)))
 
-    # Start timer
-    start_time = time.perf_counter()
+    emotion = Emotion()
+    print(json.dumps(emotion.get_emotion_joy(title,content)))
+    print(json.dumps(emotion.get_emotion_sadness(title,content)))
+    print(json.dumps(emotion.get_emotion_fear(title,content)))
+    print(json.dumps(emotion.get_emotion_anger(title,content)))
 
-    print(json.dumps(emotion.prediction(title, content), indent=4))
-    # print(json.dumps(sentiment.prediction(title, content), indent=4))
-    exit()
-    # End timer
-    end_time = time.perf_counter()
-
-    # Calculate elapsed time
-    elapsed_time = end_time - start_time
-    print("Elapsed time: ", elapsed_time)
