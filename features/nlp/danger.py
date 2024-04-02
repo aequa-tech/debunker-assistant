@@ -73,7 +73,8 @@ class Irony():
             # print(score)
             score_sig = sigmoid(score['logits'].detach())
             absolute = torch.argmax(score_sig).item()
-            local = score['logits'][0,1].item() #non normalizzato con softmax e logit solo della classe positiva
+            # local = score['logits'][0,1].item() #non normalizzato e logit solo della classe positiva
+            local = score_sig[0,1].item() # normalizzato con sigmoid e logit solo della classe positiva
             # print(score_sig, absolute, local)
         
             result[key]={
@@ -155,7 +156,7 @@ class Flame():
             # print(score)
             score_sig = sigmoid(score['logits'].detach())
             absolute = torch.argmax(score_sig).item()
-            local = score['logits'][0,1].item() #non normalizzato con softmax e logit solo della classe positiva
+            local = score_sig[0,1].item() 
             # print(score_sig, absolute, local)
         
             result[key]={
@@ -237,7 +238,7 @@ class Stereotype():
             # print(score)
             score_sig = sigmoid(score['logits'].detach())
             absolute = torch.argmax(score_sig).item()
-            local = score['logits'][0,1].item() #non normalizzato con softmax e logit solo della classe positiva
+            local = score_sig[0,1].item()
             # print(score_sig, absolute, local)
         
             result[key]={
@@ -265,10 +266,10 @@ if __name__ == '__main__':
     print(json.dumps(irony.get_irony(title, content), indent=4))
 
     print("FLAME")
-    flame = Flame()
-    print(json.dumps(flame.get_flame(title, content), indent=4))
+    # flame = Flame()
+    # print(json.dumps(flame.get_flame(title, content), indent=4))
 
     print("STEREOTYPE")
-    stereotypes = Stereotype()
-    print(json.dumps(stereotypes.get_stereotype(title, content), indent=4))
+    # stereotypes = Stereotype()
+    # print(json.dumps(stereotypes.get_stereotype(title, content), indent=4))
 
