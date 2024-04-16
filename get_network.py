@@ -35,7 +35,7 @@ webScraper = News.News()
 for i in range(3):
     seeds = mydb.read(vars['read']['seeds'],cursor,i)
     print(seeds)
-    for seed in list(seeds[:2]):
+    for seed in list(seeds):
         print(seed)
         try:
             out = webScraper.get_news_from_url(seed[0])
