@@ -41,7 +41,7 @@ class ManageDB:
 
             cursor.execute(query)
         else:
-            cursor.execute(query.format(param))
+            cursor.execute(query.format(*param))
         read_output = cursor.fetchall()
 
         return read_output
@@ -52,7 +52,9 @@ class ManageDB:
             cursor.execute("BEGIN;")
             cursor.execute(query,(data[0],data[1]))
             connection.commit
-        except Exception as e: log.info(f'error updating beacause {e}')
+        except psycopg2.Error as e: 
+            log.info(f'error updating beacause {e}')
+            connection.rollback()
 
     def write_many(self,query,data:List[List],cursor,connection):
         cursor.execute("BEGIN;")
@@ -62,8 +64,9 @@ class ManageDB:
             connection.commit()
             log.info('writing operation was successful')
             
-        except Exception as e:
-            log.info(f'error writing because {e}')
+        except psycopg2.Error as e: 
+            log.info(f'error writing beacause {e}')
+            connection.rollback()
 
     def write_one(self,query,data:Tuple,cursor,connection):
         cursor.execute("BEGIN;")
@@ -73,7 +76,8 @@ class ManageDB:
             connection.commit()
             log.info('writing operation was successful')
             
-        except:
-            log.info('error writing')
+        except psycopg2.Error as e: 
+            log.info(f'error writing beacause {e}')
+            connection.rollback()
 
 

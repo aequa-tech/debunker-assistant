@@ -33,10 +33,10 @@ d = {1:'secondary',2:'tertiary'}
 
 webScraper = News.News()
 for i in range(3):
-    seeds = mydb.read(vars['read']['seeds'],cursor,i)
-    print(seeds)
-    for seed in list(seeds):
-        print(seed)
+    seeds = mydb.read(vars['read']['seeds'],cursor,(i,0))
+    
+    for seed in list(seeds[:20]):
+        log.info(f'we are scraping {seed}')
         try:
             out = webScraper.get_news_from_url(seed[0])
             res = json.loads(out)

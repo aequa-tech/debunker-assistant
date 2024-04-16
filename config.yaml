@@ -33,7 +33,7 @@ create:
     )
   
 read: 
-  seeds: SELECT DISTINCT domain FROM seeds WHERE network = {}
+  seeds: SELECT DISTINCT domain FROM seeds WHERE network = {} and scraped = {}
   claim: SELECT DISTINCT domain,target from claims where flag <> 1;
   network: SELECT DISTINCT target from network where scraped <> 1;
 

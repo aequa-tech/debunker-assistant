@@ -2834,3 +2834,72 @@ console.error: ({})
 DevTools listening on ws://127.0.0.1:55469/devtools/browser/fe46fe5c-60f9-481f-aac9-6c829da02411
 console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
 1713295818927	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713298503516	geckodriver	INFO	Listening on 127.0.0.1:34571
+1713298503949	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "44887" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileHkBySk"
+*** You are running in headless mode.
+Gtk-Message: 22:15:04.024: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713298504588	Marionette	INFO	Marionette enabled
+1713298504642	Marionette	INFO	Listening on port 35361
+WebDriver BiDi listening on ws://127.0.0.1:44887
+Read port: 35361
+1713298504783	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:44887/devtools/browser/dead1e0e-d36c-405a-9943-635f3c4fa97d
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713298535153	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713298754322	geckodriver	INFO	Listening on 127.0.0.1:50419
+1713298754795	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "37615" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilenTHZhU"
+*** You are running in headless mode.
+Gtk-Message: 22:19:14.866: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713298755165	Marionette	INFO	Marionette enabled
+1713298755204	Marionette	INFO	Listening on port 36395
+WebDriver BiDi listening on ws://127.0.0.1:37615
+Read port: 36395
+1713298755310	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:37615/devtools/browser/6bc7630e-bdf4-4e70-b42a-eeb3e390054b
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713298786869	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713299150549	geckodriver	INFO	Listening on 127.0.0.1:42577
+1713299151003	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "58823" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilejUkUCn"
+*** You are running in headless mode.
+Gtk-Message: 22:25:51.076: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713299151369	Marionette	INFO	Marionette enabled
+1713299151407	Marionette	INFO	Listening on port 33547
+WebDriver BiDi listening on ws://127.0.0.1:58823
+Read port: 33547
+1713299151519	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:58823/devtools/browser/1ed24f7c-f3bc-4399-a61c-96dc97b910de
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713299182994	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1713299708619	geckodriver	INFO	Listening on 127.0.0.1:44373
+1713299709037	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "34585" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileLEf6eR"
+*** You are running in headless mode.
+Gtk-Message: 22:35:09.108: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713299709407	Marionette	INFO	Marionette enabled
+1713299709446	Marionette	INFO	Listening on port 35053
+WebDriver BiDi listening on ws://127.0.0.1:34585
+Read port: 35053
+1713299709635	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:34585/devtools/browser/d1bcf038-6ad7-4af9-9d46-1941899f6616
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713299739975	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.

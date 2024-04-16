@@ -76,11 +76,12 @@ class Scraper:
                 log.info('qui')
                 return 400, 'the requested url is not available'
 
-    def _scrapeDynamicPage(self, url):
+    def _scrapeDynamicPage(self, url,timeout=10):
 
         url = self._build_http_url(url)
 
         html = self.session_handler.dynamic_session.get(url)
+        html.set_page_load_timeout(timeout)
         self.session_handler.execute_script("window.scrollTo(0, document.body.scrollHeight);",html)
         page = self.session_handler.page_source
 
@@ -89,11 +90,11 @@ class Scraper:
 
 
     @lru_cache(maxsize=32)
-    def _scrapeStaticPage(self, url):
+    def _scrapeStaticPage(self, url,timeout=10):
         url = self._build_http_url(url)
         headers = {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
-        page = self.session_handler.static_session.get(url,headers=headers)
+        page = self.session_handler.static_session.get(url,headers=headers,timeout=timeout)
 
         return page.status_code,page.text
 
