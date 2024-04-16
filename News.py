@@ -1,5 +1,7 @@
-import re
+import regex as re
 import json
+import numpy as np
+from typing import List
 from bs4 import BeautifulSoup
 from htmldate import find_date,extractors
 from requests import exceptions
@@ -157,18 +159,20 @@ class News:
         article_text = ''
         articles = soup.find_all('article')
         if len(articles) == 0:
-            articles = soup.find_all('div', class_={
-                lambda x: "post" in x.lower() or "entry" in x.lower() or "artic" in x.lower()})
-
-        for article in articles:
-            ps = article.findAll('p')
-            for p in ps:
-                article_text += '\n' + ''.join(p.findAll(string=True))
-
-        if len(article_text) == 0:
-            ps = soup.findAll('p')
-            for p in ps:
-                article_text += '\n' + ''.join(p.findAll(string=True))
+            container,_class_ = self._compile_args()
+            articles = soup.find_all(container, attrs={'class':_class_})
+            if len(articles)>0:
+                ids = [x.text for x in articles]
+                max_id = np.argmax(ids)
+                article_text = articles[max_id].text
+            else:
+                ps = soup.findAll('p')
+                for p in ps:
+                    article_text += '\n' + ''.join(p.findAll(string=True))
+        else:
+            ids = [x.text for x in articles]
+            max_id = np.argmax(ids)
+            article_text = articles[max_id].text
 
         date = find_date(text)
 
@@ -194,7 +198,7 @@ class News:
                 url = domain + href['href']
             else:
                 url=href['href']
-            url = url.split("://")[-1]
+            url = url.split("://")[-1].split("www.")[-1].split('?')[0].split('#')[0]
             urls.append({
                 "url" : url,
                 "text": re.sub(" +"," ",href.text.strip()),
@@ -221,7 +225,7 @@ class News:
         assert type(link) is str, "wrong type for link"
 
         external_block = ['amazon', 'amzn', 'twitter', 'facebook', 'instagram', 'cookies', 't.co', 't.me', 'tiktok',
-                          'pinterest', 'youtube', 'whatsapp', 'telegram', 'apple']
+                          'pinterest', 'youtube', 'whatsapp', 'telegram', 'apple','adobe']
 
         internal_block = ['subscribe\.', 'abbonati\.', 'privacy', 'cooki(e|es)', 'edicola\.', 'shop\.', 'login',
                           'log-in', 'signin', 'sign-in', 'wp-', 'signup', 'sign-up', 'paywall']
@@ -236,6 +240,15 @@ class News:
             flag = 1 if re.search('|'.join(external_block + internal_block), link) else 0
 
         return flag
+    
+    def _compile_args(self,container:List=['div','section'],_class_:List=['body','post','main','artic']):
+
+        container = re.compile('|'.join(container))
+        _class_ = re.compile('|'.join(_class_))
+
+        return container,_class_
+
+
 
 
 
@@ -243,7 +256,7 @@ class News:
 if __name__ == "__main__":
     webScraper=News()
 
-    result=webScraper.get_news_from_url('www.pianetablunews.it/2023/04/28/si-rifiuta-di-andare-in-una-casa-di-riposo-senza-i-suoi-gatti-e-la-struttura-inaugura-un-piccolo-rifugio-per-accoglierli/')
+    result=webScraper.get_news_from_url('https://www.ilfattoquotidiano.it/in-edicola/articoli/2024/03/28/crosetto-vendute-armi-a-kiev-per-417-milioni-camere-ignare/7494186/')
     print(result)
     result=webScraper.get_news_from_url('https://www.ilfattoquotidiano.it/?refresh_ce')
     print(result)

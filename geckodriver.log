@@ -1598,3 +1598,1239 @@ Exiting due to channel error.
 Exiting due to channel error.
 Exiting due to channel error.
 Exiting due to channel error.
+1713161389518	geckodriver	INFO	Listening on 127.0.0.1:54215
+update.go:85: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/local/share/doc /usr/local/share/doc none bind,ro 0 0): cannot open directory "/usr/local/share": permission denied
+update.go:85: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/gimp/2.0/help /usr/share/gimp/2.0/help none bind,ro 0 0): cannot open directory "/var/lib": permission denied
+update.go:85: cannot change mount namespace according to change mount (/var/lib/snapd/hostfs/usr/share/xubuntu-docs /usr/share/xubuntu-docs none bind,ro 0 0): cannot open directory "/var/lib": permission denied
+1713161390839	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "53131" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileQ0EwTS"
+*** You are running in headless mode.
+Gtk-Message: 08:09:51.053: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+1713161457594	geckodriver	INFO	Listening on 127.0.0.1:41891
+1713161458396	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "35507" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileiH7CfW"
+*** You are running in headless mode.
+Gtk-Message: 08:10:58.666: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+1713161568628	geckodriver	INFO	Listening on 127.0.0.1:47305
+1713161569289	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... ss" "--remote-debugging-port" "42335" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilevnoupu"
+*** You are running in headless mode.
+Gtk-Message: 08:12:49.400: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+1713161804554	geckodriver	INFO	Listening on 127.0.0.1:36027
+1713161805312	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... te" "--remote-debugging-port" "50663" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilevBOolr"
+Gtk-Message: 08:16:45.573: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+[9285, Main Thread] WARNING: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:187
+
+(firefox:9285): Gtk-WARNING **: 08:16:45.658: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.
+Gtk-Message: 08:16:45.658: Failed to load module "canberra-gtk-module"
+[9285, Main Thread] WARNING: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:187
+
+(firefox:9285): Gtk-WARNING **: 08:16:45.662: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.
+Gtk-Message: 08:16:45.662: Failed to load module "canberra-gtk-module"
+1713161870025	geckodriver	INFO	Listening on 127.0.0.1:60849
+1713161870802	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/usr ... te" "--remote-debugging-port" "33169" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilec80Ag6"
+Gtk-Message: 08:17:51.060: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+[10647, Main Thread] WARNING: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:187
+
+(firefox:10647): Gtk-WARNING **: 08:17:51.167: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.
+Gtk-Message: 08:17:51.167: Failed to load module "canberra-gtk-module"
+[10647, Main Thread] WARNING: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:187
+
+(firefox:10647): Gtk-WARNING **: 08:17:51.170: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.
+Gtk-Message: 08:17:51.170: Failed to load module "canberra-gtk-module"
+1713161958154	geckodriver	INFO	Listening on 127.0.0.1:48863
+1713161958638	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... te" "--remote-debugging-port" "50003" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile3wHlLK"
+Gtk-Message: 08:19:18.710: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+[11108, Main Thread] WARNING: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:187
+
+(firefox:11108): Gtk-WARNING **: 08:19:18.769: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.
+Gtk-Message: 08:19:18.769: Failed to load module "canberra-gtk-module"
+[11108, Main Thread] WARNING: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:187
+
+(firefox:11108): Gtk-WARNING **: 08:19:18.772: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.
+Gtk-Message: 08:19:18.772: Failed to load module "canberra-gtk-module"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713161959154	Marionette	INFO	Marionette enabled
+1713161959245	Marionette	INFO	Listening on port 35025
+WebDriver BiDi listening on ws://127.0.0.1:50003
+Read port: 35025
+1713161959504	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.error: ({})
+DevTools listening on ws://127.0.0.1:50003/devtools/browser/bf302e2e-823a-4d2a-9c09-c3412bdf044f
+1713161963218	Marionette	INFO	Stopped listening on port 35025
+1713161998724	geckodriver	INFO	Listening on 127.0.0.1:54907
+1713161999173	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... te" "--remote-debugging-port" "43681" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilebCts0X"
+Gtk-Message: 08:19:59.190: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+[11911, Main Thread] WARNING: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:187
+
+(firefox:11911): Gtk-WARNING **: 08:19:59.245: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.
+Gtk-Message: 08:19:59.245: Failed to load module "canberra-gtk-module"
+[11911, Main Thread] WARNING: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:187
+
+(firefox:11911): Gtk-WARNING **: 08:19:59.245: GTK+ module /snap/firefox/4090/gnome-platform/usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so cannot be loaded.
+GTK+ 2.x symbols detected. Using GTK+ 2.x and GTK+ 3 in the same process is not supported.
+Gtk-Message: 08:19:59.245: Failed to load module "canberra-gtk-module"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713161999576	Marionette	INFO	Marionette enabled
+1713161999720	Marionette	INFO	Listening on port 38997
+WebDriver BiDi listening on ws://127.0.0.1:43681
+Read port: 38997
+1713161999849	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.error: ({})
+DevTools listening on ws://127.0.0.1:43681/devtools/browser/828f815d-ac34-4522-a320-0987b8beaa0f
+1713162010037	Marionette	INFO	Stopped listening on port 38997
+1713162136873	geckodriver	INFO	Listening on 127.0.0.1:38517
+1713162137368	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "54853" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile17FEhp"
+*** You are running in headless mode.
+Gtk-Message: 08:22:17.441: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713162137628	Marionette	INFO	Marionette enabled
+1713162137673	Marionette	INFO	Listening on port 41961
+WebDriver BiDi listening on ws://127.0.0.1:54853
+Read port: 41961
+1713162137800	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:54853/devtools/browser/bca79313-f956-4376-a31d-a80f342482eb
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713162168634	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713177136830	geckodriver	INFO	Listening on 127.0.0.1:39719
+1713177137262	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "33421" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilewJ8XXB"
+*** You are running in headless mode.
+Gtk-Message: 12:32:17.279: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713177137450	Marionette	INFO	Marionette enabled
+1713177137496	Marionette	INFO	Listening on port 36873
+WebDriver BiDi listening on ws://127.0.0.1:33421
+Read port: 36873
+1713177137623	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:33421/devtools/browser/331ac5fb-12da-43f4-85d6-08fa60ee2a69
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713177168040	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713177193276	geckodriver	INFO	Listening on 127.0.0.1:56641
+1713177193695	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "55287" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileH9KomQ"
+*** You are running in headless mode.
+Gtk-Message: 12:33:13.711: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713177193869	Marionette	INFO	Marionette enabled
+1713177193914	Marionette	INFO	Listening on port 41655
+WebDriver BiDi listening on ws://127.0.0.1:55287
+Read port: 41655
+1713177194038	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:55287/devtools/browser/db616f49-67eb-4ea4-8223-fd5ee7c24e81
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713177227035	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713177236261	geckodriver	INFO	Listening on 127.0.0.1:36893
+1713177236709	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "55079" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileHdNxbN"
+*** You are running in headless mode.
+Gtk-Message: 12:33:56.726: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713177236883	Marionette	INFO	Marionette enabled
+1713177236927	Marionette	INFO	Listening on port 33821
+WebDriver BiDi listening on ws://127.0.0.1:55079
+Read port: 33821
+1713177237050	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:55079/devtools/browser/668aec5d-d09f-4fce-9fcb-c1eafe884fa0
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713177269952	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713187667048	geckodriver	INFO	Listening on 127.0.0.1:48703
+1713187667529	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "45791" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileWnOzSq"
+*** You are running in headless mode.
+Gtk-Message: 15:27:47.605: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713187667878	Marionette	INFO	Marionette enabled
+1713187667919	Marionette	INFO	Listening on port 37595
+WebDriver BiDi listening on ws://127.0.0.1:45791
+Read port: 37595
+1713187668017	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:45791/devtools/browser/86112995-616e-45db-b23f-f56d4439146f
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713187700034	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713203548881	geckodriver	INFO	Listening on 127.0.0.1:53049
+1713203549375	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "37241" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileWWypdA"
+*** You are running in headless mode.
+Gtk-Message: 19:52:29.448: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713203549748	Marionette	INFO	Marionette enabled
+1713203549796	Marionette	INFO	Listening on port 39757
+WebDriver BiDi listening on ws://127.0.0.1:37241
+Read port: 39757
+1713203549990	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:37241/devtools/browser/7dfd9631-0541-4bc4-9ec1-69ebc563cd06
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713203580854	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713203589020	geckodriver	INFO	Listening on 127.0.0.1:58113
+1713203589517	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "35857" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofiledkcJRq"
+*** You are running in headless mode.
+Gtk-Message: 19:53:09.592: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713203589954	Marionette	INFO	Marionette enabled
+1713203590013	Marionette	INFO	Listening on port 41455
+Read port: 41455
+WebDriver BiDi listening on ws://127.0.0.1:35857
+1713203590050	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:35857/devtools/browser/a6f48349-a38c-4e3b-9488-4def94fff336
+1713203610940	geckodriver	INFO	Listening on 127.0.0.1:33303
+1713203611480	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "46089" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilepUeEj9"
+*** You are running in headless mode.
+Gtk-Message: 19:53:31.554: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713203611791	Marionette	INFO	Marionette enabled
+1713203611830	Marionette	INFO	Listening on port 43663
+WebDriver BiDi listening on ws://127.0.0.1:46089
+Read port: 43663
+1713203611937	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:46089/devtools/browser/3918be74-9e71-4a0b-aa5b-69b35fc760e4
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713203620898	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713203747494	geckodriver	INFO	Listening on 127.0.0.1:47371
+1713203747972	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "55751" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileF1Bidn"
+*** You are running in headless mode.
+Gtk-Message: 19:55:48.045: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713203748347	Marionette	INFO	Marionette enabled
+1713203748386	Marionette	INFO	Listening on port 41909
+WebDriver BiDi listening on ws://127.0.0.1:55751
+Read port: 41909
+1713203748492	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:55751/devtools/browser/b5d813eb-6fff-4764-8a9b-bc2107711b71
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1713203778010	geckodriver	INFO	Listening on 127.0.0.1:56871
+1713203778478	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "43447" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileBcaijs"
+*** You are running in headless mode.
+Gtk-Message: 19:56:18.551: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713203778850	Marionette	INFO	Marionette enabled
+1713203778889	Marionette	INFO	Listening on port 39931
+WebDriver BiDi listening on ws://127.0.0.1:43447
+Read port: 39931
+1713203778995	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:43447/devtools/browser/da053ed2-87c9-485f-9a0c-827afa603feb
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1713203815239	geckodriver	INFO	Listening on 127.0.0.1:40043
+1713203815749	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "33603" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilefyI8i4"
+*** You are running in headless mode.
+Gtk-Message: 19:56:55.822: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713203816140	Marionette	INFO	Marionette enabled
+1713203816179	Marionette	INFO	Listening on port 41973
+WebDriver BiDi listening on ws://127.0.0.1:33603
+Read port: 41973
+1713203816291	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:33603/devtools/browser/ef6baba7-2d29-4779-af9c-a1f12561755a
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713203847145	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+[GFX1-]: CompositorBridgeChild receives IPC close with reason=AbnormalShutdown
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1713270782830	geckodriver	INFO	Listening on 127.0.0.1:48457
+1713270783285	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "57797" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileXBTi97"
+*** You are running in headless mode.
+Gtk-Message: 14:33:03.358: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713270783686	Marionette	INFO	Marionette enabled
+1713270783744	Marionette	INFO	Listening on port 42485
+WebDriver BiDi listening on ws://127.0.0.1:57797
+Read port: 42485
+1713270784030	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:57797/devtools/browser/79f1210e-0b60-476e-8d92-d07301afe74f
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713270814698	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713270861850	geckodriver	INFO	Listening on 127.0.0.1:42497
+1713270862313	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "41395" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileInLAhZ"
+*** You are running in headless mode.
+Gtk-Message: 14:34:22.385: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713270862731	Marionette	INFO	Marionette enabled
+1713270862771	Marionette	INFO	Listening on port 44733
+WebDriver BiDi listening on ws://127.0.0.1:41395
+Read port: 44733
+1713270862880	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:41395/devtools/browser/1ad1c825-b3f8-45b8-89bf-32d4d5532081
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713270895496	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713270903595	geckodriver	INFO	Listening on 127.0.0.1:58795
+1713270904068	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "60117" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile3HflId"
+*** You are running in headless mode.
+Gtk-Message: 14:35:04.140: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713270904527	Marionette	INFO	Marionette enabled
+1713270904602	Marionette	INFO	Listening on port 46145
+WebDriver BiDi listening on ws://127.0.0.1:60117
+Read port: 46145
+1713270904708	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:60117/devtools/browser/75d15c5e-0f48-456c-aeae-53f3af953205
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713270937394	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713271041508	geckodriver	INFO	Listening on 127.0.0.1:36763
+1713271041994	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "55385" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileU9IanY"
+*** You are running in headless mode.
+Gtk-Message: 14:37:22.066: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713271042344	Marionette	INFO	Marionette enabled
+1713271042382	Marionette	INFO	Listening on port 33249
+WebDriver BiDi listening on ws://127.0.0.1:55385
+Read port: 33249
+1713271042476	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:55385/devtools/browser/f920a8a2-f9f1-4b82-a996-684548ba7804
+1713271065424	geckodriver	INFO	Listening on 127.0.0.1:34023
+1713271065900	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "59241" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile5HGA89"
+*** You are running in headless mode.
+Gtk-Message: 14:37:45.972: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713271066266	Marionette	INFO	Marionette enabled
+1713271066305	Marionette	INFO	Listening on port 33045
+WebDriver BiDi listening on ws://127.0.0.1:59241
+Read port: 33045
+1713271066417	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:59241/devtools/browser/6709a655-2984-41ac-96bb-fad1d63de2b3
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713271073347	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713271096873	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713271107934	geckodriver	INFO	Listening on 127.0.0.1:55903
+1713271108416	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "55589" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileyanSMg"
+*** You are running in headless mode.
+Gtk-Message: 14:38:28.488: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713271108788	Marionette	INFO	Marionette enabled
+1713271108827	Marionette	INFO	Listening on port 34601
+WebDriver BiDi listening on ws://127.0.0.1:55589
+Read port: 34601
+1713271108933	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:55589/devtools/browser/55568d33-0f75-40bd-a49d-1d1592394733
+1713271127943	geckodriver	INFO	Listening on 127.0.0.1:45525
+1713271128427	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "60895" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileYLEvAT"
+*** You are running in headless mode.
+Gtk-Message: 14:38:48.499: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713271128737	Marionette	INFO	Marionette enabled
+1713271128775	Marionette	INFO	Listening on port 41007
+WebDriver BiDi listening on ws://127.0.0.1:60895
+Read port: 41007
+1713271128882	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:60895/devtools/browser/71c943a4-e599-4f26-82b5-6c04f711dd0e
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713271139788	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713271161698	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713271197686	geckodriver	INFO	Listening on 127.0.0.1:53869
+1713271198167	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "48645" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilev9lRdE"
+*** You are running in headless mode.
+Gtk-Message: 14:39:58.240: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713271198534	Marionette	INFO	Marionette enabled
+1713271198572	Marionette	INFO	Listening on port 34581
+WebDriver BiDi listening on ws://127.0.0.1:48645
+Read port: 34581
+1713271198685	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:48645/devtools/browser/c0a696bc-6f30-47d7-a342-1aec3a0ccc05
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713271231498	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713271282516	geckodriver	INFO	Listening on 127.0.0.1:48501
+1713271282963	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "39013" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileUlsVoG"
+*** You are running in headless mode.
+Gtk-Message: 14:41:23.037: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713271283332	Marionette	INFO	Marionette enabled
+1713271283371	Marionette	INFO	Listening on port 41313
+WebDriver BiDi listening on ws://127.0.0.1:39013
+Read port: 41313
+1713271283477	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:39013/devtools/browser/099696fa-cbd4-4db4-acd6-5d007a6620c7
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713271314282	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713271327755	geckodriver	INFO	Listening on 127.0.0.1:50251
+1713271328230	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "45933" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilelvBkCk"
+*** You are running in headless mode.
+Gtk-Message: 14:42:08.304: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713271328605	Marionette	INFO	Marionette enabled
+1713271328645	Marionette	INFO	Listening on port 34887
+WebDriver BiDi listening on ws://127.0.0.1:45933
+Read port: 34887
+1713271328751	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:45933/devtools/browser/85761a49-370a-4694-820a-c95b640e6804
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713271361624	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713271366137	geckodriver	INFO	Listening on 127.0.0.1:40537
+1713271366628	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "58105" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilebgx7PI"
+*** You are running in headless mode.
+Gtk-Message: 14:42:46.702: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713271367021	Marionette	INFO	Marionette enabled
+1713271367137	Marionette	INFO	Listening on port 41577
+WebDriver BiDi listening on ws://127.0.0.1:58105
+Read port: 41577
+1713271367245	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:58105/devtools/browser/4e53a427-d98f-47a7-b446-d68a4ede6ac6
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713271399728	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713271413819	geckodriver	INFO	Listening on 127.0.0.1:51647
+1713271414304	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "50895" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilevEuXG8"
+*** You are running in headless mode.
+Gtk-Message: 14:43:34.376: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713271414614	Marionette	INFO	Marionette enabled
+1713271414653	Marionette	INFO	Listening on port 40635
+WebDriver BiDi listening on ws://127.0.0.1:50895
+Read port: 40635
+1713271414761	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:50895/devtools/browser/29b1efa3-d006-4d09-a46b-d0c7fa7a0423
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713271447688	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713271551058	geckodriver	INFO	Listening on 127.0.0.1:46857
+1713271551539	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "56503" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile8Ezrm4"
+*** You are running in headless mode.
+Gtk-Message: 14:45:51.612: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713271551914	Marionette	INFO	Marionette enabled
+1713271551953	Marionette	INFO	Listening on port 35341
+WebDriver BiDi listening on ws://127.0.0.1:56503
+Read port: 35341
+1713271552062	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:56503/devtools/browser/f35cdd29-ebe9-4beb-addb-bcd066d1fe05
+1713271577234	geckodriver	INFO	Listening on 127.0.0.1:42257
+1713271577684	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "32915" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilexrHlTR"
+*** You are running in headless mode.
+Gtk-Message: 14:46:17.758: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713271578024	Marionette	INFO	Marionette enabled
+1713271578063	Marionette	INFO	Listening on port 43297
+WebDriver BiDi listening on ws://127.0.0.1:32915
+Read port: 43297
+1713271578167	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:32915/devtools/browser/419b8ae6-a9df-46da-a6b4-233ac9daa2a8
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713271582387	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713271610879	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713271631380	geckodriver	INFO	Listening on 127.0.0.1:45629
+1713271631814	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "55447" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileKt6UtJ"
+*** You are running in headless mode.
+Gtk-Message: 14:47:11.888: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713271632184	Marionette	INFO	Marionette enabled
+1713271632223	Marionette	INFO	Listening on port 35875
+WebDriver BiDi listening on ws://127.0.0.1:55447
+Read port: 35875
+1713271632333	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:55447/devtools/browser/3d662819-c47c-4f1f-a013-d6a9875095d6
+1713271652379	geckodriver	INFO	Listening on 127.0.0.1:40529
+1713271652877	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "51711" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilevVWhCS"
+*** You are running in headless mode.
+Gtk-Message: 14:47:32.950: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713271653214	Marionette	INFO	Marionette enabled
+1713271653324	Marionette	INFO	Listening on port 42187
+WebDriver BiDi listening on ws://127.0.0.1:51711
+Read port: 42187
+1713271653432	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:51711/devtools/browser/fba2fcae-e08f-4cac-adbc-bf7e2657d655
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713271663186	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713271684159	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713277649075	geckodriver	INFO	Listening on 127.0.0.1:52395
+1713277649562	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "55845" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileddU01Z"
+*** You are running in headless mode.
+Gtk-Message: 16:27:29.638: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713277649911	Marionette	INFO	Marionette enabled
+1713277650021	Marionette	INFO	Listening on port 35523
+WebDriver BiDi listening on ws://127.0.0.1:55845
+Read port: 35523
+1713277650190	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:55845/devtools/browser/1ecd489c-ce8a-4ac6-b077-0813f3acad94
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713277683494	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713277761494	geckodriver	INFO	Listening on 127.0.0.1:33047
+1713277761984	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "51235" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileDogKWX"
+*** You are running in headless mode.
+Gtk-Message: 16:29:22.058: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713277762317	Marionette	INFO	Marionette enabled
+1713277762357	Marionette	INFO	Listening on port 35231
+WebDriver BiDi listening on ws://127.0.0.1:51235
+Read port: 35231
+1713277762465	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:51235/devtools/browser/faecca1f-e0e6-4567-9f0a-8423590bc1d3
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713277795209	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713280904201	geckodriver	INFO	Listening on 127.0.0.1:34825
+1713280904673	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "43739" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileA8UcPc"
+*** You are running in headless mode.
+Gtk-Message: 17:21:44.692: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713280904852	Marionette	INFO	Marionette enabled
+1713280904894	Marionette	INFO	Listening on port 43915
+WebDriver BiDi listening on ws://127.0.0.1:43739
+Read port: 43915
+1713280905016	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:43739/devtools/browser/b5cde003-7cd9-4318-ad57-9a16dc3cf277
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713280935208	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713293648547	geckodriver	INFO	Listening on 127.0.0.1:45625
+1713293649036	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "58015" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilegLyzYQ"
+*** You are running in headless mode.
+Gtk-Message: 20:54:09.111: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293649360	Marionette	INFO	Marionette enabled
+1713293649401	Marionette	INFO	Listening on port 44763
+WebDriver BiDi listening on ws://127.0.0.1:58015
+Read port: 44763
+1713293649511	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:58015/devtools/browser/5d5e0825-9658-492b-9956-99a52f605fee
+1713293650744	geckodriver	INFO	Listening on 127.0.0.1:51451
+1713293651196	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "41737" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileUAK2O7"
+*** You are running in headless mode.
+Gtk-Message: 20:54:11.270: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293651546	Marionette	INFO	Marionette enabled
+1713293651649	Marionette	INFO	Listening on port 36669
+WebDriver BiDi listening on ws://127.0.0.1:41737
+Read port: 36669
+1713293651788	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:41737/devtools/browser/837d282b-a745-4cda-9e86-fcd7adc1778c
+1713293652929	geckodriver	INFO	Listening on 127.0.0.1:33989
+1713293653431	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "47557" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileGugLCR"
+*** You are running in headless mode.
+Gtk-Message: 20:54:13.506: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293653802	Marionette	INFO	Marionette enabled
+1713293653961	Marionette	INFO	Listening on port 37779
+WebDriver BiDi listening on ws://127.0.0.1:47557
+Read port: 37779
+1713293654070	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:47557/devtools/browser/88e37a00-ad9e-4b40-9707-6d4183e0a6c7
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293681705	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293682209	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293684513	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713293694690	geckodriver	INFO	Listening on 127.0.0.1:41959
+1713293695175	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "53321" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile3b5Duj"
+*** You are running in headless mode.
+Gtk-Message: 20:54:55.249: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293695473	Marionette	INFO	Marionette enabled
+1713293695513	Marionette	INFO	Listening on port 46019
+WebDriver BiDi listening on ws://127.0.0.1:53321
+Read port: 46019
+1713293695621	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:53321/devtools/browser/a166f991-c363-4f67-b86a-3d3eefbe8ae0
+1713293696862	geckodriver	INFO	Listening on 127.0.0.1:51831
+1713293697328	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "49497" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile2PKHXP"
+*** You are running in headless mode.
+Gtk-Message: 20:54:57.402: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293697599	Marionette	INFO	Marionette enabled
+1713293697642	Marionette	INFO	Listening on port 43009
+WebDriver BiDi listening on ws://127.0.0.1:49497
+Read port: 43009
+1713293697793	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:49497/devtools/browser/cc695864-4910-4729-a2d3-80cd8a939f61
+1713293698805	geckodriver	INFO	Listening on 127.0.0.1:59031
+1713293699299	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "52669" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile4FQ2qe"
+*** You are running in headless mode.
+Gtk-Message: 20:54:59.372: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293699599	Marionette	INFO	Marionette enabled
+1713293699639	Marionette	INFO	Listening on port 33557
+WebDriver BiDi listening on ws://127.0.0.1:52669
+Read port: 33557
+1713293699749	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:52669/devtools/browser/c5886abe-0855-4bc0-9f77-a77e70d44e82
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293727129	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293728587	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293730028	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713293813686	geckodriver	INFO	Listening on 127.0.0.1:49655
+1713293814186	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "51371" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile0d7Ch6"
+*** You are running in headless mode.
+Gtk-Message: 20:56:54.262: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293814521	Marionette	INFO	Marionette enabled
+1713293814626	Marionette	INFO	Listening on port 45831
+WebDriver BiDi listening on ws://127.0.0.1:51371
+Read port: 45831
+1713293814734	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:51371/devtools/browser/cc976570-5213-4231-96c4-d6fbd37d6966
+1713293815786	geckodriver	INFO	Listening on 127.0.0.1:52087
+1713293816297	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "56809" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileUYs63P"
+*** You are running in headless mode.
+Gtk-Message: 20:56:56.371: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293816586	Marionette	INFO	Marionette enabled
+1713293816626	Marionette	INFO	Listening on port 36863
+WebDriver BiDi listening on ws://127.0.0.1:56809
+Read port: 36863
+1713293816735	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:56809/devtools/browser/1b97a62c-eb37-4f7a-9eab-c9391dbd9caa
+1713293817770	geckodriver	INFO	Listening on 127.0.0.1:36077
+1713293818217	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "38891" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileCiyuU4"
+*** You are running in headless mode.
+Gtk-Message: 20:56:58.290: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293818462	Marionette	INFO	Marionette enabled
+1713293818505	Marionette	INFO	Listening on port 42089
+WebDriver BiDi listening on ws://127.0.0.1:38891
+Read port: 42089
+1713293818609	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:38891/devtools/browser/473105b2-277b-40f3-867a-a6544b14f86c
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293845482	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293847296	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293848477	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713293874880	geckodriver	INFO	Listening on 127.0.0.1:48941
+1713293875410	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "55997" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileRhKuca"
+*** You are running in headless mode.
+Gtk-Message: 20:57:55.483: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293875721	Marionette	INFO	Marionette enabled
+1713293875761	Marionette	INFO	Listening on port 43859
+WebDriver BiDi listening on ws://127.0.0.1:55997
+Read port: 43859
+1713293875874	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:55997/devtools/browser/13ae4d40-8d61-4a09-b4a9-3b291611185e
+1713293876878	geckodriver	INFO	Listening on 127.0.0.1:49301
+1713293877401	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "51673" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileHSbfta"
+*** You are running in headless mode.
+Gtk-Message: 20:57:57.477: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293877684	Marionette	INFO	Marionette enabled
+1713293877725	Marionette	INFO	Listening on port 33639
+WebDriver BiDi listening on ws://127.0.0.1:51673
+Read port: 33639
+1713293877836	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:51673/devtools/browser/dee49d61-ea47-4b6b-8667-b06414a5d38e
+1713293878695	geckodriver	INFO	Listening on 127.0.0.1:48999
+1713293879175	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "34227" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile6d2fog"
+*** You are running in headless mode.
+Gtk-Message: 20:57:59.194: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293879338	Marionette	INFO	Marionette enabled
+1713293879380	Marionette	INFO	Listening on port 42403
+WebDriver BiDi listening on ws://127.0.0.1:34227
+Read port: 42403
+1713293879493	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:34227/devtools/browser/5ff9d813-0963-4398-869a-6d49c3e6d396
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293908051	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293908407	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293909576	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713293914181	geckodriver	INFO	Listening on 127.0.0.1:57811
+1713293914699	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "37505" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile5jtGeE"
+*** You are running in headless mode.
+Gtk-Message: 20:58:34.773: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293914994	Marionette	INFO	Marionette enabled
+1713293915034	Marionette	INFO	Listening on port 46025
+WebDriver BiDi listening on ws://127.0.0.1:37505
+Read port: 46025
+1713293915143	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:37505/devtools/browser/9ca93f8c-26f2-4928-8d2d-10c0186c4030
+1713293916223	geckodriver	INFO	Listening on 127.0.0.1:46907
+1713293916740	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "47387" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile7frCaB"
+*** You are running in headless mode.
+Gtk-Message: 20:58:36.764: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293916906	Marionette	INFO	Marionette enabled
+1713293916947	Marionette	INFO	Listening on port 36595
+WebDriver BiDi listening on ws://127.0.0.1:47387
+Read port: 36595
+1713293917059	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:47387/devtools/browser/26ce09ec-9ccc-4766-b0ae-00e5586ad4dc
+1713293917931	geckodriver	INFO	Listening on 127.0.0.1:55159
+1713293918421	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "52241" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileha4Syz"
+*** You are running in headless mode.
+Gtk-Message: 20:58:38.439: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293918593	Marionette	INFO	Marionette enabled
+1713293918634	Marionette	INFO	Listening on port 36787
+WebDriver BiDi listening on ws://127.0.0.1:52241
+Read port: 36787
+1713293918745	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:52241/devtools/browser/4a9fc3f8-e5cc-4d7e-9fb5-2196589cab82
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293945989	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293948937	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713293949215	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713293980071	geckodriver	INFO	Listening on 127.0.0.1:56409
+1713293980593	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "41691" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilePLndZJ"
+*** You are running in headless mode.
+Gtk-Message: 20:59:40.668: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713293980867	Marionette	INFO	Marionette enabled
+1713293980907	Marionette	INFO	Listening on port 41953
+WebDriver BiDi listening on ws://127.0.0.1:41691
+Read port: 41953
+1713293981016	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:41691/devtools/browser/aee2486e-447e-4da3-8342-e7011a3d4952
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294011213	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713294057579	geckodriver	INFO	Listening on 127.0.0.1:41357
+1713294058097	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "56289" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileQ4ygfl"
+*** You are running in headless mode.
+Gtk-Message: 21:00:58.173: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713294058338	Marionette	INFO	Marionette enabled
+1713294058379	Marionette	INFO	Listening on port 36479
+WebDriver BiDi listening on ws://127.0.0.1:56289
+Read port: 36479
+1713294058487	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:56289/devtools/browser/9fbd619a-ff30-4963-9471-67aa8522edba
+1713294078151	geckodriver	INFO	Listening on 127.0.0.1:43445
+1713294078674	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "55851" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileOlbKDi"
+*** You are running in headless mode.
+Gtk-Message: 21:01:18.749: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713294078907	Marionette	INFO	Marionette enabled
+1713294078949	Marionette	INFO	Listening on port 42529
+WebDriver BiDi listening on ws://127.0.0.1:55851
+Read port: 42529
+1713294079058	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:55851/devtools/browser/61cfdeb7-39ad-43b0-af0f-7ba1097df16c
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294091447	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294111663	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713294134290	geckodriver	INFO	Listening on 127.0.0.1:49745
+1713294134808	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "48929" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilemRlqO6"
+*** You are running in headless mode.
+Gtk-Message: 21:02:14.852: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713294134998	Marionette	INFO	Marionette enabled
+1713294135039	Marionette	INFO	Listening on port 43043
+WebDriver BiDi listening on ws://127.0.0.1:48929
+Read port: 43043
+1713294135150	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:48929/devtools/browser/062452a7-72e5-4082-96c9-44aaf0fdccdf
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294165367	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713294172637	geckodriver	INFO	Listening on 127.0.0.1:46471
+1713294173146	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "60123" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileEVzGvS"
+*** You are running in headless mode.
+Gtk-Message: 21:02:53.222: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713294173412	Marionette	INFO	Marionette enabled
+1713294173453	Marionette	INFO	Listening on port 39679
+WebDriver BiDi listening on ws://127.0.0.1:60123
+Read port: 39679
+1713294173563	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:60123/devtools/browser/de583565-e156-43ad-b611-21e04509ce32
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294203760	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713294204157	geckodriver	INFO	Listening on 127.0.0.1:58071
+1713294204599	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "58533" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilee3JzK8"
+*** You are running in headless mode.
+Gtk-Message: 21:03:24.617: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713294204765	Marionette	INFO	Marionette enabled
+1713294204806	Marionette	INFO	Listening on port 40477
+WebDriver BiDi listening on ws://127.0.0.1:58533
+Read port: 40477
+1713294204918	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:58533/devtools/browser/772784d0-4c0a-4293-9bd1-ad2b46ce7b32
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294238043	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713294346370	geckodriver	INFO	Listening on 127.0.0.1:46379
+1713294346853	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "39541" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile8m0gtu"
+*** You are running in headless mode.
+Gtk-Message: 21:05:46.871: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713294347017	Marionette	INFO	Marionette enabled
+1713294347058	Marionette	INFO	Listening on port 46027
+WebDriver BiDi listening on ws://127.0.0.1:39541
+Read port: 46027
+1713294347169	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:39541/devtools/browser/87f5026b-3110-471a-988d-68214cdcb28d
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294377365	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713294428723	geckodriver	INFO	Listening on 127.0.0.1:56087
+1713294429221	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "58375" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilewe3fE7"
+*** You are running in headless mode.
+Gtk-Message: 21:07:09.241: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713294429385	Marionette	INFO	Marionette enabled
+1713294429425	Marionette	INFO	Listening on port 37907
+WebDriver BiDi listening on ws://127.0.0.1:58375
+Read port: 37907
+1713294429534	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:58375/devtools/browser/f6b86247-8ff7-418f-870c-bcc97ccfaf65
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294462311	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713294497784	geckodriver	INFO	Listening on 127.0.0.1:41075
+1713294498266	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "59127" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilejOluon"
+*** You are running in headless mode.
+Gtk-Message: 21:08:18.283: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713294498428	Marionette	INFO	Marionette enabled
+1713294498469	Marionette	INFO	Listening on port 42621
+WebDriver BiDi listening on ws://127.0.0.1:59127
+Read port: 42621
+1713294498583	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:59127/devtools/browser/93f6b399-c0f2-481d-b928-20b2a5b5929c
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294531545	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713294559459	geckodriver	INFO	Listening on 127.0.0.1:36117
+1713294559966	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "56627" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile4cya0E"
+*** You are running in headless mode.
+Gtk-Message: 21:09:19.997: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713294560184	Marionette	INFO	Marionette enabled
+1713294560225	Marionette	INFO	Listening on port 40303
+WebDriver BiDi listening on ws://127.0.0.1:56627
+Read port: 40303
+1713294560339	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:56627/devtools/browser/757ff5af-8f9d-4d88-9789-affc22eee05c
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294592466	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713294599028	geckodriver	INFO	Listening on 127.0.0.1:47075
+1713294599473	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "36025" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile0pfqGH"
+*** You are running in headless mode.
+Gtk-Message: 21:09:59.489: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713294599637	Marionette	INFO	Marionette enabled
+1713294599677	Marionette	INFO	Listening on port 33619
+WebDriver BiDi listening on ws://127.0.0.1:36025
+Read port: 33619
+1713294599788	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:36025/devtools/browser/a25e8d3b-3c0b-42d2-9ee0-806840d9e268
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294632468	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713294684256	geckodriver	INFO	Listening on 127.0.0.1:51967
+1713294684699	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "59617" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileHg1BEU"
+*** You are running in headless mode.
+Gtk-Message: 21:11:24.716: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713294684863	Marionette	INFO	Marionette enabled
+1713294684905	Marionette	INFO	Listening on port 45341
+WebDriver BiDi listening on ws://127.0.0.1:59617
+Read port: 45341
+1713294685015	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:59617/devtools/browser/45dd760c-b71c-4900-978f-6e091dfcadb9
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294717656	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713294826667	geckodriver	INFO	Listening on 127.0.0.1:42101
+1713294827113	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "53143" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileldDJZJ"
+*** You are running in headless mode.
+Gtk-Message: 21:13:47.129: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713294827281	Marionette	INFO	Marionette enabled
+1713294827322	Marionette	INFO	Listening on port 38029
+WebDriver BiDi listening on ws://127.0.0.1:53143
+Read port: 38029
+1713294827432	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:53143/devtools/browser/8e17759d-0583-4d52-a928-1e49dac2fa5c
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294857786	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713294904259	geckodriver	INFO	Listening on 127.0.0.1:34859
+1713294904674	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "49681" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileihiyGO"
+*** You are running in headless mode.
+Gtk-Message: 21:15:04.690: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713294904836	Marionette	INFO	Marionette enabled
+1713294904877	Marionette	INFO	Listening on port 32953
+WebDriver BiDi listening on ws://127.0.0.1:49681
+Read port: 32953
+1713294904988	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:49681/devtools/browser/423fa366-31ca-468d-a03c-4e3e1ff44618
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713294935822	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713295166371	geckodriver	INFO	Listening on 127.0.0.1:59863
+1713295166809	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "45865" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileTyONwM"
+*** You are running in headless mode.
+Gtk-Message: 21:19:26.829: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713295166975	Marionette	INFO	Marionette enabled
+1713295167015	Marionette	INFO	Listening on port 44771
+WebDriver BiDi listening on ws://127.0.0.1:45865
+Read port: 44771
+1713295167125	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:45865/devtools/browser/35eabb3a-936d-4ddf-a214-c5ac5b66c7ce
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713295198539	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713295318096	geckodriver	INFO	Listening on 127.0.0.1:35155
+1713295318580	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "38959" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile8K4ILX"
+*** You are running in headless mode.
+Gtk-Message: 21:21:58.596: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713295318741	Marionette	INFO	Marionette enabled
+1713295318781	Marionette	INFO	Listening on port 46877
+WebDriver BiDi listening on ws://127.0.0.1:38959
+Read port: 46877
+1713295318897	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:38959/devtools/browser/8bed59c3-ce16-4907-b77d-72ac8ec60515
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713295352076	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713295372599	geckodriver	INFO	Listening on 127.0.0.1:51681
+1713295373052	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "45433" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilehXXN7t"
+*** You are running in headless mode.
+Gtk-Message: 21:22:53.068: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713295373215	Marionette	INFO	Marionette enabled
+1713295373256	Marionette	INFO	Listening on port 35763
+WebDriver BiDi listening on ws://127.0.0.1:45433
+Read port: 35763
+1713295373367	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:45433/devtools/browser/81b410a4-c97e-4c43-8c81-a6c53f2239c3
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713295406541	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713295466320	geckodriver	INFO	Listening on 127.0.0.1:51913
+1713295466762	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "47611" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileXR5omg"
+*** You are running in headless mode.
+Gtk-Message: 21:24:26.779: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713295466931	Marionette	INFO	Marionette enabled
+1713295466973	Marionette	INFO	Listening on port 37789
+WebDriver BiDi listening on ws://127.0.0.1:47611
+Read port: 37789
+1713295467087	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:47611/devtools/browser/7a986453-81d9-4c5c-84ac-53c9a69f7e0d
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713295499987	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713295574357	geckodriver	INFO	Listening on 127.0.0.1:49953
+1713295574803	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "60879" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileR0GyP1"
+*** You are running in headless mode.
+Gtk-Message: 21:26:14.821: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713295574971	Marionette	INFO	Marionette enabled
+1713295575012	Marionette	INFO	Listening on port 39913
+WebDriver BiDi listening on ws://127.0.0.1:60879
+Read port: 39913
+1713295575125	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:60879/devtools/browser/212b5ac9-dd97-4006-ab39-dd6251e7e138
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713295608079	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713295635134	geckodriver	INFO	Listening on 127.0.0.1:43613
+1713295635551	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "49967" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileemQ2r8"
+*** You are running in headless mode.
+Gtk-Message: 21:27:15.568: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713295635720	Marionette	INFO	Marionette enabled
+1713295635761	Marionette	INFO	Listening on port 36413
+WebDriver BiDi listening on ws://127.0.0.1:49967
+Read port: 36413
+1713295635877	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:49967/devtools/browser/f2cdf53c-86f0-4d90-a7fa-40df72ba1f47
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713295668041	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713295704720	geckodriver	INFO	Listening on 127.0.0.1:36103
+1713295705165	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "33805" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilennNcRD"
+*** You are running in headless mode.
+Gtk-Message: 21:28:25.183: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713295705361	Marionette	INFO	Marionette enabled
+1713295705411	Marionette	INFO	Listening on port 43713
+WebDriver BiDi listening on ws://127.0.0.1:33805
+Read port: 43713
+1713295705529	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:33805/devtools/browser/a1356bdc-271d-47d9-afdd-70bfb7e3de1c
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713295735748	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713295748868	geckodriver	INFO	Listening on 127.0.0.1:39553
+1713295749342	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "46297" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileDpD6p7"
+*** You are running in headless mode.
+Gtk-Message: 21:29:09.369: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713295749727	Marionette	INFO	Marionette enabled
+1713295749791	Marionette	INFO	Listening on port 33113
+WebDriver BiDi listening on ws://127.0.0.1:46297
+Read port: 33113
+1713295749951	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:46297/devtools/browser/a640e43a-41ab-495b-aec8-104f9c937c56
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713295781510	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1713295786036	geckodriver	INFO	Listening on 127.0.0.1:52281
+1713295786475	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/sna ... ss" "--remote-debugging-port" "55469" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile6C0KTO"
+*** You are running in headless mode.
+Gtk-Message: 21:29:46.506: Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1713295787034	Marionette	INFO	Marionette enabled
+1713295787131	Marionette	INFO	Listening on port 44119
+WebDriver BiDi listening on ws://127.0.0.1:55469
+Read port: 44119
+1713295787434	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:55469/devtools/browser/fe46fe5c-60f9-481f-aac9-6c829da02411
+console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
+1713295818927	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.

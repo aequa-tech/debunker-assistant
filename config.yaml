@@ -1,0 +1,53 @@
+db:
+  dbname_it: italian_sites
+  dbname_en: english_sites
+  user: aequa
+  password: L4K3Rb0st0n
+  host: localhost
+  port: 5432
+
+create:
+  seeds: >2 
+    CREATE TABLE IF NOT EXISTS seeds (
+    domain VARCHAR(256) PRIMARY KEY,
+    partOf VARCHAR(256),
+    network SMALLINT,
+    scraped SMALLINT
+    )
+
+  claims: >2 
+    CREATE TABLE IF NOT EXISTS claims (
+    domain VARCHAR(256),
+    target VARCHAR(256),
+    claim VARCHAR(256),
+    flag SMALLINT,
+
+    PRIMARY KEY (domain,target,claim)
+    )
+    
+  network: >2 
+    CREATE TABLE IF NOT EXISTS network(
+    source VARCHAR(256),
+    target VARCHAR(256),
+    PRIMARY KEY (source,target)
+    )
+  
+read: 
+  seeds: SELECT DISTINCT domain FROM seeds WHERE network = {}
+  claim: SELECT DISTINCT domain,target from claims where flag <> 1;
+  network: SELECT DISTINCT target from network where scraped <> 1;
+
+update:
+  seeds: UPDATE seeds SET scraped = %s WHERE domain LIKE %s
+  network: UPDATE network SET scraped = %s WHERE domain ~ %s
+
+insert:
+  seeds: >2
+    INSERT INTO seeds (domain,partOf,network,scraped) VALUES (%s,%s,%s,%s)
+    ON CONFLICT (domain) DO NOTHING
+  claims: >2
+    INSERT INTO claims (domain,target,claim,flag) VALUES (%s,%s,%s,%s)
+    ON CONFLICT (domain,target,claim) DO NOTHING
+  network: >2 
+    INSERT INTO network (source,target) VALUES (%s,%s)
+    ON CONFLICT (source,target) DO NOTHING

@@ -11,6 +11,13 @@ import regex as re
 import numpy as np
 from typing import List
 from gathering.handler import SessionHandler
+import logging as log
+
+log.basicConfig(
+    format="%(asctime)s %(levelname)s %(message)s",
+    level=log.INFO,
+    datefmt='%d/%m/%Y %H:%M:%S'
+)
 
 
 class Scraper:
@@ -48,30 +55,30 @@ class Scraper:
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
         resp = self.session_handler.static_session.request('HEAD', self._build_http_url( url), headers=headers)
-        print(resp)
+        log.info(resp)
         if resp.status_code == 200:
             if 'text/html' not in resp.headers['Content-Type']:
                 return 400, 'the API exclusively satisfies text/html Content-Types. The current Content-Type is '
             else:
                 return 200, self._build_http_url(url)
         elif resp.status_code == 403:
-            print(403)
-            print(url)
-            print( self._build_https_url(url))
+            log.info(403)
+            log.info(url)
+            log.info( self._build_https_url(url))
             resp = self.session_handler.static_session.request('HEAD', self._build_https_url(url), headers=headers)
             if resp.status_code == 200:
                 if 'text/html' not in resp.headers['Content-Type']:
                     return 400, 'the API exclusively satisfies text/html Content-Types. The current Content-Type is '
                 else:
-                    print(resp.text)
+                    log.info(resp.text)
                     return 200, self._build_https_url(url)
             else:
-                print('qui')
+                log.info('qui')
                 return 400, 'the requested url is not available'
 
     def _scrapeDynamicPage(self, url):
 
-        url = self._build_url(url)
+        url = self._build_http_url(url)
 
         html = self.session_handler.dynamic_session.get(url)
         self.session_handler.execute_script("window.scrollTo(0, document.body.scrollHeight);",html)
@@ -83,7 +90,7 @@ class Scraper:
 
     @lru_cache(maxsize=32)
     def _scrapeStaticPage(self, url):
-
+        url = self._build_http_url(url)
         headers = {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
         page = self.session_handler.static_session.get(url,headers=headers)
@@ -105,6 +112,7 @@ class Scraper:
         return status,page
         #except Exception as e:
         #    return 500, str(e)
+    
 
 
 
