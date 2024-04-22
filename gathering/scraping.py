@@ -50,11 +50,11 @@ class Scraper:
 
         return url
 
-    def _test_content(self, url):
+    def _test_content(self, url,timeout=10):
         headers = {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
-
-        resp = self.session_handler.static_session.request('HEAD', self._build_http_url( url), headers=headers)
+        
+        resp = self.session_handler.static_session.head(self._build_http_url( url), headers=headers,timeout=timeout,allow_redirects=True)
         log.info(resp)
         if resp.status_code == 200:
             if 'text/html' not in resp.headers['Content-Type']:
@@ -65,7 +65,8 @@ class Scraper:
             log.info(403)
             log.info(url)
             log.info( self._build_https_url(url))
-            resp = self.session_handler.static_session.request('HEAD', self._build_https_url(url), headers=headers)
+            
+            resp = self.session_handler.static_session.head(self._build_https_url(url), headers=headers,timeout=timeout,allow_redirects=True)
             if resp.status_code == 200:
                 if 'text/html' not in resp.headers['Content-Type']:
                     return 400, 'the API exclusively satisfies text/html Content-Types. The current Content-Type is '
@@ -79,8 +80,8 @@ class Scraper:
     def _scrapeDynamicPage(self, url,timeout=10):
 
         url = self._build_http_url(url)
-
-        html = self.session_handler.dynamic_session.get(url)
+        
+        html = self.session_handler.dynamic_session.get(url,timeout=timeout)
         html.set_page_load_timeout(timeout)
         self.session_handler.execute_script("window.scrollTo(0, document.body.scrollHeight);",html)
         page = self.session_handler.page_source
@@ -94,14 +95,17 @@ class Scraper:
         url = self._build_http_url(url)
         headers = {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+        
         page = self.session_handler.static_session.get(url,headers=headers,timeout=timeout)
+            
 
         return page.status_code,page.text
 
     @lru_cache(maxsize=32)
     def scrape_page(self, url):
-
+        
         status, url = self._test_content(url)
+        
         if status != 200:
             return status, url
 

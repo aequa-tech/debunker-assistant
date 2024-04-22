@@ -18,8 +18,8 @@ create:
   claims: >2 
     CREATE TABLE IF NOT EXISTS claims (
     domain VARCHAR(256),
-    target VARCHAR(256),
-    claim VARCHAR(256),
+    target TEXT,
+    claim TEXT,
     flag SMALLINT,
 
     PRIMARY KEY (domain,target,claim)

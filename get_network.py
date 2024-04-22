@@ -29,7 +29,7 @@ df['scraped'] = 0
 seeds = [[row[0],row[1],row[-2],row[-1]] for row in df.to_numpy()]
 print(seeds)
 mydb.write_many(vars['insert']['seeds'],seeds,cursor,connection)
-d = {1:'secondary',2:'tertiary'}
+d = {1:'secondary',2:'tertiary',3:'quaternary'}
 
 webScraper = News.News()
 for i in range(3):
@@ -41,7 +41,6 @@ for i in range(3):
             out = webScraper.get_news_from_url(seed[0])
             res = json.loads(out)
             network = {(x['url'].split('/')[0],d[i+1],i+1,0) for x in res['result']['urls'] if x['flag']!=1}
-            print(network)
             targets = {(seed[0],x['url'].split('/')[0]) for x in res['result']['urls'] if seed[0] not in x['url']}
             claims = {(seed[0],x['url'],x['text'],x['flag']) for x in res['result']['urls']}
             mydb.write_many(vars['insert']['seeds'],network,cursor,connection)

@@ -29,5 +29,7 @@ class SessionHandler:
         options.add_argument("--headless")
         service = Service(executable_path=path)
         driver = webdriver.Firefox(service=service,options=options)
+        driver.set_page_load_timeout(10)
+
 
         return driver

@@ -196,9 +196,9 @@ class NewsCrawling:
 
         assert type(link) is str, "wrong type for link"
 
-        external_block = ['amazon','amzn','twitter','facebook','instagram','cookies','t.co','t.me','tiktok','pinterest','youtube','whatsapp','telegram','apple']
+        external_block = ['amazon','amzn','twitter','facebook','instagram','cookies','t\.co','t\.me','tiktok','pinterest','youtube','whatsapp','telegram','apple','m\.me','spotify','goo\.gl','bit\.ly','linkedin','google','shopify','^wordpress\.org','wikipedia\.org']
 
-        internal_block = ['subscribe\.','abbonati\.','privacy','cooki(e|es)','edicola\.','shop\.','login','log-in','signin','sign-in','wp-','signup','sign-up','paywall']
+        internal_block = ['subscribe\.','abbonati\.','privacy','cooki(e|es)','edicola\.','shop\.','login','log-in','signin','sign-in','wp-','signup','sign-up','paywall','\.png$','\.jpg$','\.pdf$']
 
         if flag == 'external':
             flag = 1 if re.search('|'.join(external_block),link) else 0
