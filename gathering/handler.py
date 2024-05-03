@@ -19,7 +19,7 @@ class SessionHandler:
         session.mount('http://', HTTPAdapter(max_retries=retries))
         return session
 
-    def _dynamic_session(self, path='./geckodriver'):
+    def _dynamic_session(self, path='geckodriver'):
         import os
 
         current_directory = os.getcwd()
