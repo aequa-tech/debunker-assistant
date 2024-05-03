@@ -22,6 +22,7 @@ from Background.ThreadNetworkCrawler import ThreadNetworkCrawler
 from Background.ThreadNetworkMetrics import ThreadNetworkMetrics
 from Background.ThreadWhoIs import ThreadWhoIs
 from features.nlp.affective import Sentiment, Emotion
+from features.na.network import Network
 
 """from fastapi_utils.tasks import repeat_every"""
 
@@ -46,6 +47,7 @@ emotion = Emotion()
 irony = Irony()
 flame = Flame()
 stereotype = Stereotype()
+network = Network()
 
 apis = {
     'informal_style' : {
@@ -83,7 +85,7 @@ apis = {
         'flame': flame.get_flame,
         'stereotype': stereotype.get_stereotype,
 
-        }
+        },
 
 }
 
@@ -223,16 +225,29 @@ async def getAvailableUrls(page: int, page_size: int, db: Session = Depends(get_
 
 @app.get("/api/v2/{group}/{phenomenon}/{request_id}")
 async def getGeneralAPI(group : str, phenomenon : str, request_id : str, db: Session = Depends(get_db)):
-    url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
-    if url_object is not None:
 
-        res = apis[group][phenomenon](url_object.title,url_object.content)
+    if group in apis.keys():
 
-        return { 'status': 200, 'message':'the request was successful', 'result': res  }
+        url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
+        if url_object is not None:
+
+            res = apis[group][phenomenon](url_object.title,url_object.content)
+
+            return { 'status': 200, 'message':'the request was successful', 'result': res  }
+
+    elif group == "network":
+
+        url_object = db.query(Urls).filter(Urls.request_id == request_id).first()
+        if url_object is not None:
+            res = apis[group][phenomenon](url_object.title, url_object.content)
+
+            return {'status': 200, 'message': 'the request was successful', 'result': res}
+
+        return {'status':400,'message':'request_id not available. Recover the content of the url by /api/v2/scrape first.'}
 
     else:
 
-        return {'status':400,'message':'request_id not available. Recover the content of the url by /api/v2/scrape first.'}
+        return {'status':500,'message':'Endpoint not available'}
 
 @app.get("/api/v2/{group}/{request_id}")
 async def getGeneralAggregateAPIs(group : str, request_id : str, db: Session = Depends(get_db)):

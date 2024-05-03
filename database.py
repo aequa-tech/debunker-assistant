@@ -47,6 +47,22 @@ class Urls(Base):
     is_reported = Column(Integer,default=0)
 
 
+class DomainsLabelDistribution(Base):
+    __tablename__ = "domains_label_distribution"
+    __table_args__ = {'mysql_engine':'InnoDB', 'mysql_charset':'utf8mb4','mysql_collate':'utf8mb4_general_ci'}
+
+    domain    = Column(String(150), primary_key=True, index=True)
+    neutral   = Column(Float,default=None)  #local numero di vicini di ordine 1 con quella label
+    trusted   = Column(Float,default=None)
+    untrusted = Column(Float,default=None)
+    neutral_local   = Column(Float,default=None)  #local percentuale label dei vicini di ordine 1
+    trusted_local   = Column(Float,default=None)
+    untrusted_local = Column(Float,default=None)
+    neutral_global   = Column(Float,default=None) #global distruzione della label propagation
+    trusted_global   = Column(Float,default=None)
+    untrusted_global = Column(Float,default=None)
+    timestamp = Column('timestamp', TIMESTAMP(timezone=False), nullable=False, default=datetime.now())
+
 
 class DomainsWhois(Base):
     __tablename__ = "domains_whois"

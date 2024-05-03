@@ -5,3 +5,4 @@ venv/
 features/nlp/__pycache__/
 Background/__pycache__/
 __pycache__/
+x marco/*
