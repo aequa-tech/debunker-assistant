@@ -15,7 +15,7 @@ with open(args.config) as f:
 
 mydb = debunker_db.ManageDB()
 
-connection,cursor = mydb.connect(vars['db']['dbname_it'],vars['db']['user'],vars['db']['password'])
+connection,cursor = mydb.connect(vars['db']['dbname_en'],vars['db']['user'],vars['db']['password'])
 
 cursor.execute(vars['create']['seeds'])
 cursor.execute(vars['create']['claims'])
@@ -23,11 +23,10 @@ cursor.execute(vars['create']['network'])
 connection.commit()
 
 
-df = pd.read_csv('seeds.csv')
+df = pd.read_csv('seedsEn.csv')
 df['network'] = 0
 df['scraped'] = 0
 seeds = [[row[0],row[1],row[-2],row[-1]] for row in df.to_numpy()]
-print(seeds)
 mydb.write_many(vars['insert']['seeds'],seeds,cursor,connection)
 d = {1:'secondary',2:'tertiary',3:'quaternary'}
 
