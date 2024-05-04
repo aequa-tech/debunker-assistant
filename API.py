@@ -236,8 +236,6 @@ async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: S
 
         return {'status':400,'message':'request_id not available. Recover the content of the url by /api/v2/scrape first.'}
 
-
-
 @app.get(basePath+"{language}/{group}/{phenomenon}/{request_id}")
 async def getGeneralAPI(language,group : str, phenomenon : str, request_id : str, db: Session = Depends(get_db)):
 
