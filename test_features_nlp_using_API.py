@@ -24,14 +24,14 @@ page = requests.post(domain + baseUrl +'article-evaluation', params={'request_id
 print(page)
 print(page.text)
 
-exit(0)
+
 
 
 print(1)
-page=requests.get(domain+'/api/v2/dangerous_speech_acts/irony/'+request_id)
+page=requests.get(domain+baseUrl + 'it/dangerousStyle/irony/'+request_id)
 print(page)
 print(page.text)
 print(2)
-page=requests.get(domain+'/api/v2/dangerous_speech_acts/'+request_id)
+page=requests.get(domain+baseUrl +'en/dangerousStyle/'+request_id)
 print(page)
 print(page.text)

@@ -1,5 +1,6 @@
 import time
 
+import sqlalchemy
 from sqlalchemy import create_engine, BLOB, LargeBinary, Float, DateTime
 from sqlalchemy.dialects.mysql import LONGTEXT, LONGBLOB
 from sqlalchemy.orm import sessionmaker, scoped_session
@@ -40,8 +41,8 @@ Base = declarative_base()
 class Requests(Base):
     __tablename__ = "requests"
     request_id    = Column(String(150),  primary_key=True, index=True)
-    api           =  Column(String(150),  primary_key=True, index=True)
-    timestamp     = Column('timestamp',  TIMESTAMP(timezone=False), primary_key=True, nullable=False, default=datetime.now())
+    api           = Column(String(150),  primary_key=True, index=True)
+    timestamp     = Column(DateTime)
 
 class Urls(Base):
     __tablename__ = "urls"
@@ -65,7 +66,8 @@ class DomainsLinks(Base):
     source = Column(String(150), primary_key=True, index=True)
     target = Column(String(150), primary_key=True, index=True)
     weight = Column(Integer,default=0)
-    timestamp = Column('timestamp', TIMESTAMP(timezone=False), nullable=False, default=datetime.now())
+    timestamp = Column(DateTime)
+
 
 class DomainsLabelDistribution(Base):
     __tablename__ = "domains_label_distribution"
@@ -80,4 +82,4 @@ class DomainsLabelDistribution(Base):
     neutral_global   = Column(Float,default=None) #global distruzione della label propagation
     trusted_global   = Column(Float,default=None)
     untrusted_global = Column(Float,default=None)
-    timestamp = Column('timestamp', TIMESTAMP(timezone=False), nullable=False, default=datetime.now())
+    timestamp = Column(DateTime)

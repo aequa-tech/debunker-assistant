@@ -103,6 +103,7 @@ async def api_scrape(inputUrl   : str = None,
     request=Requests()
     request.request_id=hash_id
     request.api="scrape"
+    request.timestamp=datetime.now()
     db.add(request)
     db.commit()
     #fine memorizzazione della richiests
@@ -173,6 +174,7 @@ async def article_evaluation (request_id   : str = None,
     request=Requests()
     request.request_id=request_id
     request.api="article-evaluation"
+    request.timestamp=datetime.now()
     db.add(request)
     db.commit()
     #fine memorizzazione della richiests
@@ -236,7 +238,7 @@ async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: S
 
 
 
-@app.get(basePath+"/{language}/{group}/{phenomenon}/{request_id}")
+@app.get(basePath+"{language}/{group}/{phenomenon}/{request_id}")
 async def getGeneralAPI(language,group : str, phenomenon : str, request_id : str, db: Session = Depends(get_db)):
 
     if group in apis.keys():
@@ -244,7 +246,7 @@ async def getGeneralAPI(language,group : str, phenomenon : str, request_id : str
         url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
         if url_object is not None:
 
-            res = apis[group][phenomenon](url_object.title,url_object.content)
+            res = apis[group][phenomenon](language,url_object.title,url_object.content)
 
             return { 'status': 200, 'message':'the request was successful', 'result': res  }
 
