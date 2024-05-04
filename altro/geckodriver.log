@@ -3699,3 +3699,4 @@ console.error: ({})
 DevTools listening on ws://127.0.0.1:45421/devtools/browser/5d7ddb29-56f6-4523-8980-82f5d2847ed0
 console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
 1714756597497	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
+1714843004212	addons.xpi	ERROR	System addon update list error SyntaxError: XMLHttpRequest.open: 'http://%(server)s/dummy-system-addons.xml' is not a valid URL.
