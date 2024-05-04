@@ -161,19 +161,24 @@ class News:
         if len(articles) == 0:
             container,_class_ = self._compile_args()
             articles = soup.find_all(container, attrs={'class':_class_})
-            if len(articles)>0:
-                ids = [x.text for x in articles]
-                max_id = np.argmax(ids)
-                article_text = articles[max_id].text
-            else:
-                ps = soup.findAll('p')
+
+        if len(articles)>0:
+            #ids = [x.text for x in articles]
+            #max_id = np.argmax(ids)
+            #article_text = articles[max_id].text
+            for article in articles:
+                ps = article.findAll('p')
                 for p in ps:
                     article_text += '\n' + ''.join(p.findAll(string=True))
-        else:
-            ids = [x.text for x in articles]
-            max_id = np.argmax(ids)
-            article_text = articles[max_id].text
 
+        if len(article_text) == 0:
+            ps = soup.findAll('p')
+            for p in ps:
+                article_text += '\n' + ''.join(p.findAll(string=True))
+
+
+
+        article_text=article_text.replace("\n"," ")
         date = find_date(text)
 
         return title,article_text,date
@@ -241,7 +246,7 @@ class News:
 
         return flag
     
-    def _compile_args(self,container:List=['div','section'],_class_:List=['body','post','main','artic']):
+    def _compile_args(self,container:List=['div','section'],_class_:List=['post','entry','artic']):
 
         container = re.compile('|'.join(container))
         _class_ = re.compile('|'.join(_class_))

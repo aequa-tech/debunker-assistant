@@ -1,6 +1,6 @@
 db:
-  dbname_it: italian_sites
-  dbname_en: english_sites
+  dbname_it: debunker_italian_sites
+  dbname_en: debunker_english_sites
   user: aequa
   password: L4K3Rb0st0n
   host: localhost

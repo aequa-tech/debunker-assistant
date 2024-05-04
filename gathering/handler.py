@@ -3,7 +3,8 @@ from requests.adapters import HTTPAdapter, Retry
 from selenium.webdriver.firefox.options import Options
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
-
+import os
+from sys import platform
 
 class SessionHandler:
     def __init__(self):
@@ -19,11 +20,19 @@ class SessionHandler:
         session.mount('http://', HTTPAdapter(max_retries=retries))
         return session
 
-    def _dynamic_session(self, path='geckodriver'):
-        import os
-
+    def _dynamic_session(self, path='geckodrivers/geckodriver'):
+        path='geckodrivers/geckodriver'
+        if platform == "linux" or platform == "linux2":
+            # linux
+            path = 'geckodrivers/geckodriver'
+        elif platform == "darwin":
+            # OS X
+            path = 'geckodrivers/geckodriver-mac'
+        elif platform == "win32":
+            # Windows...
+            path = 'geckodrivers/eckodriver-win'
         current_directory = os.getcwd()
-
+        print(current_directory,path)
         print("The current working directory is:", current_directory)
         options = Options()
         options.add_argument("--headless")

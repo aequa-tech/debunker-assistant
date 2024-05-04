@@ -56,16 +56,42 @@ import emojis
 
 #maxsize=32 number of elements that can be stored in the cache
 
+
+personali_soggetto = {"it": ['io', 'tu', 'egli', 'ella', 'noi', 'voi', 'essi', 'lui', 'lei', 'loro', 'esso', 'essa', 'esse'],
+                      "en": ['io', 'tu', 'egli', 'ella', 'noi', 'voi', 'essi', 'lui', 'lei', 'loro', 'esso', 'essa', 'esse'],
+
+                      }
+personali_complemento = {"it": ['me', 'mi', 'te', 'ti', 'lui', 'sé', 'ciò', 'lei', 'lo', 'gli', 'ne',
+                                 'si', 'la', 'le', 'noi', 'ci', 'voi', 'vi', 'essi', 'loro', 'esse',
+                                 'li', 'le'],
+                         "en": ['me', 'mi', 'te', 'ti', 'lui', 'sé', 'ciò', 'lei', 'lo', 'gli', 'ne',
+                                 'si', 'la', 'le', 'noi', 'ci', 'voi', 'vi', 'essi', 'loro', 'esse',
+                                 'li', 'le']
+                         }
+pronomi_dimostrativi = {"it":['questo', 'codesto', 'quello', 'questa', 'codesta', 'quella', 'questi',
+                                'codesti', 'quelli', 'queste', 'codeste', 'quelle', 'stesso', 'stessa',
+                                'stessi', 'stesse',
+                                'medesimo', 'medesima', 'medesime', 'medesimi', 'tale', 'tali',
+                                'costui', 'costei', 'costoro', 'colui', 'colei', 'coloro', 'ciò'],
+                        "en":['questo', 'codesto', 'quello', 'questa', 'codesta', 'quella', 'questi',
+                                'codesti', 'quelli', 'queste', 'codeste', 'quelle', 'stesso', 'stessa',
+                                'stessi', 'stesse',
+                                'medesimo', 'medesima', 'medesime', 'medesimi', 'tale', 'tali',
+                                'costui', 'costei', 'costoro', 'colui', 'colei', 'coloro', 'ciò'],
+                        }
+
+
 class MyNlp:
     def __init__(self) -> None:
-        self.nlp = spacy.load(
-            "it_core_news_lg")  # ['tok2vec', 'morphologizer', 'tagger', 'parser', 'lemmatizer', 'senter', 'attribute_ruler', 'ner']
+        self.nlp={}
+        self.nlp["it"]= spacy.load("it_core_news_lg")
+        self.nlp["en"]= spacy.load("en_core_web_lg")
         self.title_features = {}
         self.content_features = {}
 
     @lru_cache(maxsize=32)
-    def get_nlp(self, text):
-        return self.nlp(text)
+    def get_nlp(self, language,text):
+        return self.nlp[language](text)
 
 nlp=MyNlp()
 
@@ -73,7 +99,7 @@ class InformalStyle:
 
     """It uses a personal style: the first and second person (“I” and “you”) and the active voice"""
     @lru_cache(maxsize=32)
-    def use_of_first_and_second_person(self, title: str, content: str):
+    def use_of_first_and_second_person(self, language:str,title: str, content: str):
         """
         One of the characteristics of the informal style is the use of a personal style, such as the use of first and second person (“I” and “you”) and the use of active voice (e.g., “I have noticed that...”).
         This function evaluate the presence of that phenomenon.
@@ -148,7 +174,7 @@ class InformalStyle:
                 },
         }
 
-        features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
+        features = {"title" : nlp.get_nlp(language,title), "content" : nlp.get_nlp(language,content),}
 
         for key, value in features.items():
 
@@ -196,7 +222,7 @@ class InformalStyle:
 
     """One of the characteristics of the informal style is the use of a personal style such us personal subject, personal complement and demonstrative pronouns."""
     @lru_cache(maxsize=32)
-    def use_of_personal_style(self, title: str, content: str):
+    def use_of_personal_style(self, language:str,title: str, content: str):
         """
         One of the characteristics of the informal style is the use of a personal style such us personal subject, personal complement and demonstrative pronouns.
         This function evaluate the presence of that phenomenon.
@@ -272,7 +298,7 @@ class InformalStyle:
                     "it": "descrizione in italiano"
                 },
         }
-        features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
+        features = {"title" : nlp.get_nlp(language,title), "content" : nlp.get_nlp(language,content),}
 
         for key, value in features.items():
 
@@ -282,17 +308,11 @@ class InformalStyle:
                 for token in sent:
 
                     # personal score
-                    personali_soggetto = ['io', 'tu', 'egli', 'ella', 'noi', 'voi', 'essi', 'lui', 'lei', 'loro',
-                                          'esso', 'essa', 'esse']
-                    personali_complemento = ['me', 'mi', 'te', 'ti', 'lui', 'sé', 'ciò', 'lei', 'lo', 'gli', 'ne',
-                                             'si', 'la', 'le', 'noi', 'ci', 'voi', 'vi', 'essi', 'loro', 'esse',
-                                             'li', 'le']
-                    pronomi_dimostrativi = ['questo', 'codesto', 'quello', 'questa', 'codesta', 'quella', 'questi',
-                                            'codesti', 'quelli', 'queste', 'codeste', 'quelle', 'stesso', 'stessa',
-                                            'stessi', 'stesse',
-                                            'medesimo', 'medesima', 'medesime', 'medesimi', 'tale', 'tali',
-                                            'costui', 'costei', 'costoro', 'colui', 'colei', 'coloro', 'ciò']
-                    if token.text.lower() in personali_soggetto + personali_complemento + pronomi_dimostrativi:
+                    current_personali_soggetto =  personali_soggetto[language]
+                    current_personali_complemento = personali_complemento[language]
+                    current_pronomi_dimostrativi = pronomi_dimostrativi[language]
+
+                    if token.text.lower() in current_personali_soggetto + current_personali_complemento + current_pronomi_dimostrativi:
                         absolute_positive += 1
                     else:
                         absolute_negative +=1
@@ -328,7 +348,7 @@ class InformalStyle:
 
     """Evaluate the use of intensifiers that are commonly used in informal styles"""
     @lru_cache(maxsize=32)
-    def use_of_intensifier_score(self, title: str, content: str):
+    def use_of_intensifier_score(self, language:str,title: str, content: str):
         """
         Evaluate the use of intensifiers that are commonly used in informal styles
         This function evaluate the presence of that phenomenon.
@@ -406,7 +426,7 @@ class InformalStyle:
                     "it": "descrizione in italiano"
                 },
         }
-        features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
+        features = {"title" : nlp.get_nlp(language,title), "content" : nlp.get_nlp(language,content),}
 
         for key, value in features.items():
 
@@ -452,7 +472,7 @@ class InformalStyle:
 
     """Evaluate the use of shorten forms that are commonly used in informal styles"""
     @lru_cache(maxsize=32)
-    def use_of_shorten_form_score(self, title: str, content: str):
+    def use_of_shorten_form_score(self, language:str,title: str, content: str):
         """
         Evaluate the use of shorten forms that are commonly used in informal styles
         This function evaluate the presence of that phenomenon.
@@ -528,7 +548,7 @@ class InformalStyle:
                     "it": "descrizione in italiano"
                 },
         }
-        features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
+        features = {"title" : nlp.get_nlp(language,title), "content" : nlp.get_nlp(language,content),}
 
         for key, value in features.items():
 
@@ -580,7 +600,7 @@ class InformalStyle:
 
     """Evaluate the use of shorten forms that are commonly used in informal styles"""
     @lru_cache(maxsize=32)
-    def use_of_modals_score(self, title: str, content: str):
+    def use_of_modals_score(self, language:str,title: str, content: str):
         """
         Evaluate the use of modals that are commonly used in informal styles
         This function evaluate the presence of that phenomenon.
@@ -655,7 +675,7 @@ class InformalStyle:
                     "it": "descrizione in italiano"
                 },
         }
-        features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
+        features = {"title" : nlp.get_nlp(language,title), "content" : nlp.get_nlp(language,content),}
 
         for key, value in features.items():
 
@@ -703,7 +723,7 @@ class InformalStyle:
 
     """Evaluate the use of shorten forms that are commonly used in informal styles"""
     @lru_cache(maxsize=32)
-    def use_of_interrogative_score(self, title: str, content: str):
+    def use_of_interrogative_score(self, language:str,title: str, content: str):
         """
         Evaluate the use of interrogative is less common in formal styles
         This function evaluate the presence of that phenomenon.
@@ -778,7 +798,7 @@ class InformalStyle:
                     "it": "descrizione in italiano"
                 },
         }
-        features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
+        features = {"title" : nlp.get_nlp(language,title), "content" : nlp.get_nlp(language,content),}
 
         for key, value in features.items():
 
@@ -821,7 +841,7 @@ class InformalStyle:
 
     """It shouts or use other impolite  behaviors"""
     @lru_cache(maxsize=32)
-    def use_of_uppercase_words(self, title: str, content: str):
+    def use_of_uppercase_words(self, language:str,title: str, content: str):
         """
         One of the characteristics of the informal style is the use of capital letters used for shouting and other impolite or argumentative behaviors.
         This function evaluate the presence of that phenomenon.
@@ -898,7 +918,7 @@ class InformalStyle:
                     "it": "descrizione in italiano"
                 },
         }
-        features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
+        features = {"title" : nlp.get_nlp(language,title), "content" : nlp.get_nlp(language,content),}
 
         for key, value in features.items():
             absolute_positive=0
@@ -943,7 +963,7 @@ class InformalStyle:
 
     """It evaluate the presence of emphasis with formula such us SVEGLIAAA."""
     @lru_cache(maxsize=32)
-    def use_of_repeated_letters(self, title: str, content: str):
+    def use_of_repeated_letters(self, language:str,title: str, content: str):
         """
         The excessive use of vowels could be used for emphasis and for expressing rage.
 
@@ -1060,7 +1080,7 @@ class InformalStyle:
 
     """In informal writing, multiple exclamation points and question marks are sometimes used to indicate stronger emphasis or emotion."""
     @lru_cache(maxsize=32)
-    def use_of_aggressive_punctuation(self, title: str, content: str):
+    def use_of_aggressive_punctuation(self, language:str,title: str, content: str):
         """
 
         In informal writing, multiple exclamation points and question marks are sometimes used to indicate stronger emphasis or emotion.
@@ -1177,7 +1197,7 @@ class InformalStyle:
 
     """In formal writing, the common punktuation marks are limited. The use of other types of punctiation marks could be a cue of the use of an informal style."""
     @lru_cache(maxsize=32)
-    def use_of_uncommon_punctuation(self, title: str, content: str):
+    def use_of_uncommon_punctuation(self, language:str,title: str, content: str):
         """
 
         In formal writing, the common punktuation marks are limited. The use of other types of punctiation marks could be a cue of the use of an informal style.
@@ -1295,7 +1315,7 @@ class InformalStyle:
 
     """Emojis are currently use in informal context."""
     @lru_cache(maxsize=32)
-    def use_of_emoji(self, title: str, content: str):
+    def use_of_emoji(self, language:str,title: str, content: str):
         """
 
         Emojis are currently use in informal contexts.
@@ -1411,7 +1431,7 @@ class InformalStyle:
 class Readability:
     """It says how easy something is to read."""
     @lru_cache(maxsize=32)
-    def flesch_reading_ease(self, title: str, content: str):
+    def flesch_reading_ease(self, language:str,title: str, content: str):
         """
         The readability score is computes with the Flesch Reading Ease (FRES) score. It says how easy something is to read.
         This function evaluate the presence of that phenomenon.
@@ -1550,7 +1570,7 @@ class ClickBait:
     """
 
     """Clickbait headlines often add an element of dishonesty, using enticements that do not accurately reflect the content being delivered."""
-    def misleading_headline(self, title: str, content: str):
+    def misleading_headline(self, language:str, title: str, content: str):
         """
         Clickbait headlines often add an element of dishonesty, using enticements that do not accurately reflect the content being delivered.
 
@@ -1625,15 +1645,15 @@ class ClickBait:
                     "it": "descrizione in italiano"
                 },
         }
-        title_nouns = nlp.get_nlp(' '.join([str(t) for t in nlp.get_nlp(title) if t.pos_ in ['VERB','NOUN', 'PROPN']]))
-        content_nouns = nlp.get_nlp(' '.join([str(t) for t in nlp.get_nlp(content) if t.pos_ in ['VERB','NOUN', 'PROPN']]))
+        title_nouns = nlp.get_nlp(language,' '.join([str(t) for t in nlp.get_nlp(language,title) if t.pos_ in ['VERB','NOUN', 'PROPN']]))
+        content_nouns = nlp.get_nlp(language,' '.join([str(t) for t in nlp.get_nlp(language,content) if t.pos_ in ['VERB','NOUN', 'PROPN']]))
 
         doc_similarity=title_nouns.similarity(content_nouns)
 
         features = {"title" : title, "content" : content,}
 
         for key, value in features.items():
-            result[key] = {"content": {
+            result[key] = {
                 "values": {
 
                     "absolute": doc_similarity,
@@ -1656,7 +1676,7 @@ class ClickBait:
                          "it": None
                          }
                 }
-            }
+
             }
 
         return result
@@ -1677,22 +1697,22 @@ if __name__ == '__main__':
     start_time = time.perf_counter()
 
     #for i in range(0,10000):
-    print(json.dumps(scores2.misleading_headline(title, content), indent=4))
+    print(json.dumps(scores2.misleading_headline("it",title, content), indent=4))
 
 
-    print(json.dumps(scores.use_of_first_and_second_person(title, content), indent=4))
-    print(json.dumps(scores.use_of_interrogative_score(title, content), indent=4))
-    print(json.dumps(scores.use_of_personal_style(title, content), indent=4))
-    print(json.dumps(scores.use_of_modals_score(title, content), indent=4))
-    print(json.dumps(scores.use_of_emoji(title, content), indent=4))
-    print(json.dumps(scores.use_of_interrogative_score(title, content), indent=4))
-    print(json.dumps(scores.use_of_intensifier_score(title, content), indent=4))
-    print(json.dumps(scores.use_of_aggressive_punctuation(title, content), indent=4))
-    print(json.dumps(scores.use_of_shorten_form_score(title, content), indent=4))
-    print(json.dumps(scores.use_of_uncommon_punctuation(title, content), indent=4))
-    print(json.dumps(scores.use_of_uppercase_words(title, content), indent=4))
-    print(json.dumps(scores.use_of_repeated_letters(title, content), indent=4))
-    print(json.dumps(scores3.flesch_reading_ease(title, content), indent=4))
+    print(json.dumps(scores.use_of_first_and_second_person("it",title, content), indent=4))
+    print(json.dumps(scores.use_of_interrogative_score("en",title, content), indent=4))
+    print(json.dumps(scores.use_of_personal_style("en",title, content), indent=4))
+    print(json.dumps(scores.use_of_modals_score("en",title, content), indent=4))
+    print(json.dumps(scores.use_of_emoji("en",title, content), indent=4))
+    print(json.dumps(scores.use_of_interrogative_score("en",title, content), indent=4))
+    print(json.dumps(scores.use_of_intensifier_score("en",title, content), indent=4))
+    print(json.dumps(scores.use_of_aggressive_punctuation("en",title, content), indent=4))
+    print(json.dumps(scores.use_of_shorten_form_score("en",title, content), indent=4))
+    print(json.dumps(scores.use_of_uncommon_punctuation("it",title, content), indent=4))
+    print(json.dumps(scores.use_of_uppercase_words("it",title, content), indent=4))
+    print(json.dumps(scores.use_of_repeated_letters("it",title, content), indent=4))
+    print(json.dumps(scores3.flesch_reading_ease("it",title, content), indent=4))
     # End timer
     end_time = time.perf_counter()
 

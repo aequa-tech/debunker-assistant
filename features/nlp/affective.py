@@ -7,8 +7,10 @@ class Sentiment():
     Class that implements sentiment analysis in a zero-shot fashion
     """
     def __init__(self):
-        self.model_name = 'neuraly/bert-base-italian-cased-sentiment'
-        self.classifier = pipeline("text-classification", self.model_name)
+        self.model_name={}
+        self.classifier={}
+        self.model_name["it"] = 'neuraly/bert-base-italian-cased-sentiment'
+        self.model_name["en"] = 'neuraly/bert-base-italian-cased-sentiment'
 
     @lru_cache(maxsize=32)
     def __my_pipeline(self, model_name):
@@ -16,7 +18,7 @@ class Sentiment():
         return classifier
 
     @lru_cache(maxsize=32)
-    def __prediction(self, title: str, content: str):
+    def __prediction(self, language: str, title: str, content: str):
         """
         input:
             @param title: str: string containing the title of a news
@@ -48,7 +50,8 @@ class Sentiment():
 
         for key, value in features.items():
             print(value)
-            results = self.classifier(value,truncation=True)
+            classifier=self.__my_pipeline(self.model_name[language])
+            results = classifier(value,truncation=True)
             #results = classifier(value)
             # print(key, results)
             positivity = 0.0
@@ -99,29 +102,31 @@ class Sentiment():
 
 
 
-    def __get_sentiment(self, title: str, content: str, phenomena):
-        prediction = self.__prediction(title, content)
+    def __get_sentiment(self, language, title: str, content: str, phenomena):
+        prediction = self.__prediction(language,title, content)
         result = prediction[phenomena]
 
 
         return result
 
 
-    def get_sentiment_positive(self,title, content):
+    def get_sentiment_positive(self,language,title, content):
 
-        return self.__get_sentiment(title, content, phenomena="positive")
+        return self.__get_sentiment(language,title, content, phenomena="positive")
 
-    def get_sentiment_negative(self,title, content):
+    def get_sentiment_negative(self,language,title, content):
 
-        return self.__get_sentiment(title, content, phenomena="positive")
+        return self.__get_sentiment(language,title, content, phenomena="positive")
 
 class Emotion():
     """
     Class that implements sentiment analysis in a zero-shot fashion
     """
     def __init__(self):
-        self.model_name = "MilaNLProc/feel-it-italian-emotion"
-        self.classifier = pipeline("text-classification", self.model_name)
+        self.model_name ={}
+        self.model_name["it"] = "MilaNLProc/feel-it-italian-emotion"
+        self.model_name["en"] = "MilaNLProc/feel-it-italian-emotion"
+        #self.classifier = pipeline("text-classification", self.model_name)
 
     @lru_cache(maxsize=32)
     def my_pipeline(self, model_name):
@@ -129,7 +134,7 @@ class Emotion():
         return classifier
 
     @lru_cache(maxsize=32)
-    def __prediction(self, title: str, content: str):
+    def __prediction(self, language, title: str, content: str):
         """
         input:
             @param title: str: string containing the title of a news
@@ -170,7 +175,8 @@ class Emotion():
         #classifier=self.my_pipeline(self.model_name)
         #classifier = pipeline("text-classification", self.model_name)
         for key, value in features.items():
-            results = self.classifier(value,max_length=512,truncation=True)
+            classifier= self.my_pipeline(self.model_name[language])
+            results = classifier(value,max_length=512,truncation=True)
             joy = 0.0
             sadness = 0.0
             fear = 0.0
@@ -243,32 +249,32 @@ class Emotion():
 
         return result
 
-    def __get_emotion(self, title: str, content: str, phenomena):
-        prediction = self.__prediction(title, content)
+    def __get_emotion(self, language, title: str, content: str, phenomena):
+        prediction = self.__prediction(language, title, content)
         result = prediction[phenomena]
 
 
         return result
 
 
-    def get_emotion_joy(self,title, content):
+    def get_emotion_joy(self,language, title, content):
 
-        return self.__get_emotion(title, content, phenomena="joy")
-
-
-    def get_emotion_sadness(self,title, content):
-
-        return self.__get_emotion(title, content, phenomena="sadness")
+        return self.__get_emotion(language, title, content, phenomena="joy")
 
 
-    def get_emotion_fear(self,title, content):
+    def get_emotion_sadness(self,language, title, content):
 
-        return self.__get_emotion(title, content, phenomena="fear")
+        return self.__get_emotion(language, title, content, phenomena="sadness")
 
 
-    def get_emotion_anger(self,title, content):
+    def get_emotion_fear(self,language, title, content):
 
-        return self.__get_emotion(title, content, phenomena="anger")
+        return self.__get_emotion(language, title, content, phenomena="fear")
+
+
+    def get_emotion_anger(self,language, title, content):
+
+        return self.__get_emotion(language, title, content, phenomena="anger")
 
 
 
@@ -276,12 +282,12 @@ if __name__ == '__main__':
     title="l'arresto è avvenuto alle 3 del pomeriggio, non se ne può più!"
     content='mi piace giocare anche se non con te'
     sentiment = Sentiment()
-    print(json.dumps(sentiment.get_sentiment_positive(title,content)))
-    print(json.dumps(sentiment.get_sentiment_negative(title,content)))
+    print(json.dumps(sentiment.get_sentiment_positive("it",title,content)))
+    print(json.dumps(sentiment.get_sentiment_negative("en",title,content)))
 
     emotion = Emotion()
-    print(json.dumps(emotion.get_emotion_joy(title,content)))
-    print(json.dumps(emotion.get_emotion_sadness(title,content)))
-    print(json.dumps(emotion.get_emotion_fear(title,content)))
-    print(json.dumps(emotion.get_emotion_anger(title,content)))
+    print(json.dumps(emotion.get_emotion_joy("en",title,content)))
+    print(json.dumps(emotion.get_emotion_sadness("it",title,content)))
+    print(json.dumps(emotion.get_emotion_fear("en",title,content)))
+    print(json.dumps(emotion.get_emotion_anger("it",title,content)))
 
