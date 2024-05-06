@@ -116,7 +116,7 @@ class Sentiment():
 
     def get_sentiment_negative(self,language,title, content):
 
-        return self.__get_sentiment(language,title, content, phenomena="positive")
+        return self.__get_sentiment(language,title, content, phenomena="negative")
 
 class Emotion():
     """
@@ -146,25 +146,25 @@ class Emotion():
 
             "joy" : {
                 "description" : {
-                "en" : "",
+                "en" : "The score of presence of joy expressed in the text.",
                 "it" : ""
               }
             },
             "sadness" :  {
                 "description" : {
-                "en" : "",
+                "en" : "The score of presence of sadness expressed in the text.",
                 "it" : ""
               }
             },
             "fear" :  {
                 "description" : {
-                "en" : "",
+                "en" :  "The score of presence of fear expressed in the text.",
                 "it" : ""
               }
             },
             "anger" :  {
                 "description" : {
-                "en" : "",
+                "en" : "The score of presence of anger expressed in the text.",
                 "it" : ""
               }
             },
