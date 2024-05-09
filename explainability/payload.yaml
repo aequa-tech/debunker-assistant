@@ -1,0 +1,307 @@
+evaluation:
+    analysisId: 1234,
+    informalStyle:
+        description: description
+        overall: 0.3
+        secondPerson:
+            description: One of the characteristics of the informal style is the use of a personal style, such as the use of first and second person (“I” and “you”) and the use of active voice (e.g., “I have noticed that...”)
+            title:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+        personalStyle:
+            description: One of the characteristics of the informal style is the use of a personal style such us personal subject, personal complement and demonstrative pronouns
+            title:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: 0
+                
+        intensifiers:
+            description: Evaluate the use of intensifiers that are commonly used in informal styles
+            title:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+        modals:
+            description: Evaluate the use of modals that are commonly used in informal styles
+            title:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+
+        interrogatives:
+            description: Evaluate the use of interrogatives is less commoon in formal styles
+            title:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+        uppercaseWords:
+            description: One of the characteristics of the informal style is the use of capital letters used for shouting and other impolite or argumentative behaviors
+            title:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+        aggressivePunctuation:
+            description: In informal writing, multiple exclamation points and question marks are sometimes used to indicate stronger emphasis or emotion
+            title:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+        uncommonPunctuation:
+            description: In informal writing, multiple exclamation points and question marks are sometimes used to indicate stronger emphasis or emotion
+            title:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+        emoji:
+            description: Emojis are currently use in informal contexts.","it":"descrizione in italiano
+            title:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+    readability:
+        description: Aggregation of readability features
+        overallScore: 0.6
+
+        fleshReadingEase:
+            description: The readability score is computes with the Flesch Reading Ease (FRES) score. It says how easy something is to read
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+    clickBait:
+        description: Aggregation of clickBait features.
+        overallScore: 0.4
+
+        misleadingHeadline:
+            description: Clickbait headlines often add an element of dishonesty, using enticements that do not accurately reflect the content being delivered.
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+    affectiveStyle:
+        description: aggregation of affective features
+        overallScore: 0.9
+        negativeSentiment:
+            description: the text expresses a negative sentiment
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+        positiveSentiment:
+            description: the text expresses a positive sentiment
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+        anger:
+            description: the text expresses anger
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+        fear:
+            description: the text expresses fear
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+        joy:
+            description: the text expresses joy
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+        sadness:
+            description: the text expresses sadness
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+    dangerousStyle:
+        description: aggregation of dangerous features
+        overallScore: 0.76
+        flame:
+            description: the text expresses flame
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+        irony:
+            description: the text is ironic
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+                
+        stereotype:
+            description: the text contains a stereotype
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+    
+    echoEffect:
+        description: network features to identify potentially fake news
+        overallScore: 0.26
+        labelPropagation:
+            description: the probability that a domain is untrusted based on a network analysis approach
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+
+    reliability:
+        description: ranking based on authoritative lists
+        overallScore: 0.26
+        untrustedDomain:
+            description: the presence of a domain in an untrusted list
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+            content:
+                absoluteValue: 1
+                localNormalization: 0.7
+                globalNormalization: "null"
+
+explanation:
+    explanationAffective:
+        description: a list of explanations for each affective phenomenon that composes the affective score
+        negativeSentiment:
+            description: description
+            token: odio la pizza
+            probability: 0.8
+        positiveScore:
+            description: description
+            token: amo l'ananas
+            probability: 0.5
+        anger:
+            description: description
+            token: il cameriere è un idiota
+            probability: 0.2
+        fear:
+            description: description
+            token: pizza e ananas fanno paura
+            probability: 1
+        joy:
+            description: description
+            token: l'ananas sulla pizza è fantastico
+            probability: 0.6
+        sadness:
+            description: description
+            token: non era buona come me l'aspettavo
+            probability: 0.1
+
+    explanationDangerous:
+        description: a list of explanations for each dangerous phenomenon that composes the affective score
+        flame:
+            description: description
+            token: tornino a casa loro!!!
+            probability: 0.9
+        irony:
+            description: description
+            token: se poi magari si decidesero a lavorare
+            probability: 0.7
+        stereotype:
+            description: description
+            token: le donne sono più brave a servire i tavoli
+            probability: 0.6
+
+    explanationNetwork:
+        description: a list of explanations for network features
+        flame:
+            description: description
+            token: https://tuttiicriminidegliimmigrati.com
+            probability: 0.2
+
+
+
+

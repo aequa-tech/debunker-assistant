@@ -1,7 +1,7 @@
 from transformers import  AutoTokenizer
 import torch
 from transformers import AutoModelForSequenceClassification
-from safetensors.torch import  load_file
+from safetensors.torch import load_file
 import io
 from peft import LoraConfig, get_peft_model
 from peft import set_peft_model_state_dict
@@ -165,9 +165,10 @@ class Flame():
 
         for key, value in features.items():
             feat, attention = self.my_tokenizer(language,value)
+            print(feat,attention)
         
             score = self.lora_model[language](input_ids=feat, attention_mask=attention)
-            # print(score)
+            print(score)
             score_sig = sigmoid(score['logits'].detach())
             absolute = torch.argmax(score_sig).item()
             local = score_sig[0,1].item() 
