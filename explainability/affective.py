@@ -10,7 +10,6 @@ class Sentiment():
     """
     def __init__(self):
         self.model_name={}
-        self.classifier={}
         self.model_name["it"] = 'neuraly/bert-base-italian-cased-sentiment'
         self.model_name["en"] = 'neuraly/bert-base-italian-cased-sentiment'
 
@@ -60,7 +59,7 @@ class Sentiment():
             print(value)
             classifier = self.__my_pipeline(self.model_name[language])
             results = classifier(value,truncation=True)
-            # print(results)
+            print(results)
 
             shap_model = shap.models.TransformersPipeline(classifier, rescale_to_logits=False)
             explainer = shap.Explainer(shap_model)
