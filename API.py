@@ -174,7 +174,7 @@ async def article_evaluation (language : str = "en",
     """potremmo pensare di salvare anche l'IP del richiedente"""
     request=Requests()
     request.request_id=request_id
-    request.api="article-evaluation"
+    request.api="evaluation"
     request.timestamp=datetime.now()
     db.add(request)
     db.commit()
@@ -209,7 +209,7 @@ async def article_evaluation (language : str = "en",
 
 @app.post(basePath+"explanation/{analysis_id}/{explanation_type}")
 async def explanation(analysis_id : str, explanation_type : str):
-    return None
+    return "Ancora da implementare"
 
 @app.get(basePath+"{language}/{group}/{request_id}")
 async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: Session = Depends(get_db)):
