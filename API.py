@@ -10,6 +10,7 @@ import numpy
 import hashlib
 import json
 from datetime import datetime, time,timedelta
+import uuid
 from urllib.parse import urlparse
 
 from News import News
@@ -164,9 +165,9 @@ async def api_scrape(inputUrl   : str = None,
 
 
 
-@app.post(basePath+"article-evaluation")
-async def article_evaluation (request_id   : str = None,
-                 language : str = "en",
+@app.post(basePath+"evaluation/{language}/{request_id}")
+async def article_evaluation (language : str = "en",
+                 request_id   : str = None,
                  db: Session = Depends(get_db)):
 
     #inizio memorizzazione la richiesta:
@@ -196,7 +197,7 @@ async def article_evaluation (request_id   : str = None,
     #fine verifica se l'articolo è già in db
 
 
-    response={"analysisId": "???",
+    response={"analysisId": uuid.uuid4(),
               "informalStyle": await getGeneralAggregateAPIs(language,"informalStyle",request_id,db),
               "readability":  await getGeneralAggregateAPIs(language,"readability",request_id,db),
               "clickBait":  await getGeneralAggregateAPIs(language,"clickBait",request_id,db),
@@ -206,14 +207,19 @@ async def article_evaluation (request_id   : str = None,
 
     return response
 
+@app.post(basePath+"explanation/{analysis_id}/{explanation_type}")
+async def explanation(analysis_id : str, explanation_type : str):
+    return None
+
 @app.get(basePath+"{language}/{group}/{request_id}")
 async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: Session = Depends(get_db)):
     url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
     result={}
-    result["description"]={
-                                "en": f"Aggregation of {group.replace('_',' ')} features.",
-                                "it": "descrizione in italiano"
-                          }
+
+    descriptions= {"en": f"Aggregation of {group.replace('_',' ')} features.",
+                    "it": "descrizione in italiano"}
+
+    result["description"]=descriptions[language]
 
     if url_object is not None:
 

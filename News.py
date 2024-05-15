@@ -254,10 +254,6 @@ class News:
         return container,_class_
 
 
-
-
-
-
 if __name__ == "__main__":
     webScraper=News()
 

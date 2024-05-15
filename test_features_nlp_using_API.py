@@ -20,13 +20,9 @@ request_id=json.loads(page.text)['result']['request_id']
 #print(page)
 #print(page.text)
 print(0)
-page = requests.post(domain + baseUrl +'article-evaluation', params={'request_id': request_id})
+page = requests.post(domain + baseUrl +'article-evaluation', params={'request_id': request_id, 'language':"it"})
 print(page)
 print(page.text)
-
-
-
-
 print(1)
 page=requests.get(domain+baseUrl + 'it/dangerousStyle/irony/'+request_id)
 print(page)

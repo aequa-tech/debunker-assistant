@@ -1,29 +1,11 @@
 import uvicorn
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from database import engine, Base, Urls, get_db, Requests
-from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import Session
 
-import numpy
-import hashlib
-import json
-from datetime import datetime, time,timedelta
-from urllib.parse import urlparse
-
-from News import News
-
-from features.nlp.affective import Sentiment, Emotion
-from features.nlp.danger    import Irony, Flame, Stereotype
-from features.nlp.scores    import InformalStyle, ClickBait, Readability
 
 import yaml
 
-#from apscheduler.schedulers.background import BackgroundScheduler
-#from Background.ThreadNetworkCrawler   import ThreadNetworkCrawler
-#from Background.ThreadNetworkMetrics   import ThreadNetworkMetrics
-#from Background.ThreadWhoIs import ThreadWhoIs
 
 
 basePath="/internal/v1/"
@@ -38,23 +20,27 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-Base.metadata.create_all(bind=engine)
 
-with open('payload.yaml') as f:
+with open('explainability/APIfake_payload.yaml') as f:
     result = yaml.load(f, Loader=yaml.FullLoader)
 
-@app.post(basePath+"{language}/{request_id}")
-async def evaluation(request_id : str, language: str = 'it'):
-    result['evaluation']
 
-@app.post(basePath+"{analysis_id}/{explanation_type}")
+@app.post(basePath+"hello")
+async def hello(request_id : str, language: str = 'it'):
+    return result['evaluation']
+
+@app.post(basePath+"evaluation/{language}/{request_id}")
+async def evaluation(request_id : str, language: str = 'it'):
+    return result['evaluation']
+
+@app.post(basePath+"explanation/{analysis_id}/{explanation_type}")
 async def explanation(analysis_id : str, explanation_type : str):
     if explanation_type == 'affective':
-        result['explanation']['explanationAffective']
+        return result['explanation']['explanationAffective']
     elif explanation_type == 'dangerous':
-        result['explanation']['explanationDangerous']
+        return result['explanation']['explanationDangerous']
     elif explanation_type == 'network':
-        result['explanation']['explanationNetwork']
+        return result['explanation']['explanationNetwork']
 
 
 if __name__ == "__main__":
