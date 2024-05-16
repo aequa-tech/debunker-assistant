@@ -246,7 +246,7 @@ class News:
 
         return flag
     
-    def _compile_args(self,container:List=['div','section'],_class_:List=['post','entry','artic']):
+    def _compile_args(self,container:List=['div','section'],_class_:List=['main-wrapper','post','entry','artic']):
 
         container = re.compile('|'.join(container))
         _class_ = re.compile('|'.join(_class_))

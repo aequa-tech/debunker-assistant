@@ -14,13 +14,13 @@ print(page.text)
 request_id = json.loads(page.text)['result']['request_id']
 print(request_id)
 language="it"
-page=requests.post(f'http://{domain}/internal/v1/evaluation/{language}/{request_id}',params={ })
-print(page.text)
+#page=requests.post(f'http://{domain}/internal/v1/evaluation/{language}/{request_id}',params={ })
+#print(page.text)
 
-page=requests.post(f'http://{domain}/internal/v1/explanation/analysis_id/dangerous',params={ })
-print(page.text)
-page=requests.post(f'http://{domain}/internal/v1/explanation/analysis_id/network',params={ })
-print(page.text)
+#page=requests.post(f'http://{domain}/internal/v1/explanation/analysis_id/dangerous',params={ })
+#print(page.text)
+#page=requests.post(f'http://{domain}/internal/v1/explanation/analysis_id/network',params={ })
+#print(page.text)
 
 
 apis = {
@@ -58,16 +58,23 @@ apis = {
         'stereotype',
 
         ],
+    "domainProfile": [
 
+        'backPropagation',
+
+    ],
 }
 
+#for group, value in apis.items():
+#    for phenomenon in value:
+#        print(group, phenomenon)
+#        page = requests.get(f'http://{domain}/internal/v1/{language}/{group}/{phenomenon}/{request_id}', params={})
+#        print(page.text)
+
+
 for group, value in apis.items():
-    for phenomenon in value:
-        print(group, phenomenon)
-        page = requests.get(f'http://{domain}/internal/v1/{language}/{group}/{phenomenon}/{request_id}', params={})
-        print(page.text)
-
-
+    page = requests.get(f'http://{domain}/internal/v1/{language}/{group}/{request_id}', params={})
+    print(page.text)
 
 
 

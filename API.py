@@ -1,3 +1,4 @@
+import numpy as np
 import uvicorn
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
@@ -18,6 +19,7 @@ from News import News
 from features.nlp.affective import Sentiment, Emotion
 from features.nlp.danger    import Irony, Flame, Stereotype
 from features.nlp.scores    import InformalStyle, ClickBait, Readability
+from features.na.Network    import Network
 
 #from apscheduler.schedulers.background import BackgroundScheduler
 #from Background.ThreadNetworkCrawler   import ThreadNetworkCrawler
@@ -47,7 +49,7 @@ emotion = Emotion()
 irony = Irony()
 flame = Flame()
 stereotype = Stereotype()
-#network = Network()
+network = Network()
 
 apis = {
     'informalStyle' : {
@@ -83,8 +85,12 @@ apis = {
         'flame': flame.get_flame,
         'stereotype': stereotype.get_stereotype,
 
-        },
+    },
+    "domainProfile": {
 
+        'backPropagation': network.get_backpropagation_untrustability,
+
+    },
 }
 
 
@@ -96,6 +102,9 @@ async def api_scrape(inputUrl   : str = None,
                      timeout    : str = None,
                      maxChars   : str = None,
                  db: Session = Depends(get_db)):
+
+    if inputUrl is None:
+        return {'status': 400}
 
     hash_id = hashlib.md5(inputUrl.encode('utf-8')).hexdigest()
 
@@ -114,8 +123,7 @@ async def api_scrape(inputUrl   : str = None,
     - verificare che i paramentri obbligatori siano presenti
     - verificare che i valori siano ammissibili
     - scrivere dei messaggi d'errore a seconda del parametro mancante o con valori non ammessi"""
-    if inputUrl is None:
-        return {'status': 400}
+
 
     if language is None:
         language="en"
@@ -203,6 +211,7 @@ async def article_evaluation (language : str = "en",
               "clickBait":  await getGeneralAggregateAPIs(language,"clickBait",request_id,db),
               "affectiveStyle":  await getGeneralAggregateAPIs(language,"affectiveStyle",request_id,db),
               "dangerousStyle":  await getGeneralAggregateAPIs(language,"dangerousStyle",request_id,db),
+              "domainProfile":  await getGeneralAggregateAPIs(language,"domainProfile",request_id,db),
             }
 
     return response
@@ -222,24 +231,40 @@ async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: S
     result["description"]=descriptions[language]
 
     if url_object is not None:
+        if group in apis.keys():
 
-        overall_title   = []
-        overall_content = []
-        result['disaggregated']={}
-        for key, value in apis[group].items():
-            res = value(language,url_object.title,url_object.content)
-            print(res)
-            overall_title.append(res['title']['values']['local_normalisation'])
-            overall_content.append(res['content']['values']['local_normalisation'])
-            result['disaggregated'][key]=res.copy()
+            if group == "domainProfile": # le API di tipo network sono particolari
 
-        result['title']   = { 'overall'  :numpy.average(overall_title) }
-        result['content'] = { 'overall':numpy.average(overall_content) }
+                overall   = []
+                result['disaggregated']={}
+                for key, value in apis[group].items():
+                    res = value(url_object.url,db)
+                    overall.append(res['values']['local_normalisation'])
+                    result['disaggregated'][key]=res.copy()
 
-        return { 'status': 200, 'message':'the request was successful', 'result': result  }
+                result['overall'] = numpy.average(overall)
+
+                return {'status': 200, 'message': 'the request was successful', 'result': result}
+
+            else:
+                overall_title   = []
+                overall_content = []
+                result['disaggregated']={}
+                for key, value in apis[group].items():
+                    res = value(language,url_object.title,url_object.content)
+                    overall_title.append(res['title']['values']['local_normalisation'])
+                    overall_content.append(res['content']['values']['local_normalisation'])
+                    result['disaggregated'][key]=res.copy()
+
+                result['title']   = { 'overall'  :numpy.average(overall_title) }
+                result['content'] = { 'overall':numpy.average(overall_content) }
+
+                return { 'status': 200, 'message':'the request was successful', 'result': result  }
+
+        else:
+            return {'status': 500, 'message': 'Endpoint not available'}
 
     else:
-
         return {'status':400,'message':'request_id not available. Recover the content of the url by /api/v2/scrape first.'}
 
 @app.get(basePath+"{language}/{group}/{phenomenon}/{request_id}")
@@ -247,22 +272,23 @@ async def getGeneralAPI(language,group : str, phenomenon : str, request_id : str
 
     if group in apis.keys():
 
-        url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
-        if url_object is not None:
+        if group == "domainProfile": #le API di tipo network sono particolari
+
+            url_object = db.query(Urls).filter(Urls.request_id == request_id).first()
+            if url_object is not None:
+                res = network.get_backpropagation_untrustability(url_object.url, db)
+
+                return {'status': 200, 'message': 'the request was successful', 'result': res}
+
+            return {'status': 400,
+                    'message': 'request_id not available. Recover the content of the url by /api/v2/scrape first.'}
+        else:
+
+            url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
 
             res = apis[group][phenomenon](language,url_object.title,url_object.content)
 
             return { 'status': 200, 'message':'the request was successful', 'result': res  }
-
-    elif group == "network":
-
-        url_object = db.query(Urls).filter(Urls.request_id == request_id).first()
-        if url_object is not None:
-            res = apis[group][phenomenon](language,url_object.title, url_object.content)
-
-            return {'status': 200, 'message': 'the request was successful', 'result': res}
-
-        return {'status':400,'message':'request_id not available. Recover the content of the url by /api/v2/scrape first.'}
 
     else:
 

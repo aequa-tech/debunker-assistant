@@ -167,16 +167,17 @@ class Emotion_it():
             fear_absolute =0
             anger_absolute =0
             if results[0]['label'] == 'joy':
-                joy = results[0]['score']
+
+                joy = (results[0]['score'] + 1 ) / (1 + 1)
                 joy_absolute = 1 if results[0]['score'] >= 0.5 else 0
             if results[0]['label'] == 'sadness':
-                sadness = - results[0]['score']
+                sadness = (results[0]['score'] +1 ) / (1 + 1)
                 sadness_absolute = 1 if results[0]['score'] >= 0.5 else 0
             if results[0]['label'] == 'fear':
-                fear = - results[0]['score']
+                fear = (results[0]['score'] +1 ) / (1 + 1)
                 fear_absolute = 1 if results[0]['score'] >= 0.5 else 0
             if results[0]['label'] == 'anger':
-                anger = - results[0]['score']
+                anger = (results[0]['score'] +1 ) / (1 + 1)
                 anger_absolute = 1 if results[0]['score'] >= 0.5 else 0
                 
             result["joy"][key]={

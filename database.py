@@ -72,14 +72,7 @@ class DomainsLinks(Base):
 class DomainsLabelDistribution(Base):
     __tablename__ = "domains_label_distribution"
 
-    domain    = Column(String(150), primary_key=True, index=True)
-    neutral   = Column(Float,default=None)  #local numero di vicini di ordine 1 con quella label
-    trusted   = Column(Float,default=None)
-    untrusted = Column(Float,default=None)
-    neutral_local   = Column(Float,default=None)  #local percentuale label dei vicini di ordine 1
-    trusted_local   = Column(Float,default=None)
-    untrusted_local = Column(Float,default=None)
-    neutral_global   = Column(Float,default=None) #global distruzione della label propagation
-    trusted_global   = Column(Float,default=None)
-    untrusted_global = Column(Float,default=None)
-    timestamp = Column(DateTime)
+    domain = Column(String(150), primary_key=True, index=True)
+    untrusted_norm = Column(Float, default=0)
+    trusted_norm = Column(Float, default=0)
+    newspaper_norm = Column(Float, default=0)
