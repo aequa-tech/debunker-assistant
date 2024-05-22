@@ -18,14 +18,13 @@ class Sentiment():
 
     def __max(self, data,label):
         max = np.max(data[:,:,label].values)
-        #print(data[:,:,label])
+        print(data[:,:,label])
         index = np.where(data[:,:,label].values == max)[1][0]
         word = np.take(data[:,:,label].data, index)
         return word.strip(), max
     
     @lru_cache(maxsize=32)
-    def __explaination(self, title: str,phenomena):
-        phenomena = phenomena.split('|')
+    def __explaination(self, title: str, content: str):
         """
         input:
             @param title: str: string containing the title of a news
@@ -33,45 +32,80 @@ class Sentiment():
         output:
             - dictionary of the prediction in the form {'positive': 1, 'negative': -1, 'overall': 0.5}
         """
+        result={
+            'positive' : {
 
-        features = {"title" : title}
+                'description': 'The score of positive sentiment expressed in the text.',
+
+
+            },
+            'negative' :{
+                'description': 'The score of negative sentiment expressed in the text.'
+
+             }
+        }
+
+        features = {"title" : title, "content" : content}
         
         for key, value in features.items():
-            
+            if key != 'title':
+                continue
+            print(value)
             classifier = self.__my_pipeline(self.model_name)
             results = classifier(value,truncation=True)
-            
+            print(results)
             shap_model = shap.models.TransformersPipeline(classifier, rescale_to_logits=False)
             explainer = shap.Explainer(shap_model)
             shap_values = explainer([value])
-             
+            print(shap_values) 
             
-            results = list()
-            for phenomenon in phenomena:
+            word_p, weight_p = self.__max(shap_values, 'positive')
+            word_n, weight_n = self.__max(shap_values, 'negative')
+            
+            result['positive'][key]={
+                           "values" : {
 
-                word, prob = self.__max(shap_values, phenomenon)
-             
-                
-                result={                         
+                               "word": word_p,
+                               "local_normalisation": round(weight_p, 3),
+                               "global_normalisation": None,
+                           },
 
-                                "token": word,
-                                "probability": round(prob, 3)
-                            }
-                results.append(result)
+                          'descriptions': {
+                              'absolute': '',
+                              'local_normalisation':  '',
+                              'global_normalisation': None
+                          }
+            }
 
-        return results
+            result['negative'][key]={
+                           "values" : {
 
-    def get_sentiment(self,  title: str, phenomena):
-        explaination = self.__explaination( title,phenomena)
+                               "word": word_n,
+                               "local_normalisation": round(weight_n, 3),
+                               "global_normalisation": None,
+                           },
+
+                          'descriptions': {
+                              'absolute':   '',
+                              'local_normalisation': '',
+                              'global_normalisation':  None
+                          }
+            }
+
+        return result
+
+    def __get_sentiment(self,  title: str, content: str, phenomena):
+        explaination = self.__explaination( title, content)
         
-        return explaination
+        result = explaination[phenomena]
+        print(result)
+        return result
 
-    '''def get_sentiment(self,title,phenomena)
-    def get_sentiment_positive(self,title):
-        return self.__get_sentiment(title, phenomena="positive")
+    def get_sentiment_positive(self,title, content):
+        return self.__get_sentiment(title, content, phenomena="positive")
 
-    def get_sentiment_negative(self,title):
-        return self.__get_sentiment(title, phenomena="negative")'''
+    def get_sentiment_negative(self,title, content):
+        return self.__get_sentiment(title, content, phenomena="negative")
 
 class Emotion():
     """
@@ -79,7 +113,8 @@ class Emotion():
     """
     def __init__(self):
         self.model_name ={}
-        self.model_name = "MilaNLProc/feel-it-italian-emotion"
+        self.model_name["it"] = "MilaNLProc/feel-it-italian-emotion"
+        self.model_name["en"] = "MilaNLProc/feel-it-italian-emotion"
 
     @lru_cache(maxsize=32)
     def __my_pipeline(self, model_name):
@@ -93,8 +128,7 @@ class Emotion():
         return word.strip(), max
         
     @lru_cache(maxsize=32)
-    def __explaination(self, title: str,phenomena):
-        phenomena = phenomena.split('|')
+    def __explaination(self, title: str, content: str):
         """
         input:
             @param title: str: string containing the title of a news
@@ -102,12 +136,31 @@ class Emotion():
         output:
             - dictionary of the prediction of each emotion
         """
-        
+        result={
 
-        features = {"title" : title}
+            "joy" : {
+                "description" : "The score of presence of joy expressed in the text.",
+
+            },
+            "sadness" : {
+                "description" : "The score of presence of sadness expressed in the text.",
+            },
+            "fear" :  {
+                "description" : "The score of presence of fear expressed in the text.",
+            },
+            "anger" :  {
+                "description" : "The score of presence of anger expressed in the text.",
+
+            },
+
+        }
+
+        features = {"title" : title, "content" : content}
         
         for key, value in features.items():
-            print(key,value)
+            if key != 'title':
+                continue
+            print(value)
             classifier = self.__my_pipeline(self.model_name)
             results = classifier(value,truncation=True)
             # print(results)
@@ -116,55 +169,80 @@ class Emotion():
             explainer = shap.Explainer(shap_model)
             shap_values = explainer([value])
             # print(shap_values) 
-            results = list()
-            for phenomenon in phenomena:
 
-                word, prob = self.__max(shap_values, phenomenon)
-             
+            word_j, joy = self.__max(shap_values, 'joy')
+            word_s, sadness = self.__max(shap_values, 'sadness')
+            word_f, fear = self.__max(shap_values, 'fear')
+            word_a, anger = self.__max(shap_values, 'anger')  
                 
-                result={                         
+            result["joy"][key]={
+                        "values" : {
+                         "word": word_j,   
+                         "local_normalisation": round(joy,3),
+                         "global_normalisation": None,
+                        },
+                        'descriptions': {
+                              'absolute':  '',
+                              'local_normalisation': '',
+                              'global_normalisation':  None
+                        }
+            }
+            result["sadness"][key]={
+                        "values" : {
+                         "word": word_s,
+                         "local_normalisation": round(sadness,3),
+                         "global_normalisation": None,
+                        },
+                        'descriptions': {
+                              'absolute': '',
+                              'local_normalisation': '',
+                              'global_normalisation': None
+                        }
+            }
+            result["fear"][key]={
+                        "values" : {
+                         "word": word_f,
+                         "local_normalisation": round(fear,3),
+                         "global_normalisation": None,
+                        },
+                        'descriptions': {
+                              'absolute': '',
+                              'local_normalisation': '',
+                              'global_normalisation': None
+                        }
+            }
+            result["anger"][key]={
+                        "values" : {
+                         "word": word_a,
+                         "local_normalisation": round(anger,3),
+                         "global_normalisation": None,
+                        },
+                        'descriptions': {
+                              'absolute': '',
+                              'local_normalisation': '',
+                              'global_normalisation': None
+                        }
+            }
 
-                                "token": word,
-                                "probability": round(prob, 3)
-                            }
-                results.append(result)
+        return result
 
-        return results
+    def __get_emotion(self,  title: str, content: str, phenomena):
+        explaination = self.__explaination( title, content)
+        result = explaination[phenomena]
+        return result
 
-    def get_emotion(self,  title: str, phenomena):
-        explaination = self.__explaination(title,phenomena)
-        
-        return explaination
+    def get_emotion_joy(self, title, content):
+        return self.__get_emotion(title, content, phenomena="joy")
 
-    '''def get_emotion_joy(self, title):
-        return self.__get_emotion(title, phenomena="joy")
+    def get_emotion_sadness(self,title, content):
+        return self.__get_emotion( title, content, phenomena="sadness")
 
-    def get_emotion_sadness(self,title):
-        return self.__get_emotion( title, phenomena="sadness")
+    def get_emotion_fear(self,title, content):
+        return self.__get_emotion( title, content, phenomena="fear")
 
-    def get_emotion_fear(self,title):
-        return self.__get_emotion( title, phenomena="fear")
+    def get_emotion_anger(self,title, content):
+        return self.__get_emotion( title, content, phenomena="anger")
 
-    def get_emotion_anger(self,title):
-        return self.__get_emotion( title, phenomena="anger")'''
-
-
-class Affective:
-    def __init__(self):
-        self.sentiment = Sentiment()
-        self.emotions = Emotion()
-
-    def affective_explanations(self,title):
-        d = dict()
-        sent_phen = ['positive','negative']
-        aff_phen = ['anger','fear','joy','sadness']
-        sentiment = self.sentiment.get_sentiment(title,phenomena='|'.join(sent_phen))
-        affective = self.emotions.get_emotion(title,phenomena='|'.join(aff_phen))
-        for i,item in enumerate(sentiment):
-            d[sent_phen[i]] = item
-        for i,item in enumerate(affective):
-            d[aff_phen[i]] = item
-
-        return d
-        
+if __name__ == '__main__':
+    ...
 
