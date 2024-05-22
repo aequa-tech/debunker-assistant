@@ -8,11 +8,17 @@ class Explainer:
     """
     Class that implements sentiment analysis in a zero-shot fashion
     """
+
+    @lru_cache(maxsize=32)
     def __init__(self):
         self.sentiment_model = 'neuraly/bert-base-italian-cased-sentiment'
         self.affective_model = "MilaNLProc/feel-it-italian-emotion"
         self.sentiment = ['positive','negative']
         self.affective = ['anger','fear','joy','sadness']
+
+        self.flame_model = ''
+        self.irony_model = ''
+        self.stereotype_model = ''
 
     @lru_cache(maxsize=32)
     def __my_pipeline(self, model_name):
@@ -69,6 +75,18 @@ class Explainer:
 
         explaination = self.__explaination( model,title)
         result = self.__extract_word(explaination,phenomena)
+    
+    @lru_cache(maxsize=32)
+    def get_danger(self, title: str, phenomena):
+        if phenomena =='stereotype':
+            model = self.stereotype_model
+        elif phenomena=='flame':
+            model = self.flame_model
+        else:
+            model = self.irony_model
+
+        explaination = self.__explaination( model,title)
+        result = self.__extract_word(explaination,'LABEL_1')
         
         return result
 
@@ -88,6 +106,18 @@ class Affective:
         d = dict()
         for item in ['positive','negative','sadness','fear','joy','anger']:
             sent = self.sentiment.get_sentiment(title,item)
+            d[item] = sent
+        return d
+
+class Danger:
+    def __init__(self):
+        self.sentiment = Explainer()
+        
+
+    def danger_explaination(self,title):
+        d = dict()
+        for item in ['positive','negative','sadness','fear','joy','anger']:
+            sent = self.sentiment.get_danger(title,item)
             d[item] = sent
         return d
         
