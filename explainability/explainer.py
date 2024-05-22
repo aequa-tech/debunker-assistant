@@ -75,6 +75,8 @@ class Explainer:
 
         explaination = self.__explaination( model,title)
         result = self.__extract_word(explaination,phenomena)
+        
+        return result
     
     @lru_cache(maxsize=32)
     def get_danger(self, title: str, phenomena):
@@ -102,7 +104,7 @@ class Affective:
         self.sentiment = Explainer()
         
 
-    def affective_explanations(self,title):
+    def affective_explanation(self,title):
         d = dict()
         for item in ['positive','negative','sadness','fear','joy','anger']:
             sent = self.sentiment.get_sentiment(title,item)
@@ -114,7 +116,7 @@ class Danger:
         self.sentiment = Explainer()
         
 
-    def danger_explaination(self,title):
+    def danger_explanation(self,title):
         d = dict()
         for item in ['positive','negative','sadness','fear','joy','anger']:
             sent = self.sentiment.get_danger(title,item)

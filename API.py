@@ -21,6 +21,8 @@ from features.nlp.danger    import Irony, Flame, Stereotype
 from features.nlp.scores    import InformalStyle, ClickBait, Readability
 from features.na.Network    import Network
 
+from explainability.explainer import Affective,Danger
+
 #from apscheduler.schedulers.background import BackgroundScheduler
 #from Background.ThreadNetworkCrawler   import ThreadNetworkCrawler
 #from Background.ThreadNetworkMetrics   import ThreadNetworkMetrics
@@ -50,6 +52,8 @@ irony = Irony()
 flame = Flame()
 stereotype = Stereotype()
 network = Network()
+exp_danger = Danger()
+exp_affective = Affective()
 
 apis = {
     'informalStyle' : {
@@ -91,6 +95,12 @@ apis = {
         'backPropagation': network.get_backpropagation_untrustability,
 
     },
+    "explanations": {
+        "explanationDanger": exp_danger.danger_explanation,
+        "affectiveDanger": exp_affective.affective_explanation,
+
+
+    }
 }
 
 
@@ -173,7 +183,7 @@ async def api_scrape(inputUrl   : str = None,
 
 
 
-@app.post(basePath+"evaluation/{language}/{request_id}")
+@app.get(basePath+"evaluation/{language}/{request_id}")
 async def article_evaluation (language : str = "en",
                  request_id   : str = None,
                  db: Session = Depends(get_db)):
@@ -205,7 +215,7 @@ async def article_evaluation (language : str = "en",
     #fine verifica se l'articolo è già in db
 
 
-    response={"analysisId": uuid.uuid4(),
+    response={"analysisId": request_id, #per ora ho messo lo stesso di request_id
               "informalStyle": await getGeneralAggregateAPIs(language,"informalStyle",request_id,db),
               "readability":  await getGeneralAggregateAPIs(language,"readability",request_id,db),
               "clickBait":  await getGeneralAggregateAPIs(language,"clickBait",request_id,db),
@@ -216,9 +226,24 @@ async def article_evaluation (language : str = "en",
 
     return response
 
-@app.post(basePath+"explanation/{analysis_id}/{explanation_type}")
-async def explanation(analysis_id : str, explanation_type : str):
-    return "Ancora da implementare"
+@app.get(basePath+"explanations")
+async def explanation(analysis_id : str, explanation_type : str,
+                      db: Session = Depends(get_db)):
+    ### how to get the evaluation_id from the db?
+    request=Requests()
+    request.request_id=analysis_id
+    request.api="evaluation"
+    request.timestamp=datetime.now()
+    db.add(request)
+    db.commit()
+
+    title =db.query(Urls).filter(Urls.request_id == analysis_id).first()
+    if explanation_type == 'explanationDanger':
+        result = apis['explanations'][explanation_type](title)
+    if explanation_type == 'explanationAffective':
+        result = apis['explanations'][explanation_type](title)
+
+    return result
 
 @app.get(basePath+"{language}/{group}/{request_id}")
 async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: Session = Depends(get_db)):

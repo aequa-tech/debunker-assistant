@@ -1,0 +1,893 @@
+openapi: 3.1.0
+servers: 
+  - url:  https://debunker-assistant.aequa-tech
+info:
+  version: 0.2.0
+  title: debunker-assistant.aequa-tech.com
+  termsOfService: 'https://debunker-assistant.aequa-tech/terms/'
+  contact:
+    email: info@aequa-tech.com
+    url: 'https://aequa-tech/contact'
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  x-logo:
+    url: 'example api'
+  description: |
+    write a looooooooooong description here
+externalDocs:
+  description: our description.
+  url: 'ourexternaldoc.org'
+
+paths:
+  /scrape:
+    post: 
+      summary: retrieve an article
+      description: retrieve the title and the body of an article
+      operationId: scrapeArticle
+      parameters: 
+        - $ref: "#/components/parameters/inputUrl"
+        - $ref: "#/components/parameters/language"
+        - $ref: "#/components/parameters/retry"
+        - $ref: "#/components/parameters/maxRetries"
+        - $ref: "#/components/parameters/timeout"
+        - $ref: "#/components/parameters/maxChars"
+      security: 
+        - BasicAuth: [] 
+        
+      responses: 
+        "200":
+          description: OK
+          content: 
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/id"
+          headers: 
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per hour.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                format: date-time
+              description: The UTC date/time at which the current rate limit window resets.
+      
+        "400":
+          $ref: "#/components/responses/badRequest"
+                  
+        "401":
+          $ref: "#/components/responses/unauthorized"
+
+        "403":
+          $ref: '#/components/responses/forbidden'
+          
+        "404":
+          $ref: "#/components/responses/notFound"
+        
+        # 413 request entity too large
+        # 414 request query too long
+        # 415 unsupported media
+        "429":
+          $ref: "#/components/responses/tooManyRequests"
+        
+        "500":
+          $ref: "#/components/responses/internalServerError"
+       
+      
+        
+
+  /article-evaluation:
+    get: 
+      summary: an overall evaluation of the article along different dimensions that can be stylistic, semantic, or network-based
+      description: "the output of this API call is a json in which outputs are organized in three levels. It is possible to find all dimensions of evaluation (eg: 'informal style')\n
+      and all the features that contribute to determine them (eg: the presence of exclamation marks in a title)."
+      operationId: getEvaluation
+      
+      parameters:
+        - $ref: "#/components/parameters/myRequestId"
+      
+      security: 
+        -  BasicAuth: []
+      
+      responses: 
+        "200":
+          description: OK
+          content: 
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/articleEvaluation"
+          headers: 
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per hour.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                format: date-time
+              description: The UTC date/time at which the current rate limit window resets.
+        
+        "400":
+          $ref: "#/components/responses/badRequest"
+                  
+        "401":
+          $ref: "#/components/responses/unauthorized"
+
+        "403":
+          $ref: '#/components/responses/forbidden'
+          
+        
+        "404":
+          $ref: "#/components/responses/notFound"
+        
+        "429":
+          $ref: "#/components/responses/tooManyRequests"
+        
+        "500":
+          $ref: "#/components/responses/internalServerError"
+        
+
+  /explanations:
+    get: 
+      summary: summary
+      description: description
+      operationId: getExplanation
+      
+      parameters: 
+        - $ref: "#/components/parameters/analysisId"
+        - $ref: "#/components/parameters/explanationType"
+      
+      security: 
+        -  BasicAuth: []
+               
+      responses: 
+        "200": 
+          description: OK  
+          content: 
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/explanation"
+      
+          headers: 
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+              description: Request limit per hour.
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: The number of requests left for the time window.
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                format: date-time
+              description: The UTC date/time at which the current rate limit window resets.
+        
+        "400":
+          $ref: "#/components/responses/badRequest"
+                  
+        "401":
+          $ref: "#/components/responses/unauthorized"
+
+        "403":
+          $ref: '#/components/responses/forbidden'
+          
+        
+        "404":
+          $ref: "#/components/responses/notFound"
+        
+        "429":
+          $ref: "#/components/responses/tooManyRequests"
+        
+        "500":
+          $ref: "#/components/responses/internalServerError"
+
+
+components:
+  
+  schemas:
+    basicUrl:
+      type: string
+      format: stringUri
+    
+    id:
+      type: string
+      description: an unique id used for handling next APIs requests
+    
+    language:
+      description: the language of the article that you want to analyze. Actually you can choose between Italian (it) and English (en)
+      type: string
+      maxLength: 2
+      enum: [it,en]
+      default: it
+    
+    retry:
+      description: choose if you want to retry the call to the API. Default is false
+      type: boolean
+      default: false 
+    
+    maxRetries:
+      description: the total number of retries. Default is 2
+      type: integer
+      maximum: 5
+      default: 2
+    
+    timeout:
+      description: it sets the timeout of a request to our APIs. It is expressed in seconds. Default is 5
+      type: integer
+      maximum: 20
+      default: 5
+    
+    charLimit:
+      description: the limit of charachters of a text to be analyzed.
+      type: integer
+      maximum: 15000
+      default: 10000
+
+    categoricalValue:
+      type: integer
+      format: int32
+      description: a categorical representation of a feature
+      
+    
+    scoreType1:
+      type: number
+      format: float
+      description: a score associated to a feature in the range 0-1
+      minimum: 0
+      maximum: 1
+      
+    evaluationOutput:
+      type: object
+      description: the structure of a response as it is returned to the user
+      properties:
+        absolute:
+          $ref: "#/components/schemas/categoricalValue"
+        local:
+          $ref: "#/components/schemas/scoreType1"
+        global: 
+          $ref: "#/components/schemas/scoreType1"
+
+    token:
+      type: string
+      description: a chunk of text that corresponds to a word or a piece of word
+    
+      
+    secondPerson:
+      type: object
+      summary: the text contains verbs conjugated at the second or first person
+      description: it identifies all the occurrences of verbs conjugated at the first or second person
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    personalStyle:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    intensifiers:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    shortenedForms:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    modals:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    interrogatives:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    uppercaseWords:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    aggressivePunctuation:
+      type: object
+      summary: the text contains aggressive punctuation
+      description: it identifies the presence of aggressive punctuation in the text
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    uncommonPunctuation:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    emoji:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    fleshReadingEase:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    misleadingHeadline:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+          
+    negativeSentiment:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    positiveSentiment:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    anger:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    fear:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    joy:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    sadness:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    irony:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    flame:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+
+    stereotype:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
+      
+    labelPropagation:
+      type: object
+      summary: summary
+      description: description
+      properties:
+        title:
+          $ref: "#/components/schemas/evaluationOutput"
+    
+    informalFeatures:
+      type: object
+      description: description
+      properties: 
+        secondPerson:
+          $ref: "#/components/schemas/secondPerson"
+        personalStyle:
+            $ref: "#/components/schemas/personalStyle"
+        intensifiers:
+            $ref: "#/components/schemas/intensifiers"
+        shortened:
+          $ref: "#/components/schemas/shortenedForms"
+        modals:
+            $ref: "#/components/schemas/modals"
+        interrogatives:
+          $ref: "#/components/schemas/interrogatives"
+        uppercaseWords:
+            $ref: "#/components/schemas/uppercaseWords"
+        aggressivePunctuation:
+          $ref: "#/components/schemas/aggressivePunctuation"
+        uncommonPunctuation:
+          $ref: "#/components/schemas/uncommonPunctuation"
+        emoji:
+            $ref: "#/components/schemas/emoji"
+        
+    informalStyle: 
+      type: object
+      description: it returns the informal style score, which is composed of a list of all sub-features and their average
+      properties: 
+        overallScore:
+          $ref: "#/components/schemas/scoreType1"
+        disaggregated: 
+          $ref: "#/components/schemas/informalFeatures"
+
+    
+    readabilityFeatures:
+      type: object
+      description: desc
+      properties: 
+        fleshReadingEase:
+          $ref: '#/components/schemas/fleshReadingEase'
+
+    readability: 
+      type: object
+      description: desc
+      properties: 
+        overallScore:
+          $ref: "#/components/schemas/scoreType1"
+        disaggregated: 
+          $ref: "#/components/schemas/readabilityFeatures"
+    
+    
+    clickBaitFeatures:
+      type: object
+      description: desc
+      properties: 
+        misleadingHeadline:
+          $ref: '#/components/schemas/misleadingHeadline'
+
+
+    clickBait: 
+      type: object
+      description: desc
+      properties: 
+        overallScore:
+          $ref: "#/components/schemas/scoreType1"
+        disaggregated: 
+          $ref: "#/components/schemas/clickBaitFeatures"
+
+    affectiveFeatures:
+      type: object
+      description: desc
+      properties: 
+        positiveSentiment:
+          $ref: '#/components/schemas/positiveSentiment'
+        negativeSentiment:
+          $ref: "#/components/schemas/negativeSentiment"
+        joy:
+          $ref: "#/components/schemas/joy"
+        sadness:
+          $ref: "#/components/schemas/sadness"
+        fear:
+          $ref: "#/components/schemas/fear"
+        anger:
+          $ref: "#/components/schemas/anger"
+
+
+    affectiveStyle: 
+      type: object
+      description: desc
+      properties: 
+        overallScore:
+          $ref: "#/components/schemas/scoreType1"
+        disaggregated: 
+          $ref: "#/components/schemas/affectiveFeatures"
+
+    
+    dangerousFeatures:
+      type: object
+      description: desc
+      properties: 
+        overallScore:
+          $ref: "#/components/schemas/scoreType1"
+        irony:
+          $ref: '#/components/schemas/irony'
+        flame:
+          $ref: "#/components/schemas/flame"
+        stereotype:
+          $ref: "#/components/schemas/stereotype"
+
+    dangerousStyle: 
+      type: object
+      description: desc
+      properties: 
+        overallScore:
+          $ref: "#/components/schemas/scoreType1"
+        disaggregated: 
+          $ref: "#/components/schemas/dangerousFeatures"
+    
+    untrustabilityFeatures:
+      type: object
+      description: desc
+      properties:
+        labelPropagation:
+          $ref: '#/components/schemas/labelPropagation'
+
+    
+    untrustability:
+      type: object
+      description: desc
+      properties: 
+        overallScore:
+          $ref: "#/components/schemas/scoreType1"
+        disaggregated: 
+          $ref: "#/components/schemas/untrustabilityFeatures"
+     
+
+    articleEvaluation:
+      type: object
+      description: description
+      properties: 
+        analysisId:
+          $ref: "#/components/schemas/id"
+        informalStyle:
+          $ref: "#/components/schemas/informalStyle"
+        readability:
+          $ref: "#/components/schemas/readability"
+        clickBait:
+          $ref: "#/components/schemas/clickBait"
+        affectiveStyle:
+          $ref: "#/components/schemas/affectiveStyle"
+        dangerousStyle:
+          $ref: "#/components/schemas/dangerousStyle"
+        untrustability:
+          $ref: "#/components/schemas/untrustability"
+    
+    explanationFlame:
+      summary: the piece of text that contribute to determine that an article expresses inflammatory contents
+      properties: 
+        token:
+          $ref: "#/components/schemas/token"
+        probability:
+          $ref: "#/components/schemas/scoreType1"
+
+    explanationStereotype:
+      summary: the piece of text that contribute to determine that an article expresses stereotypical contents
+      properties: 
+        token:
+          $ref: "#/components/schemas/token"
+        probability:
+          $ref: "#/components/schemas/scoreType1"
+    
+    explanationIrony:
+      summary: the piece of text that contribute to determine that an article expresses ironic contents
+      properties: 
+        token:
+          $ref: "#/components/schemas/token"
+        probability:
+          $ref: "#/components/schemas/scoreType1"
+        
+    explanationDanger:
+      description: all the explanations of dangerous features
+      properties: 
+        explanationFlame: 
+          $ref: "#/components/schemas/explanationFlame" 
+        explanationStereotype:
+          $ref: "#/components/schemas/explanationStereotype"
+        explanationIrony:
+          $ref: "#/components/schemas/explanationIrony"
+
+    explanationAnger:
+      summary: the piece of text that contribute to determine that an article expresses anger
+      properties: 
+        token:
+          $ref: "#/components/schemas/token"
+        probability:
+          $ref: "#/components/schemas/scoreType1"
+
+    explanationFear:
+      summary: the piece of text that contribute to determine that an article expresses anger
+      properties: 
+        token:
+          $ref: "#/components/schemas/token"
+        probability:
+          $ref: "#/components/schemas/scoreType1"
+
+    explanationJoy:
+      summary: the piece of text that contribute to determine that an article expresses joy
+      properties: 
+        token:
+          $ref: "#/components/schemas/token"
+        probability:
+          $ref: "#/components/schemas/scoreType1"
+
+    explanationSadness:
+      summary: the piece of text that contribute to determine that an article expresses sadness
+      properties: 
+        token:
+          $ref: "#/components/schemas/token"
+        probability:
+          $ref: "#/components/schemas/scoreType1"
+    
+    explanationPositiveSentiment:
+      summary: the piece of text that contribute to determine that an article expresses a positive sentiment
+      properties: 
+        token:
+          $ref: "#/components/schemas/token"
+        probability:
+          $ref: "#/components/schemas/scoreType1"
+      
+    explanationNegativeSentiment:
+      summary: the piece of text that contribute to determine that an article expresses a negative sentiment
+      properties: 
+        token:
+          $ref: "#/components/schemas/token"
+        probability:
+          $ref: "#/components/schemas/scoreType1"
+        
+    explanationAffective:
+      description: all the explanations of dangerous features
+      properties: 
+        negative: 
+          $ref: "#/components/schemas/explanationNegativeSentiment"
+        positive:
+          $ref: "#/components/schemas/explanationPositiveSentiment"
+        anger:
+          $ref: "#/components/schemas/explanationAnger"
+        sadness:
+          $ref: "#/components/schemas/explanationSadness"
+        joy:
+          $ref: "#/components/schemas/explanationJoy"
+        fear:
+          $ref: "#/components/schemas/explanationFear"
+    
+    nearestUrl:
+      summary: the nearest url
+      properties: 
+        token:
+          $ref: "#/components/schemas/basicUrl"
+        probability:
+          $ref: "#/components/schemas/scoreType1"
+
+
+    explanationNetworkAnalysis:
+      summary: all the explanations of network features
+      required: 
+        -  explanationType
+      properties: 
+        explanationDim:
+          $ref: "#/components/schemas/explanationType"
+        nearestUrl:
+          $ref: "#/components/schemas/nearestUrl"
+
+
+    explanation:
+      oneOf: 
+        - $ref: "#/components/schemas/explanationAffective"
+        - $ref: "#/components/schemas/explanationDanger"
+        - $ref: "#/components/schemas/explanationNetworkAnalysis"
+      discriminator: 
+        propertyName: explanationDim
+        
+    explanationType:
+      description: explanation
+      type: string
+      properties: 
+        explanation-type:
+          type: string
+          enum: 
+            - affectiveStyle
+            - dangerousStyle
+            - networkAnalysis
+
+    errorMessage:
+      type: string
+      maxLength: 256
+      description: A text message describing an error
+
+  responses: 
+    badRequest:
+      description: The request was invalid or cannot be otherwise served.
+      content: 
+        text/html:
+          schema: 
+            $ref: "#/components/schemas/errorMessage"
+              
+    unauthorized:
+      description: There was a problem authenticating your request.
+      content: 
+        text/html:
+          schema: 
+            $ref: "#/components/schemas/errorMessage"
+
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed.
+      content: 
+        text/html:
+          schema: 
+            $ref: "#/components/schemas/errorMessage"
+    
+    notFound:
+      description: The URI requested is invalid or the resource requested does not exist.
+      content: 
+        text/html:
+          schema: 
+            $ref: "#/components/schemas/errorMessage"
+    
+    tooManyRequests:
+      description: Too Many Requests. Reached the APIs rate
+      content: 
+        text/html:
+          schema: 
+            $ref: "#/components/schemas/errorMessage"
+    
+    internalServerError:
+      description: cannot reach our server
+      content: 
+        text/html:
+          schema: 
+            $ref: "#/components/schemas/errorMessage"
+    
+    
+
+  parameters:
+    inputUrl:
+      name: url
+      in: query  
+      required: true
+      schema:
+        $ref: "#/components/schemas/basicUrl"
+
+    myRequestId:
+      name: id
+      in: query
+      required: true
+      schema: 
+        $ref: "#/components/schemas/id"
+    
+    language:
+      name: lang
+      in: query
+      required: true
+      schema: 
+        $ref: "#/components/schemas/language"
+    
+    retry:
+      name: retry
+      in: query
+      required: true
+      schema: 
+        $ref: "#/components/schemas/retry"
+
+    maxRetries:
+      name: maxRetries
+      in: query
+      required: true
+      schema: 
+        $ref: "#/components/schemas/maxRetries"
+    
+    timeout:
+      name: timeout
+      in: query
+      required: true
+      schema: 
+        $ref: "#/components/schemas/timeout"
+    
+    maxChars:
+      name: characters-limit
+      in: query
+      required: true
+      schema: 
+        $ref: "#/components/schemas/charLimit"
+    
+    analysisId:
+      name: analysis-id
+      in: query
+      required: true
+      schema: 
+        $ref: "#/components/schemas/id"
+    
+    explanationType:
+      name: explanation-type
+      in: query
+      required: true
+      schema: 
+        $ref: "#/components/schemas/explanationType"
+    
+  securitySchemes: 
+    BasicAuth:
+      type: http
+      scheme: basic 
+        
+
