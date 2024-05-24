@@ -97,7 +97,7 @@ apis = {
     },
     "explanations": {
         "explanationDanger": exp_danger.danger_explanation,
-        "affectiveDanger": exp_affective.affective_explanation,
+        "explanationAffective": exp_affective.affective_explanation,
 
 
     }
@@ -105,6 +105,80 @@ apis = {
 
 
 @app.post(basePath+"scrape")
+async def api_scrape(inputUrl   : str = None,
+                     language   : str = "en",
+                     retry      : str = None,
+                     maxRetries : str = None,
+                     timeout    : str = None,
+                     maxChars   : str = None,
+                 db: Session = Depends(get_db)):
+
+    if inputUrl is None:
+        return {'status': 400}
+
+    hash_id = hashlib.md5(inputUrl.encode('utf-8')).hexdigest()
+
+    #inizio memorizzazione la richiesta:
+    """potremmo pensare di salvare anche l'IP del richiedente"""
+    request=Requests()
+    request.request_id=hash_id
+    request.api="scrape"
+    request.timestamp=datetime.now()
+    db.add(request)
+    db.commit()
+    #fine memorizzazione della richiests
+
+    #inizio verifica dei parametri:
+    """dobbiamo:
+    - verificare che i paramentri obbligatori siano presenti
+    - verificare che i valori siano ammissibili
+    - scrivere dei messaggi d'errore a seconda del parametro mancante o con valori non ammessi"""
+
+
+    if language is None:
+        language="en"
+    elif language not in ["it","en"]:
+        return {'status': 400}
+
+    maxChars=10000
+    #fine verifica dei parametri
+
+
+    #inizio verifica se l'articolo è già in db
+    url_object=db.query(Urls).filter(Urls.request_id == hash_id).first()
+
+    #caso 1: l'articolo è già in db
+    if url_object is not None:
+
+
+        return {'status':200,
+                'message':'the request was successful',
+                'result': {
+                        'request_id':url_object.request_id,
+                        }
+                }
+    #caso 2: l'articolo non è in db, è necessario recuperarlo
+    else:
+        webScraper=News()
+        result=webScraper.get_news_from_url(inputUrl)
+        jsonResult=json.loads(result)
+
+        if jsonResult['status'] == 200:
+            url_model = Urls()
+            url_model.request_id   = hash_id
+            url_model.url          = inputUrl
+            url_model.title        = jsonResult['result']['title'][0:maxChars]
+            url_model.content      = jsonResult['result']['content'][0:maxChars]
+            url_model.date         = datetime.strptime(jsonResult['result']['date'], '%Y-%M-%d')
+            url_model.urls         = json.dumps(jsonResult['result']['urls'])
+            db.add(url_model)
+            db.commit()
+            jsonResult['result']['request_id'] = hash_id
+        return  jsonResult
+
+
+
+@app.post(basePath+"internal/scrape")
 async def api_scrape(inputUrl   : str = None,
                      language   : str = "en",
                      retry      : str = None,
@@ -183,7 +257,7 @@ async def api_scrape(inputUrl   : str = None,
 
 
 
-@app.get(basePath+"evaluation/{language}/{request_id}")
+@app.get(basePath+"evaluation")
 async def article_evaluation (language : str = "en",
                  request_id   : str = None,
                  db: Session = Depends(get_db)):
@@ -237,11 +311,11 @@ async def explanation(analysis_id : str, explanation_type : str,
     db.add(request)
     db.commit()
 
-    title =db.query(Urls).filter(Urls.request_id == analysis_id).first()
+    url =db.query(Urls).filter(Urls.request_id == analysis_id).first()
     if explanation_type == 'explanationDanger':
-        result = apis['explanations'][explanation_type](title)
+        result = apis['explanations'][explanation_type](url.title)
     if explanation_type == 'explanationAffective':
-        result = apis['explanations'][explanation_type](title)
+        result = apis['explanations'][explanation_type](url.title)
 
     return result
 
@@ -269,7 +343,7 @@ async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: S
 
                 result['overall'] = numpy.average(overall)
 
-                return {'status': 200, 'message': 'the request was successful', 'result': result}
+                return result
 
             else:
                 overall_title   = []
@@ -284,7 +358,7 @@ async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: S
                 result['title']   = { 'overall'  :numpy.average(overall_title) }
                 result['content'] = { 'overall':numpy.average(overall_content) }
 
-                return { 'status': 200, 'message':'the request was successful', 'result': result  }
+                return result
 
         else:
             return {'status': 500, 'message': 'Endpoint not available'}
@@ -303,7 +377,7 @@ async def getGeneralAPI(language,group : str, phenomenon : str, request_id : str
             if url_object is not None:
                 res = network.get_backpropagation_untrustability(url_object.url, db)
 
-                return {'status': 200, 'message': 'the request was successful', 'result': res}
+                return res
 
             return {'status': 400,
                     'message': 'request_id not available. Recover the content of the url by /api/v2/scrape first.'}
@@ -313,7 +387,7 @@ async def getGeneralAPI(language,group : str, phenomenon : str, request_id : str
 
             res = apis[group][phenomenon](language,url_object.title,url_object.content)
 
-            return { 'status': 200, 'message':'the request was successful', 'result': res  }
+            return res
 
     else:
 
@@ -427,4 +501,4 @@ scheduler.start()
 """
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8090)
+    uvicorn.run(app, host="10.12.0.3", port=8080)

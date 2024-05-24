@@ -45,7 +45,8 @@ class Explainer:
         features = {"title" : title}
         
         for key, value in features.items():
-            
+            print(value)
+            print(type(value))
             classifier = self.__my_pipeline(model)
             results = classifier(value,truncation=True)
             

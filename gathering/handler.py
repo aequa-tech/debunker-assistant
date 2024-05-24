@@ -21,6 +21,13 @@ class SessionHandler:
         return session
 
     def _dynamic_session(self, path='geckodrivers/geckodriver'):
+
+
+        driver = webdriver.Remote(command_executor='http://chrome:4444/wd/hub',
+                                  options=webdriver.ChromeOptions())
+
+        return driver
+
         path='geckodrivers/geckodriver'
         if platform == "linux" or platform == "linux2":
             # linux

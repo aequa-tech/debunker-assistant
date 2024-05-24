@@ -7,9 +7,10 @@ import requests
 import json
 
 
-domain='0.0.0.0:8090'
+#domain='0.0.0.0:8090'
+domain='api.v1.debunker-assistant.aequa-tech.com'
 
-page=requests.post('http://'+domain+'/internal/v1/scrape',params={'inputUrl':"https://www.ilpost.it/2024/05/15/esercito-israele-rafah-avanzata/?homepagePosition=0" })
+page=requests.post('https://'+domain+'/internal/v1/internal/scrape',params={'inputUrl':"https://www.ilpost.it/2024/05/15/esercito-israele-rafah-avanzata/?homepagePosition=0" })
 print(page.text)
 request_id = json.loads(page.text)['result']['request_id']
 print(request_id)
@@ -63,6 +64,8 @@ apis = {
         'backPropagation',
 
     ],
+
+
 }
 
 #for group, value in apis.items():
@@ -71,10 +74,12 @@ apis = {
 #        page = requests.get(f'http://{domain}/internal/v1/{language}/{group}/{phenomenon}/{request_id}', params={})
 #        print(page.text)
 
-
+language="en"
 for group, value in apis.items():
     page = requests.get(f'http://{domain}/internal/v1/{language}/{group}/{request_id}', params={})
     print(page.text)
 
+page = requests.get(f'http://{domain}/internal/v1/explanations', params={'analysis_id':request_id,'explanation_type' : 'explanationAffective'})
+print(page.text)
 
 
