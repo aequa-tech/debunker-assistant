@@ -10,7 +10,7 @@ import json
 #domain='0.0.0.0:8090'
 domain='api.v1.debunker-assistant.aequa-tech.com'
 
-page=requests.post('https://'+domain+'/internal/v1/internal/scrape',params={'inputUrl':"https://www.ilpost.it/2024/05/15/esercito-israele-rafah-avanzata/?homepagePosition=0" })
+page=requests.post('https://'+domain+'/internal/v1/scrape',params={'inputUrl':"https://www.ilpost.it/2024/05/27/gara-non-fare-niente-seul/?homepagePosition=4" })
 print(page.text)
 request_id = json.loads(page.text)['result']['request_id']
 print(request_id)

@@ -19,6 +19,7 @@ class Explainer:
         self.flame_model = ''
         self.irony_model = ''
         self.stereotype_model = ''
+        self.danger = ['flame','irony','stereotype']
 
     @lru_cache(maxsize=32)
     def __my_pipeline(self, model_name):
@@ -119,7 +120,7 @@ class Danger:
 
     def danger_explanation(self,title):
         d = dict()
-        for item in ['positive','negative','sadness','fear','joy','anger']:
+        for item in ['flame','stereotype','irony']:
             sent = self.sentiment.get_danger(title,item)
             d[item] = sent
         return d
