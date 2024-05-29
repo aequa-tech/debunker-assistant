@@ -173,8 +173,15 @@ async def api_scrape(inputUrl   : str = None,
             url_model.urls         = json.dumps(jsonResult['result']['urls'])
             db.add(url_model)
             db.commit()
-            jsonResult['result']['request_id'] = hash_id
-        return  jsonResult
+            #jsonResult['result']['request_id'] = hash_id
+            return   {'status':200,
+                'message':'the request was successful',
+                'result': {
+                        'request_id': hash_id,
+                        }
+                }
+        else:
+            return result
 
 
 
@@ -306,16 +313,16 @@ async def explanation(analysis_id : str, explanation_type : str,
     ### how to get the evaluation_id from the db?
     request=Requests()
     request.request_id=analysis_id
-    request.api="evaluation"
+    request.api="explanations"
     request.timestamp=datetime.now()
     db.add(request)
     db.commit()
 
-    url =db.query(Urls).filter(Urls.request_id == analysis_id).first()
+    url =db.query(Urls).filter(Urls.request_id == analysis_id).first().title
     if explanation_type == 'explanationDanger':
-        result = apis['explanations'][explanation_type](url.title)
+        result = apis['explanations'][explanation_type](url)
     if explanation_type == 'explanationAffective':
-        result = apis['explanations'][explanation_type](url.title)
+        result = apis['explanations'][explanation_type](url)
 
     return result
 
