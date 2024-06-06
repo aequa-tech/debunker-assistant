@@ -73,7 +73,7 @@ class Flame_it():
     def __init__(self):
 
         self.language_model = "m-polignano-uniba/bert_uncased_L-12_H-768_A-12_italian_alb3rt0"
-        self.flame_model= "aequa-tech/irony-it"
+        self.flame_model= "aequa-tech/flame-it"
 
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
@@ -122,7 +122,7 @@ class Stereotype_it():
     def __init__(self):
 
         self.language_model = "m-polignano-uniba/bert_uncased_L-12_H-768_A-12_italian_alb3rt0"
-        self.stereotype_model= "aequa-tech/irony-it"
+        self.stereotype_model= "aequa-tech/stereotype-it"
 
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
