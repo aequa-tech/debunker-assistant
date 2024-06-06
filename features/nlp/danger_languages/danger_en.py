@@ -9,12 +9,6 @@ import numpy as np
 from functools import lru_cache
 import json
 import os.path
-model_name = 'm-polignano-uniba/bert_uncased_L-12_H-768_A-12_italian_alb3rt0'
-model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=2)
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-
-
-
 
 class Irony_en():
     """
@@ -23,32 +17,15 @@ class Irony_en():
     """
     def __init__(self):
 
-        self.lora_model =  self.__model_lora()
+        self.language_model = "cardiffnlp/twitter-roberta-base-irony"
+        self.irony_model= "cardiffnlp/twitter-roberta-base-irony"
 
-    def __model_lora(self):
-        """
-        This method creates an instance of lora used in our fine-tuned model to reduce the parameters of Language Model (and weight of the final model).
-        """
-        config = LoraConfig(
-            r=16,
-            lora_alpha=32,
-            target_modules=["query", "value"],
-            lora_dropout=0.01,
-            bias="none",
-            task_type="classifier",
-            modules_to_save=["classifier"]
-        )
-
-        lora_model = get_peft_model(model, config)
-        return lora_model
-   
     @lru_cache(maxsize=32)
-    def my_tokenizer(self, text):
-        tokenized = tokenizer.encode_plus(text,return_tensors='pt',max_length=512)
-        feat = tokenized['input_ids']
-        attention = tokenized['attention_mask']
-        return feat, attention
-        
+    def __my_pipeline(self, language_model, model_name):
+        tokenizer = AutoTokenizer.from_pretrained(language_model) 
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer)
+        return classifier
+   
     def get_irony(self, title: str, content: str):
         """
         input:
@@ -57,34 +34,21 @@ class Irony_en():
         output:
             - dictionary of the prediction: the absolute value = 1/0, local_normalisation = logit coming from sigmoid function, global_normalisation = None
         """
-        cp = 'features/nlp/models/it/adapter_irony.safetensors'
-
-        if os.path.isfile(cp):
-            full_state_dict = load_file(cp)
-        else:
-            full_state_dict = load_file("/".join(cp.split("/")[-3:]))
-
-        #adatta il modello generale con i pesi del task specifico
-        set_peft_model_state_dict(self.lora_model, full_state_dict)
-        self.lora_model.eval()
-        sigmoid = torch.nn.Sigmoid()
         
         result={
             "description" : "Prediction of irony in the text. A score near to 1 indicates the presence of irony, while a negative score or a score near to 0 the absence of irony."
         }
 
         features = {"title" : title, "content" : content}
+        classifier=self.__my_pipeline(self.language_model, self.irony_model)
 
         for key, value in features.items():
-            feat, attention = self.my_tokenizer(value)
         
-            score = self.lora_model(input_ids=feat, attention_mask=attention)
+            score = classifier(value, truncation=True)
             # print(score)
-            score_sig = sigmoid(score['logits'].detach())
-            absolute = torch.argmax(score_sig).item()
-            # local = score['logits'][0,1].item() #non normalizzato e logit solo della classe positiva
-            local = score_sig[0,1].item() # normalizzato con sigmoid e logit solo della classe positiva
-            # print(score_sig, absolute, local)
+            absolute = 1 if score['irony'] > 0.5 else 0 
+            local = score['irony']
+            # print(absolute, local)
         
             result[key]={
                         "values":
@@ -94,9 +58,9 @@ class Irony_en():
                          "global_normalisation": None,
                         },
                         'descriptions': {
-                              'absolute': '',
+                              'absolute':  '',
                               'local_normalisation': '',
-                              'global_normalisation':  None
+                              'global_normalisation':  'it'
                         }
             }
         return result
@@ -108,32 +72,14 @@ class Flame_en():
     """
     def __init__(self):
 
-        self.lora_model = self.__model_lora()
+        self.language_model = "facebook/roberta-hate-speech-dynabench-r4-target"
+        self.flame_model= "facebook/roberta-hate-speech-dynabench-r4-target"
 
-
-    def __model_lora(self):
-        """
-        This method creates an instance of lora used in our fine-tuned model to reduce the parameters of Language Model (and weight of the final model).
-        """
-        config = LoraConfig(
-            r=16,
-            lora_alpha=32,
-            target_modules=["query", "value"],
-            lora_dropout=0.01,
-            bias="none",
-            task_type="classifier",
-            modules_to_save=["classifier"]
-        )
-
-        lora_model = get_peft_model(model, config)
-        return lora_model
-   
     @lru_cache(maxsize=32)
-    def my_tokenizer(self, text):
-        tokenized = tokenizer.encode_plus(text,return_tensors='pt',max_length=512)
-        feat = tokenized['input_ids']
-        attention = tokenized['attention_mask']
-        return feat, attention
+    def __my_pipeline(self, language_model, model_name):
+        tokenizer = AutoTokenizer.from_pretrained(language_model) 
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer)
+        return classifier
         
     def get_flame(self, title: str, content: str):
         """
@@ -143,33 +89,15 @@ class Flame_en():
         output:
             - dictionary of the prediction: the absolute value = 1/0, local_normalisation = logit coming from sigmoid function, global_normalisation = None
         """
-        cp = 'features/nlp/models/it/adapter_hs.safetensors'
-        if os.path.isfile(cp):
-            full_state_dict = load_file(cp)
-        else:
-            full_state_dict = load_file("/".join(cp.split("/")[-3:]))
-
-        #adatta il modello generale con i pesi del task specifico
-        set_peft_model_state_dict(self.lora_model, full_state_dict)
-        self.lora_model.eval()
-        sigmoid = torch.nn.Sigmoid()
-        
-        result={
-            "description" : "Prediction of flaem in the text. A score near to 1 indicates the presence of irony, while a negative score or a score near to 0 the absence of irony."
-        }
-
-        features = {"title" : title, "content" : content}
+        classifier=self.__my_pipeline(self.language_model, self.flame_model)
 
         for key, value in features.items():
-            feat, attention = self.my_tokenizer(value)
-            #print(feat,attention)
         
-            score = self.lora_model(input_ids=feat, attention_mask=attention)
-            #print(score)
-            score_sig = sigmoid(score['logits'].detach())
-            absolute = torch.argmax(score_sig).item()
-            local = score_sig[0,1].item() 
-            # print(score_sig, absolute, local)
+            score = classifier(value, truncation=True)
+            # print(score)
+            absolute = 1 if score['hate'] > 0.5 else 0 
+            local = score['hate']
+            # print(absolute, local)
         
             result[key]={
                         "values":
@@ -179,8 +107,8 @@ class Flame_en():
                          "global_normalisation": None,
                         },
                         'descriptions': {
-                              'absolute': '',
-                              'local_normalisation':  '',
+                              'absolute':  '',
+                              'local_normalisation': '',
                               'global_normalisation':  'it'
                         }
             }
@@ -192,31 +120,15 @@ class Stereotype_en():
     The detection of this pragmatic phenomenon in the texts is obtained thanks to a fine-tuned model starting from Language Models available for Italian.
     """
     def __init__(self):
-        self.lora_model =  self.__model_lora()
 
-    def __model_lora(self):
-        """
-        This method creates an instance of lora used in our fine-tuned model to reduce the parameters of Language Model (and weight of the final model).
-        """
-        config = LoraConfig(
-            r=16,
-            lora_alpha=32,
-            target_modules=["query", "value"],
-            lora_dropout=0.01,
-            bias="none",
-            task_type="classifier",
-            modules_to_save=["classifier"]
-        )
+        self.language_model = "m-polignano-uniba/bert_uncased_L-12_H-768_A-12_italian_alb3rt0"
+        self.stereotype_model= "aequa-tech/irony-it"
 
-        lora_model = get_peft_model(model, config)
-        return lora_model
-   
     @lru_cache(maxsize=32)
-    def my_tokenizer(self, text):
-        tokenized = tokenizer.encode_plus(text,return_tensors='pt',max_length=512)
-        feat = tokenized['input_ids']
-        attention = tokenized['attention_mask']
-        return feat, attention
+    def __my_pipeline(self, language_model, model_name):
+        tokenizer = AutoTokenizer.from_pretrained(language_model) 
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer)
+        return classifier
         
     def get_stereotype(self,  title: str, content: str):
         """
@@ -226,33 +138,21 @@ class Stereotype_en():
         output:
             - dictionary of the prediction: the absolute value = 1/0, local_normalisation = logit coming from sigmoid function, global_normalisation = None
         """
-        cp = 'features/nlp/models/it/adapter_stereotype.safetensors'
-
-        if os.path.isfile(cp):
-            full_state_dict = load_file(cp)
-        else:
-            full_state_dict = load_file("/".join(cp.split("/")[-3:]))
-
-        #adatta il modello generale con i pesi del task specifico
-        set_peft_model_state_dict(self.lora_model, full_state_dict)
-        self.lora_model.eval()
-        sigmoid = torch.nn.Sigmoid()
         
         result={
             "description" : "Prediction of stereotypes in the text. A score near to 1 indicates the presence of irony, while a negative score or a score near to 0 the absence of irony."
         }
 
         features = {"title" : title, "content" : content}
+        classifier=self.__my_pipeline(self.language_model, self.stereotype_model)
 
         for key, value in features.items():
-            feat, attention = self.my_tokenizer(value)
         
-            score = self.lora_model(input_ids=feat, attention_mask=attention)
+            score = classifier(value, truncation=True)
             # print(score)
-            score_sig = sigmoid(score['logits'].detach())
-            absolute = torch.argmax(score_sig).item()
-            local = score_sig[0,1].item()
-            # print(score_sig, absolute, local)
+            absolute = 1 if score['LABEL_1'] > 0.5 else 0 
+            local = score['LABEL_1']
+            # print(absolute, local)
         
             result[key]={
                         "values":
@@ -262,13 +162,13 @@ class Stereotype_en():
                          "global_normalisation": None,
                         },
                         'descriptions': {
-                              'absolute':   'stereotype',
-                              'local_normalisation': 'stereotype',
-                              'global_normalisation': None
+                              'absolute':  '',
+                              'local_normalisation': '',
+                              'global_normalisation':  'it'
                         }
             }
         return result
-
+        
 if __name__ == '__main__':
 
     ...
