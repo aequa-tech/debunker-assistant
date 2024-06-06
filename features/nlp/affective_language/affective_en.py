@@ -41,9 +41,10 @@ class Sentiment_en():
         # classifier= pipeline("text-classification", self.model_name)
         # classifier=self.__my_pipeline(self.model_name)
 
+        classifier = self.__my_pipeline(self.model_name)
+        
         for key, value in features.items():
             # print(value)
-            classifier = self.__my_pipeline(self.model_name)
             results = classifier(value, truncation=True)
             # results = classifier(value)
             # print(key, results)
@@ -154,8 +155,8 @@ class Emotion_en():
         features = {"title": title, "content": content}
         # classifier=self.my_pipeline(self.model_name)
         # classifier = pipeline("text-classification", self.model_name)
+        classifier = self.my_pipeline(self.model_name)
         for key, value in features.items():
-            classifier = self.my_pipeline(self.model_name)
             results = classifier(value, max_length=512, truncation=True)
             joy = 0.0
             sadness = 0.0
