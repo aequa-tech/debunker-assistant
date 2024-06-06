@@ -9,7 +9,7 @@ class Sentiment_en():
     """
 
     def __init__(self):
-        self.model_name = 'neuraly/bert-base-italian-cased-sentiment'
+        self.model_name = 'cardiffnlp/twitter-roberta-base-sentiment-latest'
 
     @lru_cache(maxsize=32)
     def __my_pipeline(self, model_name):
@@ -113,7 +113,7 @@ class Emotion_en():
     """
 
     def __init__(self):
-        self.model_name = "MilaNLProc/feel-it-italian-emotion"
+        self.model_name = "j-hartmann/emotion-english-distilroberta-base"
         # self.classifier = pipeline("text-classification", self.model_name)
 
     @lru_cache(maxsize=32)
