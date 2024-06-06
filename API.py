@@ -138,7 +138,7 @@ async def api_scrape(inputUrl   : str = None,
     if language is None:
         language="en"
     elif language not in ["it","en"]:
-        return {'status': 400}
+        language = "en"
 
     maxChars=10000
     #fine verifica dei parametri
