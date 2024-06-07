@@ -143,6 +143,7 @@ async def api_scrape(inputUrl   : str = None,
         message = "bad request"
         return response(content=message, status=status.HTTP_400_BAD_REQUEST,media_type='text')
 
+
     
     #fine verifica dei parametri
 
