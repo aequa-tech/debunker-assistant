@@ -1,6 +1,6 @@
 import numpy as np
 import uvicorn
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 
 from database import engine, Base, Urls, get_db, Requests
@@ -90,7 +90,7 @@ apis = {
         'stereotype': stereotype.get_stereotype,
 
     },
-    "domainProfile": {
+    "untrustability": {
 
         'backPropagation': network.get_backpropagation_untrustability,
 
@@ -104,17 +104,19 @@ apis = {
 }
 
 
-@app.post(basePath+"scrape")
+@app.post(basePath+"scrape",status_code=status.HTTP_200_OK)
 async def api_scrape(inputUrl   : str = None,
                      language   : str = "en",
-                     retry      : str = None,
-                     maxRetries : str = None,
-                     timeout    : str = None,
-                     maxChars   : str = None,
-                 db: Session = Depends(get_db)):
+                     retry      : str = False,
+                     maxRetries : str = 5,
+                     timeout    : str = 10,
+                     maxChars   : str = 10000,
+                 db: Session = Depends(get_db),
+                 response = Response):
 
     if inputUrl is None:
-        return {'status': 400}
+        message = 'bad request'
+        return response(content=message,status_code=status.HTTP_400_BAD_REQUEST)
 
     hash_id = hashlib.md5(inputUrl.encode('utf-8')).hexdigest()
 
@@ -138,9 +140,10 @@ async def api_scrape(inputUrl   : str = None,
     if language is None:
         language="en"
     elif language not in ["it","en"]:
-        return {'status': 400}
+        message = "bad request"
+        return response(content=message, status=status.HTTP_400_BAD_REQUEST,media_type='text')
 
-    maxChars=10000
+    
     #fine verifica dei parametri
 
 
@@ -150,13 +153,12 @@ async def api_scrape(inputUrl   : str = None,
     #caso 1: l'articolo è già in db
     if url_object is not None:
 
-
-        return {'status':200,
-                'message':'the request was successful',
-                'result': {
-                        'request_id':url_object.request_id,
+        result = {'request_id':url_object.request_id,
                         }
-                }
+
+
+        return response(content=result,status=status.HTTP_200_OK)
+    
     #caso 2: l'articolo non è in db, è necessario recuperarlo
     else:
         webScraper=News()
@@ -174,14 +176,15 @@ async def api_scrape(inputUrl   : str = None,
             db.add(url_model)
             db.commit()
             #jsonResult['result']['request_id'] = hash_id
-            return   {'status':200,
-                'message':'the request was successful',
-                'result': {
-                        'request_id': hash_id,
+            result = {'request_id':url_model.request_id,
                         }
-                }
+
+
+            return response(content=result,status=status.HTTP_200_OK)
+    
         else:
-            return result
+            message = "we didn't find the page that you requested"
+            return response(content=message,status_code=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -264,10 +267,11 @@ async def api_scrape(inputUrl   : str = None,
 
 
 
-@app.get(basePath+"evaluation")
+@app.get(basePath+"evaluation",status_code=status.HTTP_200_OK)
 async def article_evaluation (language : str = "en",
                  request_id   : str = None,
-                 db: Session = Depends(get_db)):
+                 db: Session = Depends(get_db),
+                 response = Response):
 
     #inizio memorizzazione la richiesta:
     """potremmo pensare di salvare anche l'IP del richiedente"""
@@ -285,31 +289,38 @@ async def article_evaluation (language : str = "en",
     - verificare che i valori siano ammissibili
     - scrivere dei messaggi d'errore a seconda del parametro mancante o con valori non ammessi"""
     if request_id is None:
-        return {'status': 400}
+        message = "bad request"
+        return response(content=message,status_code=status.HTTP_400_BAD_REQUEST)
     #fine verifica dei parametri
 
 
     #inizio verifica se l'articolo è già in db
     url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
-    if url_object is  None:
-        return {'status': 404}
+    if url_object is None:
+        message = 'forbidden request'
+        return response(content=message,status_code=status.HTTP_403_FORBIDDEN)
     #fine verifica se l'articolo è già in db
 
 
-    response={"analysisId": request_id, #per ora ho messo lo stesso di request_id
+    content={"analysisId": request_id, #per ora ho messo lo stesso di request_id
               "informalStyle": await getGeneralAggregateAPIs(language,"informalStyle",request_id,db),
               "readability":  await getGeneralAggregateAPIs(language,"readability",request_id,db),
               "clickBait":  await getGeneralAggregateAPIs(language,"clickBait",request_id,db),
               "affectiveStyle":  await getGeneralAggregateAPIs(language,"affectiveStyle",request_id,db),
               "dangerousStyle":  await getGeneralAggregateAPIs(language,"dangerousStyle",request_id,db),
-              "domainProfile":  await getGeneralAggregateAPIs(language,"domainProfile",request_id,db),
+              "untrustability":  await getGeneralAggregateAPIs(language,"untrustability",request_id,db),
             }
 
-    return response
+    if content['untrustability'] is None:
+        return response(content=content,status_code=status.HTTP_206_PARTIAL_CONTENT) 
+    else:
+        return response(content=content)
 
-@app.get(basePath+"explanations")
+
+@app.get(basePath+"explanations",status_code=status.HTTP_200_OK)
 async def explanation(analysis_id : str, explanation_type : str,
-                      db: Session = Depends(get_db)):
+                      db: Session = Depends(get_db),
+                      response = Response):
     ### how to get the evaluation_id from the db?
     request=Requests()
     request.request_id=analysis_id
@@ -320,11 +331,11 @@ async def explanation(analysis_id : str, explanation_type : str,
 
     url =db.query(Urls).filter(Urls.request_id == analysis_id).first().title
     if explanation_type == 'explanationDanger':
-        result = apis['explanations'][explanation_type](url)
+        content = apis['explanations'][explanation_type](url)
     if explanation_type == 'explanationAffective':
-        result = apis['explanations'][explanation_type](url)
+        content = apis['explanations'][explanation_type](url)
 
-    return result
+    return Response(content=content)
 
 @app.get(basePath+"{language}/{group}/{request_id}")
 async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: Session = Depends(get_db)):
@@ -339,14 +350,17 @@ async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: S
     if url_object is not None:
         if group in apis.keys():
 
-            if group == "domainProfile": # le API di tipo network sono particolari
+            if group == "untrustability": # le API di tipo network sono particolari
 
                 overall   = []
                 result['disaggregated']={}
                 for key, value in apis[group].items():
                     res = value(url_object.url,db)
-                    overall.append(res['values']['local_normalisation'])
-                    result['disaggregated'][key]=res.copy()
+                    if res is None:
+                        return None
+                    else:
+                        overall.append(res['values']['local_normalisation'])
+                        result['disaggregated'][key]=res.copy()
 
                 result['overall'] = numpy.average(overall)
 
@@ -378,7 +392,7 @@ async def getGeneralAPI(language,group : str, phenomenon : str, request_id : str
 
     if group in apis.keys():
 
-        if group == "domainProfile": #le API di tipo network sono particolari
+        if group == "untrustability": #le API di tipo network sono particolari
 
             url_object = db.query(Urls).filter(Urls.request_id == request_id).first()
             if url_object is not None:
