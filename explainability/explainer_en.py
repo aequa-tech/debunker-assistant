@@ -61,7 +61,7 @@ class Explainer:
 
         word, prob = self.__max(shap_values, phenomena)
             
-        result ={
+        result ={              "description":"a description of the described phenomenon",
                                "token": word,
                                "probability": round(prob, 3)
                           }

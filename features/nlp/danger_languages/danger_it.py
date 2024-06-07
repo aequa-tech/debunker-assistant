@@ -35,9 +35,7 @@ class Irony_it():
             - dictionary of the prediction: the absolute value = 1/0, local_normalisation = logit coming from sigmoid function, global_normalisation = None
         """
         
-        result={
-            "description" : "Prediction of irony in the text. A score near to 1 indicates the presence of irony, while a negative score or a score near to 0 the absence of irony."
-        }
+        result=dict()
 
         features = {"title" : title, "content" : content}
         classifier=self.__my_pipeline(self.language_model, self.irony_model)
@@ -51,18 +49,10 @@ class Irony_it():
             # print(absolute, local)
         
             result[key]={
-                        "values":
-                        {
                          "absolute": round(absolute,3),   
                          "local_normalisation": round(local,3),
                          "global_normalisation": None,
-                        },
-                        'descriptions': {
-                              'absolute':  '',
-                              'local_normalisation': '',
-                              'global_normalisation':  'it'
                         }
-            }
         return result
 
 class Flame_it():
@@ -100,18 +90,10 @@ class Flame_it():
             # print(absolute, local)
         
             result[key]={
-                        "values":
-                        {
                          "absolute": round(absolute,3),   
                          "local_normalisation": round(local,3),
                          "global_normalisation": None,
-                        },
-                        'descriptions': {
-                              'absolute':  '',
-                              'local_normalisation': '',
-                              'global_normalisation':  'it'
                         }
-            }
         return result
 
 class Stereotype_it():
@@ -139,9 +121,7 @@ class Stereotype_it():
             - dictionary of the prediction: the absolute value = 1/0, local_normalisation = logit coming from sigmoid function, global_normalisation = None
         """
         
-        result={
-            "description" : "Prediction of stereotypes in the text. A score near to 1 indicates the presence of irony, while a negative score or a score near to 0 the absence of irony."
-        }
+        result=dict()
 
         features = {"title" : title, "content" : content}
         classifier=self.__my_pipeline(self.language_model, self.stereotype_model)
@@ -155,18 +135,10 @@ class Stereotype_it():
             # print(absolute, local)
         
             result[key]={
-                        "values":
-                        {
                          "absolute": round(absolute,3),   
                          "local_normalisation": round(local,3),
                          "global_normalisation": None,
-                        },
-                        'descriptions': {
-                              'absolute':  '',
-                              'local_normalisation': '',
-                              'global_normalisation':  'it'
                         }
-            }
         return result
 
 if __name__ == '__main__':

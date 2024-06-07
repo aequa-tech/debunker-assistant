@@ -42,20 +42,6 @@ paths:
             application/json:
               schema: 
                 $ref: "#/components/schemas/id"
-          headers: 
-            X-RateLimit-Limit:
-              schema:
-                type: integer
-              description: Request limit per hour.
-            X-RateLimit-Remaining:
-              schema:
-                type: integer
-              description: The number of requests left for the time window.
-            X-RateLimit-Reset:
-              schema:
-                type: string
-                format: date-time
-              description: The UTC date/time at which the current rate limit window resets.
       
         "400":
           $ref: "#/components/responses/badRequest"
@@ -81,7 +67,7 @@ paths:
       
         
 
-  /article-evaluation:
+  /evaluation:
     get: 
       summary: an overall evaluation of the article along different dimensions that can be stylistic, semantic, or network-based
       description: "the output of this API call is a json in which outputs are organized in three levels. It is possible to find all dimensions of evaluation (eg: 'informal style')\n
@@ -101,20 +87,13 @@ paths:
             application/json:
               schema: 
                 $ref: "#/components/schemas/articleEvaluation"
-          headers: 
-            X-RateLimit-Limit:
-              schema:
-                type: integer
-              description: Request limit per hour.
-            X-RateLimit-Remaining:
-              schema:
-                type: integer
-              description: The number of requests left for the time window.
-            X-RateLimit-Reset:
-              schema:
-                type: string
-                format: date-time
-              description: The UTC date/time at which the current rate limit window resets.
+
+        "206": 
+          description: Partial Content  
+          content: 
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/articleEvaluation"
         
         "400":
           $ref: "#/components/responses/badRequest"
@@ -138,7 +117,7 @@ paths:
 
   /explanations:
     get: 
-      summary: summary
+      summary: the explanations of a chosen phenomenon
       description: description
       operationId: getExplanation
       
@@ -156,22 +135,7 @@ paths:
             application/json:
               schema: 
                 $ref: "#/components/schemas/explanation"
-      
-          headers: 
-            X-RateLimit-Limit:
-              schema:
-                type: integer
-              description: Request limit per hour.
-            X-RateLimit-Remaining:
-              schema:
-                type: integer
-              description: The number of requests left for the time window.
-            X-RateLimit-Reset:
-              schema:
-                type: string
-                format: date-time
-              description: The UTC date/time at which the current rate limit window resets.
-        
+              
         "400":
           $ref: "#/components/responses/badRequest"
                   
@@ -261,10 +225,17 @@ components:
       type: string
       description: a chunk of text that corresponds to a word or a piece of word
     
-      
+    overallScoreFull:
+      type: object
+      description: the overall score
+      properties: 
+        title:
+          $ref: "#/components/schemas/scoreType1"
+        content:
+          $ref: "#/components/schemas/scoreType1"
+  
     secondPerson:
       type: object
-      summary: the text contains verbs conjugated at the second or first person
       description: it identifies all the occurrences of verbs conjugated at the first or second person
       properties:
         title:
@@ -274,7 +245,6 @@ components:
 
     personalStyle:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -284,7 +254,6 @@ components:
 
     intensifiers:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -294,7 +263,6 @@ components:
 
     shortenedForms:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -304,7 +272,6 @@ components:
 
     modals:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -314,7 +281,6 @@ components:
 
     interrogatives:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -324,7 +290,6 @@ components:
 
     uppercaseWords:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -332,9 +297,17 @@ components:
         content:
           $ref: "#/components/schemas/evaluationOutput"
 
+    repeatedLetters:
+          type: object
+          description: description
+          properties:
+            title:
+              $ref: "#/components/schemas/evaluationOutput"
+            content:
+              $ref: "#/components/schemas/evaluationOutput"
+
     aggressivePunctuation:
       type: object
-      summary: the text contains aggressive punctuation
       description: it identifies the presence of aggressive punctuation in the text
       properties:
         title:
@@ -344,7 +317,6 @@ components:
 
     uncommonPunctuation:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -354,7 +326,6 @@ components:
 
     emoji:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -364,7 +335,6 @@ components:
 
     fleshReadingEase:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -374,7 +344,6 @@ components:
 
     misleadingHeadline:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -382,7 +351,6 @@ components:
           
     negativeSentiment:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -392,7 +360,6 @@ components:
 
     positiveSentiment:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -402,7 +369,6 @@ components:
 
     anger:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -412,7 +378,6 @@ components:
 
     fear:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -422,7 +387,6 @@ components:
 
     joy:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -432,7 +396,6 @@ components:
 
     sadness:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -442,7 +405,6 @@ components:
 
     irony:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -452,7 +414,6 @@ components:
 
     flame:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -462,7 +423,6 @@ components:
 
     stereotype:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -472,7 +432,6 @@ components:
       
     labelPropagation:
       type: object
-      summary: summary
       description: description
       properties:
         title:
@@ -488,7 +447,7 @@ components:
             $ref: "#/components/schemas/personalStyle"
         intensifiers:
             $ref: "#/components/schemas/intensifiers"
-        shortened:
+        shortenedForms:
           $ref: "#/components/schemas/shortenedForms"
         modals:
             $ref: "#/components/schemas/modals"
@@ -496,6 +455,8 @@ components:
           $ref: "#/components/schemas/interrogatives"
         uppercaseWords:
             $ref: "#/components/schemas/uppercaseWords"
+        repeatedLetters:
+          $ref: "#/components/schemas/repeatedLetters"
         aggressivePunctuation:
           $ref: "#/components/schemas/aggressivePunctuation"
         uncommonPunctuation:
@@ -508,7 +469,7 @@ components:
       description: it returns the informal style score, which is composed of a list of all sub-features and their average
       properties: 
         overallScore:
-          $ref: "#/components/schemas/scoreType1"
+          $ref: "#/components/schemas/overallScoreFull"
         disaggregated: 
           $ref: "#/components/schemas/informalFeatures"
 
@@ -525,7 +486,7 @@ components:
       description: desc
       properties: 
         overallScore:
-          $ref: "#/components/schemas/scoreType1"
+          $ref: "#/components/schemas/overallScoreFull"
         disaggregated: 
           $ref: "#/components/schemas/readabilityFeatures"
     
@@ -543,7 +504,7 @@ components:
       description: desc
       properties: 
         overallScore:
-          $ref: "#/components/schemas/scoreType1"
+          $ref: "#/components/schemas/overallScoreFull"
         disaggregated: 
           $ref: "#/components/schemas/clickBaitFeatures"
 
@@ -570,7 +531,7 @@ components:
       description: desc
       properties: 
         overallScore:
-          $ref: "#/components/schemas/scoreType1"
+          $ref: "#/components/schemas/overallScoreFull"
         disaggregated: 
           $ref: "#/components/schemas/affectiveFeatures"
 
@@ -579,8 +540,6 @@ components:
       type: object
       description: desc
       properties: 
-        overallScore:
-          $ref: "#/components/schemas/scoreType1"
         irony:
           $ref: '#/components/schemas/irony'
         flame:
@@ -593,7 +552,7 @@ components:
       description: desc
       properties: 
         overallScore:
-          $ref: "#/components/schemas/scoreType1"
+          $ref: "#/components/schemas/overallScoreFull" 
         disaggregated: 
           $ref: "#/components/schemas/dangerousFeatures"
     
@@ -635,7 +594,7 @@ components:
           $ref: "#/components/schemas/untrustability"
     
     explanationFlame:
-      summary: the piece of text that contribute to determine that an article expresses inflammatory contents
+      description: the piece of text that contribute to determine that an article expresses inflammatory contents
       properties: 
         token:
           $ref: "#/components/schemas/token"
@@ -643,7 +602,7 @@ components:
           $ref: "#/components/schemas/scoreType1"
 
     explanationStereotype:
-      summary: the piece of text that contribute to determine that an article expresses stereotypical contents
+      description: the piece of text that contribute to determine that an article expresses stereotypical contents
       properties: 
         token:
           $ref: "#/components/schemas/token"
@@ -651,7 +610,7 @@ components:
           $ref: "#/components/schemas/scoreType1"
     
     explanationIrony:
-      summary: the piece of text that contribute to determine that an article expresses ironic contents
+      description: the piece of text that contribute to determine that an article expresses ironic contents
       properties: 
         token:
           $ref: "#/components/schemas/token"
@@ -669,7 +628,7 @@ components:
           $ref: "#/components/schemas/explanationIrony"
 
     explanationAnger:
-      summary: the piece of text that contribute to determine that an article expresses anger
+      description: the piece of text that contribute to determine that an article expresses anger
       properties: 
         token:
           $ref: "#/components/schemas/token"
@@ -677,7 +636,7 @@ components:
           $ref: "#/components/schemas/scoreType1"
 
     explanationFear:
-      summary: the piece of text that contribute to determine that an article expresses anger
+      description: the piece of text that contribute to determine that an article expresses anger
       properties: 
         token:
           $ref: "#/components/schemas/token"
@@ -685,7 +644,7 @@ components:
           $ref: "#/components/schemas/scoreType1"
 
     explanationJoy:
-      summary: the piece of text that contribute to determine that an article expresses joy
+      description: the piece of text that contribute to determine that an article expresses joy
       properties: 
         token:
           $ref: "#/components/schemas/token"
@@ -693,7 +652,7 @@ components:
           $ref: "#/components/schemas/scoreType1"
 
     explanationSadness:
-      summary: the piece of text that contribute to determine that an article expresses sadness
+      description: the piece of text that contribute to determine that an article expresses sadness
       properties: 
         token:
           $ref: "#/components/schemas/token"
@@ -701,7 +660,7 @@ components:
           $ref: "#/components/schemas/scoreType1"
     
     explanationPositiveSentiment:
-      summary: the piece of text that contribute to determine that an article expresses a positive sentiment
+      description: the piece of text that contribute to determine that an article expresses a positive sentiment
       properties: 
         token:
           $ref: "#/components/schemas/token"
@@ -709,7 +668,7 @@ components:
           $ref: "#/components/schemas/scoreType1"
       
     explanationNegativeSentiment:
-      summary: the piece of text that contribute to determine that an article expresses a negative sentiment
+      description: the piece of text that contribute to determine that an article expresses a negative sentiment
       properties: 
         token:
           $ref: "#/components/schemas/token"
@@ -732,31 +691,12 @@ components:
         fear:
           $ref: "#/components/schemas/explanationFear"
     
-    nearestUrl:
-      summary: the nearest url
-      properties: 
-        token:
-          $ref: "#/components/schemas/basicUrl"
-        probability:
-          $ref: "#/components/schemas/scoreType1"
-
-
-    explanationNetworkAnalysis:
-      summary: all the explanations of network features
-      required: 
-        -  explanationType
-      properties: 
-        explanationDim:
-          $ref: "#/components/schemas/explanationType"
-        nearestUrl:
-          $ref: "#/components/schemas/nearestUrl"
 
 
     explanation:
       oneOf: 
         - $ref: "#/components/schemas/explanationAffective"
         - $ref: "#/components/schemas/explanationDanger"
-        - $ref: "#/components/schemas/explanationNetworkAnalysis"
       discriminator: 
         propertyName: explanationDim
         
@@ -771,7 +711,7 @@ components:
             - dangerousStyle
             - networkAnalysis
 
-    errorMessage:
+    statusMessage:
       type: string
       maxLength: 256
       description: A text message describing an error
@@ -782,42 +722,49 @@ components:
       content: 
         text/html:
           schema: 
-            $ref: "#/components/schemas/errorMessage"
+            $ref: "#/components/schemas/statusMessage"
+    
+    partialContent:
+      description: only part of the request is retrieved
+      content: 
+        text/html:
+          schema: 
+            $ref: "#/components/schemas/statusMessage"
               
     unauthorized:
       description: There was a problem authenticating your request.
       content: 
         text/html:
           schema: 
-            $ref: "#/components/schemas/errorMessage"
+            $ref: "#/components/schemas/statusMessage"
 
     forbidden:
       description: The request is understood, but it has been refused or access is not allowed.
       content: 
         text/html:
           schema: 
-            $ref: "#/components/schemas/errorMessage"
+            $ref: "#/components/schemas/statusMessage"
     
     notFound:
       description: The URI requested is invalid or the resource requested does not exist.
       content: 
         text/html:
           schema: 
-            $ref: "#/components/schemas/errorMessage"
+            $ref: "#/components/schemas/statusMessage"
     
     tooManyRequests:
       description: Too Many Requests. Reached the APIs rate
       content: 
         text/html:
           schema: 
-            $ref: "#/components/schemas/errorMessage"
+            $ref: "#/components/schemas/statusMessage"
     
     internalServerError:
       description: cannot reach our server
       content: 
         text/html:
           schema: 
-            $ref: "#/components/schemas/errorMessage"
+            $ref: "#/components/schemas/statusMessage"
     
     
 

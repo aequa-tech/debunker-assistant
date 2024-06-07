@@ -57,23 +57,23 @@ exp_affective = Affective()
 
 apis = {
     'informalStyle' : {
-         'use_of_first_and_second_person' : informalStyle.use_of_first_and_second_person,
-         'use_of_personal_style' : informalStyle.use_of_personal_style,
-         'use_of_intensifier_score' : informalStyle.use_of_intensifier_score,
-         'use_of_shorten_form_score' : informalStyle.use_of_shorten_form_score,
-         'use_of_modals_score' : informalStyle.use_of_modals_score,
-         'use_of_interrogative_score' : informalStyle.use_of_interrogative_score,
-         'use_of_uppercase_words' : informalStyle.use_of_uppercase_words,
-         'use_of_repeated_letters' : informalStyle.use_of_repeated_letters,
-         'use_of_aggressive_punctuation' : informalStyle.use_of_aggressive_punctuation,
-         'use_of_uncommon_punctuation' : informalStyle.use_of_uncommon_punctuation,
-         'use_of_emoji' : informalStyle.use_of_emoji,
+         'secondPerson' : informalStyle.use_of_first_and_second_person,
+         'personalStyle' : informalStyle.use_of_personal_style,
+         'intensifiers' : informalStyle.use_of_intensifier_score,
+         'shortenedForms' : informalStyle.use_of_shorten_form_score,
+         'modals' : informalStyle.use_of_modals_score,
+         'interrogatives' : informalStyle.use_of_interrogative_score,
+         'uppercaseWords' : informalStyle.use_of_uppercase_words,
+         'repeatedLetters' : informalStyle.use_of_repeated_letters,
+         'aggressivePunctuation' : informalStyle.use_of_aggressive_punctuation,
+         'uncommonPunctuation' : informalStyle.use_of_uncommon_punctuation,
+         'emoji' : informalStyle.use_of_emoji,
     },
     "readability" : {
-         'flesch_reading_ease': readability.flesch_reading_ease,
+         'fleshReadingEase': readability.flesch_reading_ease,
     },
     "clickBait" : {
-         'misleading_headline': clickBait.misleading_headline,
+         'misleadingHeadline': clickBait.misleading_headline,
     },
     "affectiveStyle" : {
          'joy': emotion.get_emotion_joy,
@@ -92,7 +92,7 @@ apis = {
     },
     "untrustability": {
 
-        'backPropagation': network.get_backpropagation_untrustability,
+        'labelPropagation': network.get_backpropagation_untrustability,
 
     },
     "explanations": {
@@ -104,7 +104,7 @@ apis = {
 }
 
 
-@app.post(basePath+"scrape",status_code=status.HTTP_200_OK)
+@app.post(basePath+"scrape",status_code=status.HTTP_200_OK,description='retrieve the title and the body of an article')
 async def api_scrape(inputUrl   : str = None,
                      language   : str = "en",
                      retry      : str = False,
@@ -268,7 +268,9 @@ async def api_scrape(inputUrl   : str = None,
 
 
 
-@app.get(basePath+"evaluation",status_code=status.HTTP_200_OK)
+@app.get(basePath+"evaluation",status_code=status.HTTP_200_OK,description="""the output of this API call is a json in which 
+         outputs are organized in three levels. It is possible to find all dimensions of evaluation (eg: 'informal style') and 
+         all the features that contribute to determine them (eg: the presence of exclamation marks in a title).""")
 async def article_evaluation (language : str = "en",
                  request_id   : str = None,
                  db: Session = Depends(get_db),
@@ -318,7 +320,8 @@ async def article_evaluation (language : str = "en",
         return response(content=content)
 
 
-@app.get(basePath+"explanations",status_code=status.HTTP_200_OK)
+@app.get(basePath+"explanations",status_code=status.HTTP_200_OK,description="""the output of these api is an explanation related to
+          a given set of predictions. With explanation we mean the piece of text that contributes the most to the classification""")
 async def explanation(analysis_id : str, explanation_type : str,
                       db: Session = Depends(get_db),
                       response = Response):
@@ -336,7 +339,7 @@ async def explanation(analysis_id : str, explanation_type : str,
     if explanation_type == 'explanationAffective':
         content = apis['explanations'][explanation_type](url)
 
-    return Response(content=content)
+    return response(content=content)
 
 @app.get(basePath+"{language}/{group}/{request_id}")
 async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: Session = Depends(get_db)):
@@ -363,7 +366,7 @@ async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: S
                         overall.append(res['values']['local_normalisation'])
                         result['disaggregated'][key]=res.copy()
 
-                result['overall'] = numpy.average(overall)
+                result['overallScore'] = numpy.average(overall)
 
                 return result
 
@@ -377,8 +380,8 @@ async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: S
                     overall_content.append(res['content']['values']['local_normalisation'])
                     result['disaggregated'][key]=res.copy()
 
-                result['title']   = { 'overall'  :numpy.average(overall_title) }
-                result['content'] = { 'overall':numpy.average(overall_content) }
+                result['overallScore']   = { 'title'  :numpy.average(overall_title),
+                                             'content':numpy.average(overall_content) }
 
                 return result
 

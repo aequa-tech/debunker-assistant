@@ -12,16 +12,11 @@ class Network():
         if labelDistribution is not None:
             result=round(labelDistribution.untrusted_norm,3)
             return    {     "description": "back propagation untrustability",
-                "values" : {
+                
                     "absolute": result,
                     "local_normalisation": result,
                     "global_normalisation": None,
-                },
-                'descriptions': {
-                        'absolute': '',
-                        'local_normalisation': '',
-                        'global_normalisation': None
-                }}
+                }
 
         else:
             None

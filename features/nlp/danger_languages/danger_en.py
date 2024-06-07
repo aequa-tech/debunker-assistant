@@ -1,6 +1,6 @@
 from transformers import  AutoTokenizer
 import torch
-from transformers import AutoModelForSequenceClassification
+from transformers import AutoModelForSequenceClassification,pipeline
 from safetensors.torch import load_file
 import io
 from peft import LoraConfig, get_peft_model
@@ -35,9 +35,7 @@ class Irony_en():
             - dictionary of the prediction: the absolute value = 1/0, local_normalisation = logit coming from sigmoid function, global_normalisation = None
         """
         
-        result={
-            "description" : "Prediction of irony in the text. A score near to 1 indicates the presence of irony, while a negative score or a score near to 0 the absence of irony."
-        }
+        result=dict()
 
         features = {"title" : title, "content" : content}
         classifier=self.__my_pipeline(self.language_model, self.irony_model)
@@ -51,18 +49,10 @@ class Irony_en():
             # print(absolute, local)
         
             result[key]={
-                        "values":
-                        {
                          "absolute": round(absolute,3),   
                          "local_normalisation": round(local,3),
                          "global_normalisation": None,
-                        },
-                        'descriptions': {
-                              'absolute':  '',
-                              'local_normalisation': '',
-                              'global_normalisation':  'it'
                         }
-            }
         return result
 
 class Flame_en():
@@ -100,18 +90,10 @@ class Flame_en():
             # print(absolute, local)
         
             result[key]={
-                        "values":
-                        {
                          "absolute": round(absolute,3),   
                          "local_normalisation": round(local,3),
                          "global_normalisation": None,
-                        },
-                        'descriptions': {
-                              'absolute':  '',
-                              'local_normalisation': '',
-                              'global_normalisation':  'it'
                         }
-            }
         return result
 
 class Stereotype_en():
@@ -141,9 +123,7 @@ class Stereotype_en():
             - dictionary of the prediction: the absolute value = 1/0, local_normalisation = logit coming from sigmoid function, global_normalisation = None
         """
         
-        result={
-            "description" : "Prediction of stereotypes in the text. A score near to 1 indicates the presence of irony, while a negative score or a score near to 0 the absence of irony."
-        }
+        result=dict()
 
         features = {"title" : title, "content" : content}
         classifier=self.__my_pipeline(self.language_model, self.stereotype_model)
@@ -157,21 +137,9 @@ class Stereotype_en():
             # print(absolute, local)
         
             result[key]={
-                        "values":
-                        {
                          "absolute": round(absolute,3),   
                          "local_normalisation": round(local,3),
                          "global_normalisation": None,
-                        },
-                        'descriptions': {
-                              'absolute':  '',
-                              'local_normalisation': '',
-                              'global_normalisation':  'it'
                         }
-            }
         return result
         
-if __name__ == '__main__':
-
-    ...
-

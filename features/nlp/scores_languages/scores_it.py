@@ -84,78 +84,12 @@ nlp=MyNlp()
 
 class InformalStyle_it:
 
-    """It uses a personal style: the first and second person (“I” and “you”) and the active voice"""
+    
     @lru_cache(maxsize=32)
     def use_of_first_and_second_person(self,title: str, content: str):
-        """
-        One of the characteristics of the informal style is the use of a personal style, such as the use of first and second person (“I” and “you”) and the use of active voice (e.g., “I have noticed that...”).
-        This function evaluate the presence of that phenomenon.
-
-        @param title: str: string containing the title of a news
-        @param content: str: string containing the textual content of a news
-        @return: dic: a dictionary containing the personal style feature with the following structure
-
-                        {
-                                 "description" :
-                                         {
-                                                "en": "english description.",
-                                                "it": "descrizione in italiano"
-                                         },
-                                "title": {
-                                    "values": {
-
-                                        "absolute": absolute,
-                                        "local_normalisation": normalisation,
-                                        "global_normalisation": None,
-                                    },
-                                    "descriptions": {
-
-                                                "absolute": {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                                },
-                                               "local_normalisation":
-                                                {
-                                                    "en": "english description of the used normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                },
-                                               "global_normalisation":
-                                                {
-                                                    "en": "english description of the used global normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                }
-                                        }
-                                    }
-                            "content": {
-                                    "values": {
-
-                                                "absolute": absolute,
-                                                "local_normalisation": normalisation,
-                                                "global_normalisation": None,
-                                    },
-                                    "descriptions":
-                                               {
-                                                    "absolute": {
-                                                        "en": "english description.",
-                                                        "it": "descrizione in italiano"
-                                                    },
-                                                   "local_normalisation":
-                                                    {
-                                                        "en": "english description of the used normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                    },
-                                                   "global_normalisation":
-                                                    {
-                                                        "en": "english description of the used global normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                    }
-                                                }
-                                    }
-                        }
-        """
-        result={
-            "description": "descrizione in italiano"
-        }
+        """It uses a personal style: the first and second person (“I” and “you”) and the active voice"""
+        
+        result= dict()
 
         features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
 
@@ -185,80 +119,13 @@ class InformalStyle_it:
         return result
 
 
-    """One of the characteristics of the informal style is the use of a personal style such us personal subject, personal complement and demonstrative pronouns."""
     @lru_cache(maxsize=32)
     def use_of_personal_style(self, title: str, content: str):
-        """
-        One of the characteristics of the informal style is the use of a personal style such us personal subject, personal complement and demonstrative pronouns.
-        This function evaluate the presence of that phenomenon.
+        """One of the characteristics of the informal style is the use of a personal style such us personal subject, personal complement and demonstrative pronouns."""
 
-        @param title: str: string containing the title of a news
-        @param content: str: string containing the textual content of a news
-        @return: dic: a dictionary containing the personal style feature with the following structure
+       
 
-                        {
-                             "description" :
-                                     {
-                                            "en": "english description.",
-                                            "it": "descrizione in italiano"
-                                     },
-                            "title": {
-                                    "values": {
-
-                                        "absolute": absolute,
-                                        "local_normalisation": normalisation,
-                                        "global_normalisation": None,
-                                    },
-                                    "descriptions": {
-
-                                                "absolute": {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                                },
-                                               "local_normalisation":
-                                                {
-                                                    "en": "english description of the used normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                },
-                                               "global_normalisation":
-                                                {
-                                                    "en": "english description of the used global normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                }
-                                        }
-                                    }
-                            "content": {
-                                    "values": {
-
-                                                "absolute": absolute,
-                                                "local_normalisation": normalisation,
-                                                "global_normalisation": None,
-                                    },
-                                    "descriptions":
-                                               {
-                                                    "absolute": {
-                                                        "en": "english description.",
-                                                        "it": "descrizione in italiano"
-                                                    },
-                                                   "local_normalisation":
-                                                    {
-                                                        "en": "english description of the used normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                    },
-                                                   "global_normalisation":
-                                                    {
-                                                        "en": "english description of the used global normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                    }
-                                                }
-                                    }
-                        }
-
-        """
-
-        result={
-            "description":"descrizione in italiano",
-        }
+        result= dict()
         features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
 
         for key, value in features.items():
@@ -278,99 +145,21 @@ class InformalStyle_it:
 
             normalisation_local = absolute_positive/(absolute_positive+absolute_negative) if absolute_positive+absolute_negative>0 else 0
 
-            result[key] = {
-                                "values": {
-
-                                    "absolute": absolute_positive,
-                                    "local_normalisation": normalisation_local,
-                                    "global_normalisation": None,
-                                },
-                                "descriptions": {
-
-                                    "absolute":  "Il numero di volte che un soggetto personale, complemento personale o pronome dimostrativo è stato utilizzato",
-                                    "local_normalisation": "Il rapporto tra il numero di volte lo stile personale è stato usato, rispetto al numero di parole",
-                                    "global_normalisation": None,
+            result[key] = { "absolute": absolute_positive,
+                            "local": normalisation_local,
+                            "global": None,
                                 }
-                            }
+                            
 
         return result
 
-    """Evaluate the use of intensifiers that are commonly used in informal styles"""
     @lru_cache(maxsize=32)
     def use_of_intensifier_score(self, title: str, content: str):
-        """
-        Evaluate the use of intensifiers that are commonly used in informal styles
-        This function evaluate the presence of that phenomenon.
+        """Evaluate the use of intensifiers that are commonly used in informal styles"""
 
-        @param title: str: string containing the title of a news
-        @param content: str: string containing the textual content of a news
-        @return: dic: a dictionary containing the intensifier_score feature with the following structure
+        
 
-                        {
-                                     "description" :
-                                             {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                             },
-                                    "title": {
-                                    "values": {
-
-                                        "absolute": absolute,
-                                        "local_normalisation": normalisation,
-                                        "global_normalisation": None,
-                                    },
-                                    "descriptions": {
-
-                                                "absolute": {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                                },
-                                               "local_normalisation":
-                                                {
-                                                    "en": "english description of the used normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                },
-                                               "global_normalisation":
-                                                {
-                                                    "en": "english description of the used global normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                }
-                                        }
-                                    }
-                            "content": {
-                                    "values": {
-
-                                                "absolute": absolute,
-                                                "local_normalisation": normalisation,
-                                                "global_normalisation": None,
-                                    },
-                                    "descriptions":
-                                               {
-                                                    "absolute": {
-                                                        "en": "english description.",
-                                                        "it": "descrizione in italiano"
-                                                    },
-                                                   "local_normalisation":
-                                                    {
-                                                        "en": "english description of the used normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                    },
-                                                   "global_normalisation":
-                                                    {
-                                                        "en": "english description of the used global normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                    }
-                                                }
-                                    }
-                        }
-
-
-        """
-
-
-        result={
-            "description":"descrizione in italiano"
-        }
+        result= dict()
         features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
 
         for key, value in features.items():
@@ -389,97 +178,21 @@ class InformalStyle_it:
 
             normalisation_local = absolute_positive/(absolute_positive+absolute_negative) if absolute_positive+absolute_negative>0 else 0
             result[key] = {
-                "values": {
-
+                
                     "absolute": absolute_positive,
-                    "local_normalisation": normalisation_local,
-                    "global_normalisation": None,
-                },
-                "descriptions": {
-
-                    "absolute": "Il numero di volte che prima e seconda persona verbale sono usate",
-                    "local_normalisation": "Il rapporto tra il numero di volte sono state usate le forme in prima e seconda persona, rispetto al numero di verbi",
-                    "global_normalisation":None,
-
+                    "local": normalisation_local,
+                    "global": None,
                 }
-            }
 
         return result
 
     """Evaluate the use of shorten forms that are commonly used in informal styles"""
     @lru_cache(maxsize=32)
     def use_of_shorten_form_score(self, title: str, content: str):
-        """
-        Evaluate the use of shorten forms that are commonly used in informal styles
-        This function evaluate the presence of that phenomenon.
-
-        @param title: str: string containing the title of a news
-        @param content: str: string containing the textual content of a news
-        @return: dic: a dictionary containing the shorten form score feature with the following structure
-
-                        {
-                                     "description" :
-                                             {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                             },                            "title": {
-                                    "values": {
-
-                                        "absolute": absolute,
-                                        "local_normalisation": normalisation,
-                                        "global_normalisation": None,
-                                    },
-                                    "descriptions": {
-
-                                                "absolute": {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                                },
-                                               "local_normalisation":
-                                                {
-                                                    "en": "english description of the used normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                },
-                                               "global_normalisation":
-                                                {
-                                                    "en": "english description of the used global normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                }
-                                        }
-                                    }
-                            "content": {
-                                    "values": {
-
-                                                "absolute": absolute,
-                                                "local_normalisation": normalisation,
-                                                "global_normalisation": None,
-                                    },
-                                    "descriptions":
-                                               {
-                                                    "absolute": {
-                                                        "en": "english description.",
-                                                        "it": "descrizione in italiano"
-                                                    },
-                                                   "local_normalisation":
-                                                    {
-                                                        "en": "english description of the used normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                    },
-                                                   "global_normalisation":
-                                                    {
-                                                        "en": "english description of the used global normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                    }
-                                                }
-                                    }
-                        }
-
-        """
+        """Evaluate the use of shorten forms that are commonly used in informal styles"""
 
 
-        result={
-            "description":"descrizione in italiano",
-        }
+        result= dict()
         features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
 
         for key, value in features.items():
@@ -504,96 +217,20 @@ class InformalStyle_it:
 
             normalisation_local = absolute_positive/(absolute_positive+absolute_negative) if absolute_positive+absolute_negative>0 else 0
             result[key] = {
-                                "values": {
+
 
                                     "absolute": absolute_positive,
-                                    "local_normalisation": normalisation_local,
-                                    "global_normalisation": None,
-                                },
-                                "descriptions": {
-
-                                    "absolute": "Il numero di volte che è stata utilizzata una forma abbreviata",
-                                    "local_normalisation":"Il rapporto tra il numero di volte una forma abbreviata è stata usata, rispetto al numero di parole",
-                                    "global_normalisation":None,
-
-                                }
+                                    "local": normalisation_local,
+                                    "global": None,
                             }
 
         return result
 
-    """Evaluate the use of shorten forms that are commonly used in informal styles"""
     @lru_cache(maxsize=32)
     def use_of_modals_score(self, title: str, content: str):
-        """
-        Evaluate the use of modals that are commonly used in informal styles
-        This function evaluate the presence of that phenomenon.
+        """Evaluate the use of shorten forms that are commonly used in informal styles"""
 
-        @param title: str: string containing the title of a news
-        @param content: str: string containing the textual content of a news
-        @return: dic: a dictionary containing the modal score feature with the following structure
-
-                        {
-                                     "description" :
-                                             {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                             },                            "title": {
-                                    "values": {
-
-                                        "absolute": absolute,
-                                        "local_normalisation": normalisation,
-                                        "global_normalisation": None,
-                                    },
-                                    "descriptions": {
-
-                                                "absolute": {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                                },
-                                               "local_normalisation":
-                                                {
-                                                    "en": "english description of the used normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                },
-                                               "global_normalisation":
-                                                {
-                                                    "en": "english description of the used global normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                }
-                                        }
-                                    }
-                            "content": {
-                                    "values": {
-
-                                                "absolute": absolute,
-                                                "local_normalisation": normalisation,
-                                                "global_normalisation": None,
-                                    },
-                                    "descriptions":
-                                               {
-                                                    "absolute": {
-                                                        "en": "english description.",
-                                                        "it": "descrizione in italiano"
-                                                    },
-                                                   "local_normalisation":
-                                                    {
-                                                        "en": "english description of the used normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                    },
-                                                   "global_normalisation":
-                                                    {
-                                                        "en": "english description of the used global normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                    }
-                                                }
-                                    }
-                        }
-
-        """
-
-        result={
-            "description":"descrizione in italiano",
-        }
+        result= dict()
         features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
 
         for key, value in features.items():
@@ -614,96 +251,23 @@ class InformalStyle_it:
 
 
             result[key] = {
-                                "values": {
+                               
 
                                     "absolute": absolute_positive,
-                                    "local_normalisation": normalisation_local,
-                                    "global_normalisation": None,
-                                },
-                                "descriptions": {
-
-                                    "absolute": "Il numero di volte che è stato usato un verbo modale",
-                                    "local_normalisation":"Il rapporto tra il numero di volte che è stato usato un verbo modale, rispetto al numero di verbi",
-                                    "global_normalisation":None,
-
+                                    "local": normalisation_local,
+                                    "global": None,
                                 }
-                            }
 
         return result
 
-    """Evaluate the use of shorten forms that are commonly used in informal styles"""
     @lru_cache(maxsize=32)
     def use_of_interrogative_score(self, title: str, content: str):
-        """
+        """ 
         Evaluate the use of interrogative is less common in formal styles
-        This function evaluate the presence of that phenomenon.
-
-        @param title: str: string containing the title of a news
-        @param content: str: string containing the textual content of a news
-        @return: dic: a dictionary containing the modal score feature with the following structure
-
-                        {
-                                     "description" :
-                                             {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                             },                            "title": {
-                                    "values": {
-
-                                        "absolute": absolute,
-                                        "local_normalisation": normalisation,
-                                        "global_normalisation": None,
-                                    },
-                                    "descriptions": {
-
-                                                "absolute": {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                                },
-                                               "local_normalisation":
-                                                {
-                                                    "en": "english description of the used normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                },
-                                               "global_normalisation":
-                                                {
-                                                    "en": "english description of the used global normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                }
-                                        }
-                                    }
-                            "content": {
-                                    "values": {
-
-                                                "absolute": absolute,
-                                                "local_normalisation": normalisation,
-                                                "global_normalisation": None,
-                                    },
-                                    "descriptions":
-                                               {
-                                                    "absolute": {
-                                                        "en": "english description.",
-                                                        "it": "descrizione in italiano"
-                                                    },
-                                                   "local_normalisation":
-                                                    {
-                                                        "en": "english description of the used normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                    },
-                                                   "global_normalisation":
-                                                    {
-                                                        "en": "english description of the used global normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                    }
-                                                }
-                                    }
-                        }
-        """
+        This function evaluate the presence of that phenomenon."""
 
 
-        result={
-            "description":"descrizione in italiano"
-        }
+        result= dict()
         features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
 
         for key, value in features.items():
@@ -719,98 +283,21 @@ class InformalStyle_it:
             normalisation_local = absolute_positive/(absolute_positive+absolute_negative) if absolute_positive+absolute_negative>0 else 0
 
             result[key] = {
-                                "values": {
-
                                     "absolute": absolute_positive,
-                                    "local_normalisation": normalisation_local,
-                                    "global_normalisation": None,
-                                },
-                                "descriptions": {
-
-                                    "absolute": "Il numero di frasi interrogative",
-                                    "local_normalisation":"La frazione tra il numero di frasi negative ed il numero totale di frasi",
-                                    "global_normalisation":None,
-
-                                }
+                                    "local": normalisation_local,
+                                    "global": None,
                             }
 
         return result
 
-    """It shouts or use other impolite  behaviors"""
+    
     @lru_cache(maxsize=32)
     def use_of_uppercase_words(self, title: str, content: str):
-        """
-        One of the characteristics of the informal style is the use of capital letters used for shouting and other impolite or argumentative behaviors.
-        This function evaluate the presence of that phenomenon.
-
-        @param title: str: string containing the title of a news
-        @param content: str: string containing the textual content of a news
-        @return: dic: a dictionary containing the uppercase words feature with the following structure
-
-                        {
-                                     "description" :
-                                             {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                             },                            "title": {
-                                    "values": {
-
-                                        "absolute": absolute,
-                                        "local_normalisation": normalisation,
-                                        "global_normalisation": None,
-                                    },
-                                    "descriptions": {
-
-                                                "absolute": {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                                },
-                                               "local_normalisation":
-                                                {
-                                                    "en": "english description of the used normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                },
-                                               "global_normalisation":
-                                                {
-                                                    "en": "english description of the used global normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                }
-                                        }
-                                    }
-                            "content": {
-                                    "values": {
-
-                                                "absolute": absolute,
-                                                "local_normalisation": normalisation,
-                                                "global_normalisation": None,
-                                    },
-                                    "descriptions":
-                                               {
-                                                    "absolute": {
-                                                        "en": "english description.",
-                                                        "it": "descrizione in italiano"
-                                                    },
-                                                   "local_normalisation":
-                                                    {
-                                                        "en": "english description of the used normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                    },
-                                                   "global_normalisation":
-                                                    {
-                                                        "en": "english description of the used global normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                    }
-                                                }
-                                    }
-                        }
-
-        """
+        """One of the characteristics of the informal style is the use of capital letters used for shouting and other impolite or argumentative behaviors.
+        This function evaluate the presence of that phenomenon."""
 
 
-
-        result={
-            "description":"descrizione in italiano"
-        }
+        result= dict()
         features = {"title" : nlp.get_nlp(title), "content" : nlp.get_nlp(content),}
 
         for key, value in features.items():
@@ -828,96 +315,21 @@ class InformalStyle_it:
             normalisation_local = absolute_positive/(absolute_positive+absolute_negative) if absolute_positive+absolute_negative>0 else 0
 
             result[key] = {
-                                "values": {
-
                                     "absolute": absolute_positive,
-                                    "local_normalisation": normalisation_local,
-                                    "global_normalisation": None,
-                                },
-                                "descriptions": {
-
-                                    "absolute": "Il numero di parole totalmente in maiuscolo (gli acronimi delle organizzazioni non sono riconosciuti)",
-                                    "local_normalisation":"la frazione tra il numero di parole maiuscole e il numero di parole (sono stati esclusi gli acronimi delle organizzazioni).",
-                                    "global_normalisation": None,
-
+                                    "local": normalisation_local,
+                                    "global": None,
                                 }
-                            }
 
         return result
 
     """It evaluate the presence of emphasis with formula such us SVEGLIAAA."""
     @lru_cache(maxsize=32)
     def use_of_repeated_letters(self, title: str, content: str):
-        """
-        The excessive use of vowels could be used for emphasis and for expressing rage.
-
-        @param title: str: string containing the title of a news
-        @param content: str: string containing the textual content of a news
-        @return: dic: a dictionary containing the repeated letters score feature with the following structure
-
-                        {
-                                     "description" :
-                                             {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                             },                            "title": {
-                                    "values": {
-
-                                        "absolute": absolute,
-                                        "local_normalisation": normalisation,
-                                        "global_normalisation": None,
-                                    },
-                                    "descriptions": {
-
-                                                "absolute": {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                                },
-                                               "local_normalisation":
-                                                {
-                                                    "en": "english description of the used normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                },
-                                               "global_normalisation":
-                                                {
-                                                    "en": "english description of the used global normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                }
-                                        }
-                                    }
-                            "content": {
-                                    "values": {
-
-                                                "absolute": absolute,
-                                                "local_normalisation": normalisation,
-                                                "global_normalisation": None,
-                                    },
-                                    "descriptions":
-                                               {
-                                                    "absolute": {
-                                                        "en": "english description.",
-                                                        "it": "descrizione in italiano"
-                                                    },
-                                                   "local_normalisation":
-                                                    {
-                                                        "en": "english description of the used normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                    },
-                                                   "global_normalisation":
-                                                    {
-                                                        "en": "english description of the used global normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                    }
-                                                }
-                                    }
-                        }
-
-        """
+        """The excessive use of vowels could be used for emphasis and for expressing rage."""
 
 
-        result={
-            "description":"descrizione in italiano"
-        }
+
+        result= dict()
         features = {"title" : title, "content" : content,}
 
         for key, value in features.items():
@@ -932,98 +344,20 @@ class InformalStyle_it:
 
 
             result[key] = {
-                                "values": {
 
                                     "absolute": absolute_positive,
-                                    "local_normalisation": normalisation_local,
-                                    "global_normalisation": None,
-                                },
-                                "descriptions": {
-                                    "absolute": "Il numero di parole che contengono un numero ecessivo di vocali",
-                                    "local_normalisation":"Il rapporto tra il numero di parole che contengono un numero ecessivo di vocali e il numero totale di vocali",
-                                    "global_normalisation":None,
-
+                                    "local": normalisation_local,
+                                    "global": None,
                                 }
-                            }
 
         return result
 
-    """In informal writing, multiple exclamation points and question marks are sometimes used to indicate stronger emphasis or emotion."""
     @lru_cache(maxsize=32)
     def use_of_aggressive_punctuation(self, title: str, content: str):
-        """
-
-        In informal writing, multiple exclamation points and question marks are sometimes used to indicate stronger emphasis or emotion.
+        """In informal writing, multiple exclamation points and question marks are sometimes used to indicate stronger emphasis or emotion."""
 
 
-        @param title: str: string containing the title of a news
-        @param content: str: string containing the textual content of a news
-        @return: dic: a dictionary containing the aggressive punctuation score feature with the following structure
-
-                        {
-                                     "description" :
-                                             {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                             },                            "title": {
-                                    "values": {
-
-                                        "absolute": absolute,
-                                        "local_normalisation": normalisation,
-                                        "global_normalisation": None,
-                                    },
-                                    "descriptions": {
-
-                                                "absolute": {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                                },
-                                               "local_normalisation":
-                                                {
-                                                    "en": "english description of the used normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                },
-                                               "global_normalisation":
-                                                {
-                                                    "en": "english description of the used global normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                }
-                                        }
-                                    }
-                            "content": {
-                                    "values": {
-
-                                                "absolute": absolute,
-                                                "local_normalisation": normalisation,
-                                                "global_normalisation": None,
-                                    },
-                                    "descriptions":
-                                               {
-                                                    "absolute": {
-                                                        "en": "english description.",
-                                                        "it": "descrizione in italiano"
-                                                    },
-                                                   "local_normalisation":
-                                                    {
-                                                        "en": "english description of the used normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                    },
-                                                   "global_normalisation":
-                                                    {
-                                                        "en": "english description of the used global normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                    }
-                                                }
-                                    }
-                        }
-
-        """
-
-
-        result={
-            "description":"In informal writing, multiple exclamation points and question marks are sometimes used to indicate stronger emphasis or emotion.",
-
-        }
+        result= dict()
         features = {"title": title, "content": content, }
 
         for key, value in features.items():
@@ -1036,20 +370,10 @@ class InformalStyle_it:
             normalisation_local = absolute_positive / absolute_total if absolute_total > 0 else 0
 
             result[key] = {
-                                "values": {
-
                                     "absolute": absolute_positive,
-                                    "local_normalisation": normalisation_local,
-                                    "global_normalisation": None,
-                                },
-                                "descriptions": {
-
-                                    "absolute": "Il numero di più punti esclamativi e/o interrogativi.",
-                                    "local_normalisation":"La frazione tra il numero di più punti esclamativi e/o interrogativi e il numero totale di punti esclamativi e punti interrogativi.",
-                                    "global_normalisation":None,
-
+                                    "local": normalisation_local,
+                                    "global": None,
                                 }
-                            }
 
         return result
 
@@ -1057,76 +381,9 @@ class InformalStyle_it:
     @lru_cache(maxsize=32)
     def use_of_uncommon_punctuation(self, title: str, content: str):
         """
+        In formal writing, the common punktuation marks are limited. The use of other types of punctiation marks could be a cue of the use of an informal style."""
 
-        In formal writing, the common punktuation marks are limited. The use of other types of punctiation marks could be a cue of the use of an informal style.
-
-        @param title: str: string containing the title of a news
-        @param content: str: string containing the textual content of a news
-        @return: dic: a dictionary containing the uncommon punctuation score feature with the following structure
-
-
-                        {
-                                     "description" :
-                                             {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                             },                            "title": {
-                                    "values": {
-
-                                        "absolute": absolute,
-                                        "local_normalisation": normalisation,
-                                        "global_normalisation": None,
-                                    },
-                                    "descriptions": {
-
-                                                "absolute": {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                                },
-                                               "local_normalisation":
-                                                {
-                                                    "en": "english description of the used normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                },
-                                               "global_normalisation":
-                                                {
-                                                    "en": "english description of the used global normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                }
-                                        }
-                                    }
-                            "content": {
-                                    "values": {
-
-                                                "absolute": absolute,
-                                                "local_normalisation": normalisation,
-                                                "global_normalisation": None,
-                                    },
-                                    "descriptions":
-                                               {
-                                                    "absolute": {
-                                                        "en": "english description.",
-                                                        "it": "descrizione in italiano"
-                                                    },
-                                                   "local_normalisation":
-                                                    {
-                                                        "en": "english description of the used normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                    },
-                                                   "global_normalisation":
-                                                    {
-                                                        "en": "english description of the used global normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                    }
-                                                }
-                                    }
-                        }
-
-        """
-
-        result={
-            "description":"descrizione in italiano"
-        }
+        result= dict()
         features = {"title": title, "content": content, }
 
         for key, value in features.items():
@@ -1141,98 +398,19 @@ class InformalStyle_it:
 
 
             result[key] = {
-                                "values": {
-
                                     "absolute": absolute_positive,
-                                    "local_normalisation": normalisation_local,
-                                    "global_normalisation": None,
-                                },
-                                "descriptions": {
-
-                                    "absolute": "Il numero di segni di punteggiatura non comuni.",
-                                    "local_normalisation":"La frazione tra il numero di segni di punteggiatura non comuni e il numero totale di segni di punteggiatura.",
-                                    "global_normalisation":None,
-
+                                    "local": normalisation_local,
+                                    "global": None,
                                 }
-                            }
 
         return result
 
     """Emojis are currently use in informal context."""
     @lru_cache(maxsize=32)
     def use_of_emoji(self, title: str, content: str):
-        """
+        """Emojis are currently use in informal contexts."""
 
-        Emojis are currently use in informal contexts.
-
-        @param title: str: string containing the title of a news
-        @param content: str: string containing the textual content of a news
-        @return: dic: a dictionary containing the emoji score feature with the following structure
-
-
-                        {
-                                     "description" :
-                                             {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                             },                            "title": {
-                                    "values": {
-
-                                        "absolute": absolute,
-                                        "local_normalisation": normalisation,
-                                        "global_normalisation": None,
-                                    },
-                                    "descriptions": {
-
-                                                "absolute": {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                                },
-                                               "local_normalisation":
-                                                {
-                                                    "en": "english description of the used normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                },
-                                               "global_normalisation":
-                                                {
-                                                    "en": "english description of the used global normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                }
-                                        }
-                                    }
-                            "content": {
-                                    "values": {
-
-                                                "absolute": absolute,
-                                                "local_normalisation": normalisation,
-                                                "global_normalisation": None,
-                                    },
-                                    "descriptions":
-                                               {
-                                                    "absolute": {
-                                                        "en": "english description.",
-                                                        "it": "descrizione in italiano"
-                                                    },
-                                                   "local_normalisation":
-                                                    {
-                                                        "en": "english description of the used normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                    },
-                                                   "global_normalisation":
-                                                    {
-                                                        "en": "english description of the used global normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                    }
-                                                }
-                                    }
-                        }
-
-
-        """
-
-        result={
-            "description":"descrizione in italiano"
-        }
+        result= dict()
         features = {"title": title, "content": content, }
 
         for key, value in features.items():
@@ -1243,21 +421,11 @@ class InformalStyle_it:
 
 
             result[key] = {
-                                "values": {
-
                                     "absolute": absolute_positive,
-                                    "local_normalisation": normalisation_local,
-                                    "global_normalisation": None,
-                                },
-                                "descriptions": {
-
-                                    "absolute": "Il numero di emoji",
-                                    "local_normalisation":"Il rapporto tra il numero di emoji e il numero di tokens nel testo",
-                                    "global_normalisation":None,
-
+                                    "local": normalisation_local,
+                                    "global": None,
                                 }
-                            }
-
+                                
         return result
 
 class Readability_it:
@@ -1265,78 +433,8 @@ class Readability_it:
     @lru_cache(maxsize=32)
     def flesch_reading_ease(self, title: str, content: str):
         """
-        The readability score is computes with the Flesch Reading Ease (FRES) score. It says how easy something is to read.
-        This function evaluate the presence of that phenomenon.
-
-        @param title: str: string containing the title of a news
-        @param content: str: string containing the textual content of a news
-        @return: dic: a dictionary containing the readability score feature with the following structure
-
-
-                        {
-                                     "description" :
-                                             {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                             },
-                                    "title": {
-                                    "values": {
-
-                                        "absolute": absolute,
-                                        "local_normalisation": normalisation,
-                                        "global_normalisation": None,
-                                    },
-                                    "descriptions": {
-
-                                                "absolute": {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                                },
-                                               "local_normalisation":
-                                                {
-                                                    "en": "english description of the used normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                },
-                                               "global_normalisation":
-                                                {
-                                                    "en": "english description of the used global normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                }
-                                        }
-                                    }
-                            "content": {
-                                    "values": {
-
-                                                "absolute": absolute,
-                                                "local_normalisation": normalisation,
-                                                "global_normalisation": None,
-                                    },
-                                    "descriptions":
-                                               {
-                                                    "absolute": {
-                                                        "en": "english description.",
-                                                        "it": "descrizione in italiano"
-                                                    },
-                                                   "local_normalisation":
-                                                    {
-                                                        "en": "english description of the used normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                    },
-                                                   "global_normalisation":
-                                                    {
-                                                        "en": "english description of the used global normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                    }
-                                                }
-                                    }
-                        }
-
-
-        """
-
-        result={
-            "description":"descrizione in italiano"
-        }
+        The readability score is computes with the Flesch Reading Ease (FRES) score. It says how easy something is to read."""
+        result= dict()
         features = {"title" : title, "content" : content,}
 
         for key, value in features.items():
@@ -1363,21 +461,10 @@ class Readability_it:
 
 
             result[key] = {
-                                "values": {
-
                                     "absolute": flesch_reading_ease,
-                                    "local_normalisation": normalized_flesch_reading_ease,
-                                    "global_normalisation": None,
-                                },
-                                "descriptions": {
-
-                                    "absolute": "Il punteggio Flesch Reading Ease (FRES). Il punteggio massimo è 121,22, non c'è limite a quanto basso possa essere il punteggio. Un punteggio negativo è valido. 90-100 Molto facile, 60-69 Standard, 0-29 Molto confuso.",
-                                    "local_normalisation":"Il punteggio Flesch Reading Ease (FRES) normalizzato. 0 è un valore standard, 1 è lontano da un valore standard.",
-                                    "global_normalisation":None,
-
+                                    "local": normalized_flesch_reading_ease,
+                                    "global": None,
                                 }
-
-                        }
         return result
 
 class ClickBait_it:
@@ -1391,75 +478,10 @@ class ClickBait_it:
     """Clickbait headlines often add an element of dishonesty, using enticements that do not accurately reflect the content being delivered."""
     def misleading_headline(self, title: str, content: str):
         """
-        Clickbait headlines often add an element of dishonesty, using enticements that do not accurately reflect the content being delivered.
+        Clickbait headlines often add an element of dishonesty, using enticements that do not accurately reflect the content being delivered."""
 
-        @param title: str: string containing the title of a news
-        @param content: str: string containing the textual content of a news
-        @return: dic: a dictionary containing the misleading_headline feature with the following structure
 
-                        {
-                            "description" :
-                                             {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                             },
-                            "title": {
-                                    "values": {
-
-                                        "absolute": absolute,
-                                        "local_normalisation": normalisation,
-                                        "global_normalisation": None,
-                                    },
-                                    "descriptions": {
-
-                                                "absolute": {
-                                                    "en": "english description.",
-                                                    "it": "descrizione in italiano"
-                                                },
-                                               "local_normalisation":
-                                                {
-                                                    "en": "english description of the used normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                },
-                                               "global_normalisation":
-                                                {
-                                                    "en": "english description of the used global normalisation method.",
-                                                    "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                }
-                                        }
-                                    }
-                            "content": {
-                                    "values": {
-
-                                                "absolute": absolute,
-                                                "local_normalisation": normalisation,
-                                                "global_normalisation": None,
-                                    },
-                                    "descriptions":
-                                               {
-                                                    "absolute": {
-                                                        "en": "english description.",
-                                                        "it": "descrizione in italiano"
-                                                    },
-                                                   "local_normalisation":
-                                                    {
-                                                        "en": "english description of the used normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione adottato"
-                                                    },
-                                                   "global_normalisation":
-                                                    {
-                                                        "en": "english description of the used global normalisation method.",
-                                                        "it": "descrizione in italiano del metodo di normalizzazione globale adottato"
-                                                    }
-                                                }
-                                    }
-                        }
-
-        """
-
-        result={
-            "description":"descrizione in italiano",
-        }
+        result= dict()
         title_nouns = nlp.get_nlp(' '.join([str(t) for t in nlp.get_nlp(title) if t.pos_ in ['VERB','NOUN', 'PROPN']]))
         content_nouns = nlp.get_nlp(' '.join([str(t) for t in nlp.get_nlp(content) if t.pos_ in ['VERB','NOUN', 'PROPN']]))
 
@@ -1469,25 +491,12 @@ class ClickBait_it:
 
         for key, value in features.items():
             result[key] = {
-                "values": {
-
                     "absolute": doc_similarity,
-                    "local_normalisation": abs(1-doc_similarity),
-                    "global_normalisation": None,
-                },
-                "descriptions": {
-
-                    "absolute": "La somiglianza tra il titolo e il contenuto è compresa tra 0 (completamente diverso) e 1 (lo stesso testo).",
-                    "local_normalisation": "La somiglianza normalizzata tra il titolo e il contenuto nell'intervallo 0 (lo stesso testo) e 1 (completamente diverso).",
-                    "global_normalisation":None,
-
+                    "local": abs(1-doc_similarity),
+                    "global": None,
                 }
-
-            }
 
         return result
 
 
 
-if __name__ == '__main__':
-    ...
