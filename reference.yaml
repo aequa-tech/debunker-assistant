@@ -118,7 +118,7 @@ paths:
   /explanations:
     get: 
       summary: the explanations of a chosen phenomenon
-      description: description
+      description: the output of these api is an explanation related to a given set of predictions. With explanation we mean the piece of text that contributes the most to the classification
       operationId: getExplanation
       
       parameters: 
