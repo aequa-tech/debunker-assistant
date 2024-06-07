@@ -174,19 +174,9 @@ class InformalStyle_it:
 
             normalisation_local = absolute_positive/(absolute_positive+absolute_negative) if absolute_positive+absolute_negative>0 else 0
             result[key]  =  {
-                                "values": {
-
-                                            "absolute": absolute_positive,
-                                            "local_normalisation": normalisation_local,
-                                            "global_normalisation": None,
-                                },
-                                "descriptions": {
-
-                                            "absolute": "Il numero di volte che prima e seconda persona verbale sono usate",
-                                           "local_normalisation":"Il rapporto tra il numero di volte sono state usate le forme in prima e seconda persona, rispetto al numero di verbi",
-                                           "global_normalisation": None,
-
-                                }
+                                "absolute": absolute_positive,
+                                "local": normalisation_local,
+                                "global": None
                             }
 
 
