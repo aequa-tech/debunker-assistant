@@ -65,6 +65,7 @@ class Explainer:
             results = classifier(value,truncation=True)
             print(results)
             print(classifier)
+
             shap_model = shap.models.TransformersPipeline(classifier, rescale_to_logits=False)
             explainer = shap.Explainer(shap_model)
             shap_values = explainer([value])
@@ -149,4 +150,11 @@ class Danger:
                 d[item] = sent
         return d
         
+
+
+
+if __name__ == "__main__":
+    explainer_danger=Danger()
+    result=explainer_danger.danger_explanation("questo è un titolo di prova","prova","en")
+    print(result)
 
