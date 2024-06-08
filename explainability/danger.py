@@ -74,13 +74,13 @@ class Irony():
                         "values":
                         {
                          "word": word_p,
-                         "local_normalisation": round(weight_p, 3),
-                         "global_normalisation": None,
+                         "local": round(weight_p, 3),
+                         "global": None,
                         },
                         'descriptions': {
                               'absolute': {'en': '', 'it': ''},
-                              'local_normalisation': {'en': '', 'it': ''},
-                              'global_normalisation': {'en': None, 'it': None}
+                              'local': {'en': '', 'it': ''},
+                              'global': {'en': None, 'it': None}
                         }
             }
         return result
@@ -144,13 +144,13 @@ class Flame():
                         "values":
                         {
                          "word": word_p,
-                         "local_normalisation": round(weight_p, 3),
-                         "global_normalisation": None,
+                         "local": round(weight_p, 3),
+                         "global": None,
                         },
                         'descriptions': {
                               'absolute': {'en': '', 'it': ''},
-                              'local_normalisation': {'en': '', 'it': ''},
-                              'global_normalisation': {'en': None, 'it': None}
+                              'local': {'en': '', 'it': ''},
+                              'global': {'en': None, 'it': None}
                         }
             }
         return result
@@ -214,13 +214,13 @@ class Stereotype():
                         "values":
                         {
                          "word": word_p,
-                         "local_normalisation": round(weight_p, 3),
-                         "global_normalisation": None,
+                         "local": round(weight_p, 3),
+                         "global": None,
                         },
                         'descriptions': {
                               'absolute': {'en': '', 'it': ''},
-                              'local_normalisation': {'en': '', 'it': ''},
-                              'global_normalisation': {'en': None, 'it': None}
+                              'local': {'en': '', 'it': ''},
+                              'global': {'en': None, 'it': None}
                         }
             }
         return result

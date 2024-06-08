@@ -11,11 +11,11 @@ class Network():
         labelDistribution=db.query(DomainsLabelDistribution).filter(DomainsLabelDistribution.domain == domain).first()
         if labelDistribution is not None:
             result=round(labelDistribution.untrusted_norm,3)
-            return    {                    
+            return    { "values" : {
                     "absolute": result,
                     "local": result,
                     "global": None,
-                }
+                }}
 
         else:
             None

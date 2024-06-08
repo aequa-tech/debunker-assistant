@@ -66,14 +66,14 @@ class Sentiment():
                            "values" : {
 
                                "word": word_p,
-                               "local_normalisation": round(weight_p, 3),
-                               "global_normalisation": None,
+                               "local": round(weight_p, 3),
+                               "global": None,
                            },
 
                           'descriptions': {
                               'absolute': '',
-                              'local_normalisation':  '',
-                              'global_normalisation': None
+                              'local':  '',
+                              'global': None
                           }
             }
 
@@ -81,14 +81,14 @@ class Sentiment():
                            "values" : {
 
                                "word": word_n,
-                               "local_normalisation": round(weight_n, 3),
-                               "global_normalisation": None,
+                               "local": round(weight_n, 3),
+                               "global": None,
                            },
 
                           'descriptions': {
                               'absolute':   '',
-                              'local_normalisation': '',
-                              'global_normalisation':  None
+                              'local': '',
+                              'global':  None
                           }
             }
 
@@ -178,49 +178,49 @@ class Emotion():
             result["joy"][key]={
                         "values" : {
                          "word": word_j,   
-                         "local_normalisation": round(joy,3),
-                         "global_normalisation": None,
+                         "local": round(joy,3),
+                         "global": None,
                         },
                         'descriptions': {
                               'absolute':  '',
-                              'local_normalisation': '',
-                              'global_normalisation':  None
+                              'local': '',
+                              'global':  None
                         }
             }
             result["sadness"][key]={
                         "values" : {
                          "word": word_s,
-                         "local_normalisation": round(sadness,3),
-                         "global_normalisation": None,
+                         "local": round(sadness,3),
+                         "global": None,
                         },
                         'descriptions': {
                               'absolute': '',
-                              'local_normalisation': '',
-                              'global_normalisation': None
+                              'local': '',
+                              'global': None
                         }
             }
             result["fear"][key]={
                         "values" : {
                          "word": word_f,
-                         "local_normalisation": round(fear,3),
-                         "global_normalisation": None,
+                         "local": round(fear,3),
+                         "global": None,
                         },
                         'descriptions': {
                               'absolute': '',
-                              'local_normalisation': '',
-                              'global_normalisation': None
+                              'local': '',
+                              'global': None
                         }
             }
             result["anger"][key]={
                         "values" : {
                          "word": word_a,
-                         "local_normalisation": round(anger,3),
-                         "global_normalisation": None,
+                         "local": round(anger,3),
+                         "global": None,
                         },
                         'descriptions': {
                               'absolute': '',
-                              'local_normalisation': '',
-                              'global_normalisation': None
+                              'local': '',
+                              'global': None
                         }
             }
 

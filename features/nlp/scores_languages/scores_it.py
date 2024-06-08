@@ -107,11 +107,11 @@ class InformalStyle_it:
                             absolute_negative+=1
 
             normalisation_local = absolute_positive/(absolute_positive+absolute_negative) if absolute_positive+absolute_negative>0 else 0
-            result[key]  =  {
+            result[key]  =  { "values": {
                                 "absolute": absolute_positive,
                                 "local": normalisation_local,
                                 "global": None
-                            }
+                            } }
 
 
 
@@ -145,10 +145,10 @@ class InformalStyle_it:
 
             normalisation_local = absolute_positive/(absolute_positive+absolute_negative) if absolute_positive+absolute_negative>0 else 0
 
-            result[key] = { "absolute": absolute_positive,
+            result[key] = { "values": {"absolute": absolute_positive,
                             "local": normalisation_local,
                             "global": None,
-                                }
+                                }}
                             
 
         return result
@@ -177,12 +177,12 @@ class InformalStyle_it:
                             absolute_negative+=1
 
             normalisation_local = absolute_positive/(absolute_positive+absolute_negative) if absolute_positive+absolute_negative>0 else 0
-            result[key] = {
+            result[key] = { "values": {
                 
                     "absolute": absolute_positive,
                     "local": normalisation_local,
                     "global": None,
-                }
+                }}
 
         return result
 
@@ -216,13 +216,13 @@ class InformalStyle_it:
 
 
             normalisation_local = absolute_positive/(absolute_positive+absolute_negative) if absolute_positive+absolute_negative>0 else 0
-            result[key] = {
+            result[key] = { "values": {
 
 
                                     "absolute": absolute_positive,
                                     "local": normalisation_local,
                                     "global": None,
-                            }
+                            }}
 
         return result
 
@@ -250,13 +250,13 @@ class InformalStyle_it:
             normalisation_local = absolute_positive/(absolute_positive+absolute_negative) if absolute_positive+absolute_negative>0 else 0
 
 
-            result[key] = {
+            result[key] = { "values": {
                                
 
                                     "absolute": absolute_positive,
                                     "local": normalisation_local,
                                     "global": None,
-                                }
+                                }}
 
         return result
 
@@ -282,11 +282,11 @@ class InformalStyle_it:
 
             normalisation_local = absolute_positive/(absolute_positive+absolute_negative) if absolute_positive+absolute_negative>0 else 0
 
-            result[key] = {
+            result[key] = { "values": {
                                     "absolute": absolute_positive,
                                     "local": normalisation_local,
                                     "global": None,
-                            }
+                            }}
 
         return result
 
@@ -314,11 +314,11 @@ class InformalStyle_it:
 
             normalisation_local = absolute_positive/(absolute_positive+absolute_negative) if absolute_positive+absolute_negative>0 else 0
 
-            result[key] = {
+            result[key] = { "values": {
                                     "absolute": absolute_positive,
                                     "local": normalisation_local,
                                     "global": None,
-                                }
+                                }}
 
         return result
 
@@ -343,12 +343,12 @@ class InformalStyle_it:
             normalisation_local = absolute_positive/absolute_total if absolute_total>0 else 0
 
 
-            result[key] = {
+            result[key] = { "values": {
 
                                     "absolute": absolute_positive,
                                     "local": normalisation_local,
                                     "global": None,
-                                }
+                                }}
 
         return result
 
@@ -369,11 +369,11 @@ class InformalStyle_it:
 
             normalisation_local = absolute_positive / absolute_total if absolute_total > 0 else 0
 
-            result[key] = {
+            result[key] = { "values": {
                                     "absolute": absolute_positive,
                                     "local": normalisation_local,
                                     "global": None,
-                                }
+                                }}
 
         return result
 
@@ -397,11 +397,11 @@ class InformalStyle_it:
             normalisation_local = absolute_positive / (absolute_negative+absolute_positive) if absolute_negative > 0 else 0
 
 
-            result[key] = {
+            result[key] = { "values": {
                                     "absolute": absolute_positive,
                                     "local": normalisation_local,
                                     "global": None,
-                                }
+                                }}
 
         return result
 
@@ -420,11 +420,11 @@ class InformalStyle_it:
             normalisation_local = absolute_positive / absolute_negative if absolute_negative > 0 else 0
 
 
-            result[key] = {
+            result[key] = { "values": {
                                     "absolute": absolute_positive,
                                     "local": normalisation_local,
                                     "global": None,
-                                }
+                                }}
                                 
         return result
 
@@ -460,11 +460,11 @@ class Readability_it:
             normalized_flesch_reading_ease=abs(normalized_flesch_reading_ease-1)
 
 
-            result[key] = {
+            result[key] = { "values": {
                                     "absolute": flesch_reading_ease,
                                     "local": normalized_flesch_reading_ease,
                                     "global": None,
-                                }
+                                }}
         return result
 
 class ClickBait_it:
@@ -490,11 +490,11 @@ class ClickBait_it:
         features = {"title" : title, "content" : content,}
 
         for key, value in features.items():
-            result[key] = {
+            result[key] = { "values": {
                     "absolute": doc_similarity,
                     "local": abs(1-doc_similarity),
                     "global": None,
-                }
+                }}
 
         return result
 

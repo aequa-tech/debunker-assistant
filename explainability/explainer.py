@@ -10,19 +10,32 @@ class Explainer:
     """
 
     @lru_cache(maxsize=32)
-    def __init__(self):
-        self.sentiment_model = 'neuraly/bert-base-italian-cased-sentiment'
-        self.affective_model = "MilaNLProc/feel-it-italian-emotion"
-        self.sentiment = ['positive','negative']
-        self.affective = ['anger','fear','joy','sadness']
+    def __init__(self,language):
 
-        self.flame_model = ''
-        self.irony_model = ''
-        self.stereotype_model = ''
-        self.danger = ['flame','irony','stereotype']
+        if language=="en":
+            self.sentiment_model = 'neuraly/bert-base-italian-cased-sentiment'
+            self.affective_model = "MilaNLProc/feel-it-italian-emotion"
+            self.sentiment = ['positive', 'negative']
+            self.affective = ['anger', 'fear', 'joy', 'sadness']
+
+            self.flame_model = 'facebook/roberta-hate-speech-dynabench-r4-target'
+            self.irony_model = 'cardiffnlp/twitter-roberta-base-irony'
+            self.stereotype_model = 'aequa-tech/stereotype-it'
+            self.danger = ['flame', 'irony', 'stereotype']
+        else:
+            self.sentiment_model = 'neuraly/bert-base-italian-cased-sentiment'
+            self.affective_model = "MilaNLProc/feel-it-italian-emotion"
+            self.sentiment = ['positive', 'negative']
+            self.affective = ['anger', 'fear', 'joy', 'sadness']
+
+            self.flame_model = 'aequa-tech/irony-it'
+            self.irony_model = 'aequa-tech/flame-it'
+            self.stereotype_model = 'aequa-tech/stereotype-it'
+            self.danger = ['flame', 'irony', 'stereotype']
 
     @lru_cache(maxsize=32)
     def __my_pipeline(self, model_name):
+        print(model_name)
         classifier = pipeline("text-classification", model=model_name, top_k=None)
         return classifier
 
@@ -34,7 +47,7 @@ class Explainer:
         return word.strip(), max
     
     @lru_cache(maxsize=32)
-    def __explaination(self, model, title: str):
+    def __explaination(self, model, title: str, content):
         """
         input:
             @param title: str: string containing the title of a news
@@ -43,14 +56,15 @@ class Explainer:
             - dictionary of the prediction in the form {'positive': 1, 'negative': -1, 'overall': 0.5}
         """
 
-        features = {"title" : title}
+        features = {"title" : title}#"content" : content}
         
         for key, value in features.items():
             print(value)
-            print(type(value))
+            print(type(value),model)
             classifier = self.__my_pipeline(model)
             results = classifier(value,truncation=True)
-            
+            print(results)
+            print(classifier)
             shap_model = shap.models.TransformersPipeline(classifier, rescale_to_logits=False)
             explainer = shap.Explainer(shap_model)
             shap_values = explainer([value])
@@ -69,7 +83,7 @@ class Explainer:
         return result
     
     @lru_cache(maxsize=32)
-    def get_sentiment(self, title: str, phenomena):
+    def get_sentiment(self, title: str, content, phenomena):
         if phenomena in self.sentiment:
             model = self.sentiment_model
         else:
@@ -81,7 +95,7 @@ class Explainer:
         return result
     
     @lru_cache(maxsize=32)
-    def get_danger(self, title: str, phenomena):
+    def get_danger(self, title: str, content, phenomena):
         if phenomena =='stereotype':
             model = self.stereotype_model
         elif phenomena=='flame':
@@ -89,7 +103,7 @@ class Explainer:
         else:
             model = self.irony_model
 
-        explaination = self.__explaination( model,title)
+        explaination = self.__explaination( model,title,content)
         result = self.__extract_word(explaination,'LABEL_1')
         
         return result
@@ -103,26 +117,36 @@ class Explainer:
 
 class Affective:
     def __init__(self):
-        self.sentiment = Explainer()
+        self.affective_explanation_it = Explainer("it")
+        self.affective_explanation_en = Explainer("en")
         
 
-    def affective_explanation(self,title):
+    def affective_explanation(self,title, content, language):
         d = dict()
         for item in ['positive','negative','sadness','fear','joy','anger']:
-            sent = self.sentiment.get_sentiment(title,item)
-            d[item] = sent
+            if language=="it":
+                sent = self.affective_explanation_it.get_sentiment(title, content, item)
+                d[item] = sent
+            else:
+                sent = self.affective_explanation_en.get_sentiment(title, content, item)
+                d[item] = sent
         return d
 
 class Danger:
     def __init__(self):
-        self.sentiment = Explainer()
-        
+        self.darget_explanation_it = Explainer("it")
+        self.darget_explanation = Explainer("en")
 
-    def danger_explanation(self,title):
+
+    def danger_explanation(self,title, content, language):
         d = dict()
         for item in ['flame','stereotype','irony']:
-            sent = self.sentiment.get_danger(title,item)
-            d[item] = sent
+            if language=="it":
+                sent = self.darget_explanation_it.get_danger(title, content, item)
+                d[item] = sent
+            else:
+                sent = self.darget_explanation.get_danger(title, content, item)
+                d[item] = sent
         return d
         
 

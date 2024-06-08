@@ -141,7 +141,7 @@ async def api_scrape(inputUrl   : str = None,
         language="en"
     elif language not in ["it","en"]:
         message = "bad request"
-        return response(content=message, status=status.HTTP_400_BAD_REQUEST,media_type='text')
+        return response(content=message, status_code=status.HTTP_400_BAD_REQUEST,media_type='text')
 
 
     
@@ -158,7 +158,7 @@ async def api_scrape(inputUrl   : str = None,
                         }
 
 
-        return response(content=result,status=status.HTTP_200_OK)
+        return response(content=json.dumps(result),status_code=status.HTTP_200_OK)
     
     #caso 2: l'articolo non è in db, è necessario recuperarlo
     else:
@@ -181,7 +181,7 @@ async def api_scrape(inputUrl   : str = None,
                         }
 
 
-            return response(content=result,status=status.HTTP_200_OK)
+            return response(content=json.dumps(result),status_code=status.HTTP_200_OK)
     
         else:
             message = "we didn't find the page that you requested"
@@ -315,14 +315,14 @@ async def article_evaluation (language : str = "en",
             }
 
     if content['untrustability'] is None:
-        return response(content=content,status_code=status.HTTP_206_PARTIAL_CONTENT) 
+        return response(content=json.dumps(content),status_code=status.HTTP_206_PARTIAL_CONTENT)
     else:
-        return response(content=content)
+        return response(content=json.dumps(content))
 
 
 @app.get(basePath+"explanations",status_code=status.HTTP_200_OK,description="""the output of these api is an explanation related to
           a given set of predictions. With explanation we mean the piece of text that contributes the most to the classification""")
-async def explanation(analysis_id : str, explanation_type : str,
+async def explanation(analysis_id : str, explanation_type : str, language : str = "en",
                       db: Session = Depends(get_db),
                       response = Response):
     ### how to get the evaluation_id from the db?
@@ -333,13 +333,17 @@ async def explanation(analysis_id : str, explanation_type : str,
     db.add(request)
     db.commit()
 
-    url =db.query(Urls).filter(Urls.request_id == analysis_id).first().title
+    url =db.query(Urls).filter(Urls.request_id == analysis_id).first()
+    title=url.title
+    content=url.content
     if explanation_type == 'explanationDanger':
-        content = apis['explanations'][explanation_type](url)
-    if explanation_type == 'explanationAffective':
-        content = apis['explanations'][explanation_type](url)
+        content = apis['explanations'][explanation_type](title, content, language)
+    elif explanation_type == 'explanationAffective':
+        content = apis['explanations'][explanation_type](title, content, language)
+    else:
+        return response(content="Avaluation type not available",status_code=status.HTTP_200_OK)
 
-    return response(content=content)
+    return response(content=json.dumps(content))
 
 @app.get(basePath+"{language}/{group}/{request_id}")
 async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: Session = Depends(get_db)):
@@ -363,7 +367,8 @@ async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: S
                     if res is None:
                         return None
                     else:
-                        overall.append(res['values']['local_normalisation'])
+                        print(res)
+                        overall.append(res['values']['local'])
                         result['disaggregated'][key]=res.copy()
 
                 result['overallScore'] = numpy.average(overall)
@@ -376,9 +381,12 @@ async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: S
                 result['disaggregated']={}
                 for key, value in apis[group].items():
                     res = value(language,url_object.title,url_object.content)
-                    overall_title.append(res['title']['values']['local_normalisation'])
-                    overall_content.append(res['content']['values']['local_normalisation'])
-                    result['disaggregated'][key]=res.copy()
+                    print(key, value)
+                    print(res)
+                    overall_title.append(res['title']['values']['local'])
+                    overall_content.append(res['content']['values']['local'])
+                    result['disaggregated'][key]={ 'title'  :res['title']['values'],
+                                                   'content':res['content']['values'] }
 
                 result['overallScore']   = { 'title'  :numpy.average(overall_title),
                                              'content':numpy.average(overall_content) }
@@ -526,4 +534,7 @@ scheduler.start()
 """
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="10.12.0.3", port=8080)
+    uvicorn.run(app, host="localhost", port=8080) #10.12.0.3
+
+
+

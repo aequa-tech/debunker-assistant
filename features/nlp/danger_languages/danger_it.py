@@ -32,7 +32,7 @@ class Irony_it():
             @param title: str: string containing the title of a news
             @param content: str: string containing the textual content of a news
         output:
-            - dictionary of the prediction: the absolute value = 1/0, local_normalisation = logit coming from sigmoid function, global_normalisation = None
+            - dictionary of the prediction: the absolute value = 1/0, local = logit coming from sigmoid function, global = None
         """
         
         result=dict()
@@ -42,17 +42,17 @@ class Irony_it():
 
         for key, value in features.items():
         
-            score = classifier(value, truncation=True)
+            score = classifier(value, truncation=True)[0]
             # print(score)
-            absolute = 1 if score['LABEL_1'] > 0.5 else 0 
-            local = score['LABEL_1']
+            absolute = 1 if score['score'] > 0.5 else 0
+            local = score['score']
             # print(absolute, local)
         
-            result[key]={
+            result[key]={ "values":{
                          "absolute": round(absolute,3),   
-                         "local_normalisation": round(local,3),
-                         "global_normalisation": None,
-                        }
+                         "local": round(local,3),
+                         "global": None,
+                        }}
         return result
 
 class Flame_it():
@@ -77,23 +77,25 @@ class Flame_it():
             @param title: str: string containing the title of a news
             @param content: str: string containing the textual content of a news
         output:
-            - dictionary of the prediction: the absolute value = 1/0, local_normalisation = logit coming from sigmoid function, global_normalisation = None
+            - dictionary of the prediction: the absolute value = 1/0, local = logit coming from sigmoid function, global = None
         """
         classifier=self.__my_pipeline(self.language_model, self.flame_model)
+        result=dict()
 
+        features = {"title" : title, "content" : content}
         for key, value in features.items():
         
-            score = classifier(value, truncation=True)
+            score = classifier(value, truncation=True)[0]
             # print(score)
-            absolute = 1 if score['LABEL_1'] > 0.5 else 0 
-            local = score['LABEL_1']
+            absolute = 1 if score['score'] > 0.5 else 0
+            local = score['score']
             # print(absolute, local)
         
-            result[key]={
+            result[key]={ "values":{
                          "absolute": round(absolute,3),   
-                         "local_normalisation": round(local,3),
-                         "global_normalisation": None,
-                        }
+                         "local": round(local,3),
+                         "global": None,
+                        }}
         return result
 
 class Stereotype_it():
@@ -118,7 +120,7 @@ class Stereotype_it():
             @param title: str: string containing the title of a news
             @param content: str: string containing the textual content of a news
         output:
-            - dictionary of the prediction: the absolute value = 1/0, local_normalisation = logit coming from sigmoid function, global_normalisation = None
+            - dictionary of the prediction: the absolute value = 1/0, local = logit coming from sigmoid function, global = None
         """
         
         result=dict()
@@ -128,17 +130,17 @@ class Stereotype_it():
 
         for key, value in features.items():
         
-            score = classifier(value, truncation=True)
-            # print(score)
-            absolute = 1 if score['LABEL_1'] > 0.5 else 0 
-            local = score['LABEL_1']
+            score = classifier(value, truncation=True)[0]
+            #print(score)
+            absolute = 1 if score['score'] > 0.5 else 0
+            local = score['score']
             # print(absolute, local)
         
-            result[key]={
+            result[key]= { "values":{
                          "absolute": round(absolute,3),   
-                         "local_normalisation": round(local,3),
-                         "global_normalisation": None,
-                        }
+                         "local": round(local,3),
+                         "global": None,
+                        }}
         return result
 
 if __name__ == '__main__':
