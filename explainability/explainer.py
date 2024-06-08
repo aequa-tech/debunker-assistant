@@ -21,6 +21,7 @@ class Explainer:
             self.flame_model = 'facebook/roberta-hate-speech-dynabench-r4-target'
             self.irony_model = 'cardiffnlp/twitter-roberta-base-irony'
             self.stereotype_model = 'aequa-tech/stereotype-it'
+            self.stereotype_model = 'cardiffnlp/twitter-roberta-base-irony' #da sistemare
             self.danger = ['flame', 'irony', 'stereotype']
         else:
             self.sentiment_model = 'neuraly/bert-base-italian-cased-sentiment'
@@ -40,8 +41,8 @@ class Explainer:
         return classifier
 
     def __max(self, data,label):
+        label=1 #da rivedere
         max = np.max(data[:,:,label].values)
-        #print(data[:,:,label])
         index = np.where(data[:,:,label].values == max)[1][0]
         word = np.take(data[:,:,label].data, index)
         return word.strip(), max
@@ -63,8 +64,11 @@ class Explainer:
             print(type(value),model)
             classifier = self.__my_pipeline(model)
             results = classifier(value,truncation=True)
-            print(results)
-            print(classifier)
+
+            #classifier.model.config.label2id=classifier.model.config.id2label.copy()
+            #print(results)
+            classifier.model.config.label2id={v: k for k, v in enumerate([x['label'] for x in results[0]])}
+            #classifier.model.config.id2label.update({k: v for k, v in enumerate([x['label'] for x in results[0]])})
 
             shap_model = shap.models.TransformersPipeline(classifier, rescale_to_logits=False)
             explainer = shap.Explainer(shap_model)
@@ -105,7 +109,7 @@ class Explainer:
             model = self.irony_model
 
         explaination = self.__explaination( model,title,content)
-        result = self.__extract_word(explaination,'LABEL_1')
+        result = self.__extract_word(explaination,phenomena)
         
         return result
 
@@ -136,7 +140,7 @@ class Affective:
 class Danger:
     def __init__(self):
         self.darget_explanation_it = Explainer("it")
-        self.darget_explanation = Explainer("en")
+        self.darget_explanation_en = Explainer("en")
 
 
     def danger_explanation(self,title, content, language):
@@ -146,7 +150,7 @@ class Danger:
                 sent = self.darget_explanation_it.get_danger(title, content, item)
                 d[item] = sent
             else:
-                sent = self.darget_explanation.get_danger(title, content, item)
+                sent = self.darget_explanation_en.get_danger(title, content, item)
                 d[item] = sent
         return d
         
