@@ -3,6 +3,7 @@ from functools import lru_cache
 from transformers import pipeline, AutoTokenizer
 import shap
 import numpy as np
+from transformers import pipeline
 
 class Explainer:
     """
@@ -94,7 +95,7 @@ class Explainer:
         else:
             model = self.affective_model
 
-        explaination = self.__explaination( model,title)
+        explaination = self.__explaination( model,title,content)
         result = self.__extract_word(explaination,phenomena)
         
         return result
@@ -158,7 +159,15 @@ class Danger:
 
 
 if __name__ == "__main__":
+
+    from transformers import pipeline
+
+    pipe = pipeline("text-classification", model="aequa-tech/irony-it")
+
     explainer_danger=Danger()
-    result=explainer_danger.danger_explanation("questo è un titolo di prova","prova","en")
+    result=explainer_danger.danger_explanation("questo è un titolo di prova","prova","it")
+    print(result)
+    explainer_affective=Affective()
+    result=explainer_affective.affective_explanation("questo è un titolo di prova","prova","it")
     print(result)
 

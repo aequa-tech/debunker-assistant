@@ -118,6 +118,9 @@ async def api_scrape(inputUrl   : str = None,
         message = 'bad request'
         return response(content=message,status_code=status.HTTP_400_BAD_REQUEST)
 
+    if maxChars is None or not isinstance(maxChars, int):
+        maxChars=10000
+
     hash_id = hashlib.md5(inputUrl.encode('utf-8')).hexdigest()
 
     #inizio memorizzazione la richiesta:
@@ -165,6 +168,7 @@ async def api_scrape(inputUrl   : str = None,
         webScraper=News()
         result=webScraper.get_news_from_url(inputUrl)
         jsonResult=json.loads(result)
+        print(result)
 
         if jsonResult['status'] == 200:
             url_model = Urls()
@@ -350,10 +354,10 @@ async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: S
     url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
     result={}
 
-    descriptions= {"en": f"Aggregation of {group.replace('_',' ')} features.",
-                    "it": "descrizione in italiano"}
+    #descriptions= {"en": f"Aggregation of {group.replace('_',' ')} features.",
+    #                "it": "descrizione in italiano"}
 
-    result["description"]=descriptions[language]
+    #result["description"]=descriptions[language]
 
     if url_object is not None:
         if group in apis.keys():
@@ -380,8 +384,8 @@ async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: S
                 overall_content = []
                 result['disaggregated']={}
                 for key, value in apis[group].items():
-                    res = value(language,url_object.title,url_object.content)
                     print(key, value)
+                    res = value(language,url_object.title,url_object.content)
                     print(res)
                     overall_title.append(res['title']['values']['local'])
                     overall_content.append(res['content']['values']['local'])
@@ -534,7 +538,7 @@ scheduler.start()
 """
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=8080) #10.12.0.3
+    uvicorn.run(app, host="10.12.03", port=8080) #10.12.0.3
 
 
 

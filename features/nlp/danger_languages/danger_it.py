@@ -23,7 +23,7 @@ class Irony_it():
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
         tokenizer = AutoTokenizer.from_pretrained(language_model) 
-        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer)
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True)
         return classifier
    
     def get_irony(self, title: str, content: str):
@@ -41,8 +41,8 @@ class Irony_it():
         classifier=self.__my_pipeline(self.language_model, self.irony_model)
 
         for key, value in features.items():
-        
-            score = classifier(value, truncation=True)[0]
+            print(key,value)
+            score = classifier(value, truncation=True,  max_length=256)[0]
             # print(score)
             absolute = 1 if score['score'] > 0.5 else 0
             local = score['score']
@@ -68,7 +68,7 @@ class Flame_it():
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
         tokenizer = AutoTokenizer.from_pretrained(language_model) 
-        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer)
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True)
         return classifier
         
     def get_flame(self, title: str, content: str):
@@ -111,7 +111,7 @@ class Stereotype_it():
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
         tokenizer = AutoTokenizer.from_pretrained(language_model) 
-        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer)
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True)
         return classifier
         
     def get_stereotype(self,  title: str, content: str):

@@ -13,7 +13,7 @@ class Sentiment_en():
 
     @lru_cache(maxsize=32)
     def __my_pipeline(self, model_name):
-        classifier = pipeline("text-classification", model_name)
+        classifier = pipeline("text-classification", model_name,max_length=512, truncation=True)
         return classifier
 
     @lru_cache(maxsize=32)
@@ -44,10 +44,10 @@ class Sentiment_en():
         classifier = self.__my_pipeline(self.model_name)
         
         for key, value in features.items():
-            # print(value)
+            print(value)
             results = classifier(value, truncation=True)
             # results = classifier(value)
-            # print(key, results)
+            print(key, results)
             positivity = 0.0
             negativity = 0.0
             negativity_absolute = 0

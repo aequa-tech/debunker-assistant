@@ -23,7 +23,7 @@ class Irony_en():
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
         tokenizer = AutoTokenizer.from_pretrained(language_model) 
-        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer)
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True)
         return classifier
    
     def get_irony(self, title: str, content: str):
@@ -69,7 +69,7 @@ class Flame_en():
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
         tokenizer = AutoTokenizer.from_pretrained(language_model) 
-        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer)
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True)
         return classifier
         
     def get_flame(self, title: str, content: str):
@@ -114,7 +114,7 @@ class Stereotype_en():
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
         tokenizer = AutoTokenizer.from_pretrained(language_model) 
-        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer)
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True)
         return classifier
         
     def get_stereotype(self,  title: str, content: str):
