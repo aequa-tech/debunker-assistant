@@ -111,9 +111,8 @@ async def api_scrape(inputUrl   : str = None,
                      maxRetries : str = 5,
                      timeout    : str = 10,
                      maxChars   : str = 10000,
-                 db: Session = Depends(get_db),
-                 response = Response):
-
+                 db: Session = Depends(get_db)):
+    response = Response
     if inputUrl is None:
         message = 'bad request'
         return response(content=message,status_code=status.HTTP_400_BAD_REQUEST)
@@ -277,8 +276,9 @@ async def api_scrape(inputUrl   : str = None,
          all the features that contribute to determine them (eg: the presence of exclamation marks in a title).""")
 async def article_evaluation (language : str = "en",
                  request_id   : str = None,
-                 db: Session = Depends(get_db),
-                 response = Response):
+                 db: Session = Depends(get_db)):
+    
+    response = Response
 
     #inizio memorizzazione la richiesta:
     """potremmo pensare di salvare anche l'IP del richiedente"""
@@ -309,7 +309,7 @@ async def article_evaluation (language : str = "en",
     #fine verifica se l'articolo è già in db
 
 
-    content={"analysisId": request_id, #per ora ho messo lo stesso di request_id
+    content={"analysis_id": request_id, #per ora ho messo lo stesso di request_id
               "informalStyle": await getGeneralAggregateAPIs(language,"informalStyle",request_id,db),
               "readability":  await getGeneralAggregateAPIs(language,"readability",request_id,db),
               "clickBait":  await getGeneralAggregateAPIs(language,"clickBait",request_id,db),
@@ -327,8 +327,9 @@ async def article_evaluation (language : str = "en",
 @app.get(basePath+"explanations",status_code=status.HTTP_200_OK,description="""the output of these api is an explanation related to
           a given set of predictions. With explanation we mean the piece of text that contributes the most to the classification""")
 async def explanation(analysis_id : str, explanation_type : str, language : str = "en",
-                      db: Session = Depends(get_db),
-                      response = Response):
+                      db: Session = Depends(get_db)
+                      ):
+    response = Response
     ### how to get the evaluation_id from the db?
     request=Requests()
     request.request_id=analysis_id

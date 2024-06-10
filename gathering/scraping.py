@@ -119,5 +119,12 @@ class Scraper:
         #    return 500, str(e)
     
 
+class FastScraping:
 
+    def __init__(self):
+        pass
+
+    def scrape_news(self,news:str):
+        
+        return news
 

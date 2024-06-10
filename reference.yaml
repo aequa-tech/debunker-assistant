@@ -41,7 +41,7 @@ paths:
           content: 
             application/json:
               schema: 
-                $ref: "#/components/schemas/id"
+                $ref: "#/components/schemas/scrapeOutput"
       
         "400":
           $ref: "#/components/responses/badRequest"
@@ -75,7 +75,7 @@ paths:
       operationId: getEvaluation
       
       parameters:
-        - $ref: "#/components/parameters/myRequestId"
+        - $ref: "#/components/parameters/request_id"
       
       security: 
         -  BasicAuth: []
@@ -166,6 +166,12 @@ components:
     id:
       type: string
       description: an unique id used for handling next APIs requests
+
+    scrapeOutput:
+      type: object
+      properties: 
+        request_id: 
+          $ref: "#/components/schemas/id"
     
     language:
       description: the language of the article that you want to analyze. Actually you can choose between Italian (it) and English (en)
@@ -724,12 +730,6 @@ components:
           schema: 
             $ref: "#/components/schemas/statusMessage"
     
-    partialContent:
-      description: only part of the request is retrieved
-      content: 
-        text/html:
-          schema: 
-            $ref: "#/components/schemas/statusMessage"
               
     unauthorized:
       description: There was a problem authenticating your request.
@@ -767,6 +767,8 @@ components:
             $ref: "#/components/schemas/statusMessage"
     
     
+    
+    
 
   parameters:
     inputUrl:
@@ -776,7 +778,7 @@ components:
       schema:
         $ref: "#/components/schemas/basicUrl"
 
-    myRequestId:
+    request_id:
       name: id
       in: query
       required: true
