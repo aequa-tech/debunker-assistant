@@ -23,7 +23,7 @@ class Irony_it():
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
         tokenizer = AutoTokenizer.from_pretrained(language_model) 
-        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True)
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True, top_k=None)
         return classifier
    
     def get_irony(self, title: str, content: str):
@@ -41,15 +41,20 @@ class Irony_it():
         classifier=self.__my_pipeline(self.language_model, self.irony_model)
 
         for key, value in features.items():
-            print(key,value)
+            # print(key,value)
             score = classifier(value, truncation=True,  max_length=256)[0]
-            # print(score)
-            absolute = 1 if score['score'] > 0.5 else 0
-            local = score['score']
+            absolute = 0
+            local = 0.0
+            
+            for i in score:
+              if i['label'] == 'LABEL_1':
+                print(i)
+                absolute = 1 if i['score'] > 0.5 else 0
+                local = i['score']
             # print(absolute, local)
         
             result[key]={ "values":{
-                         "absolute": round(absolute,3),   
+                         "absolute": absolute,   
                          "local": round(local,3),
                          "global": None,
                         }}
@@ -68,7 +73,7 @@ class Flame_it():
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
         tokenizer = AutoTokenizer.from_pretrained(language_model) 
-        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True)
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True, top_k=None)
         return classifier
         
     def get_flame(self, title: str, content: str):
@@ -86,13 +91,18 @@ class Flame_it():
         for key, value in features.items():
         
             score = classifier(value, truncation=True)[0]
-            # print(score)
-            absolute = 1 if score['score'] > 0.5 else 0
-            local = score['score']
+            absolute = 0
+            local = 0.0
+            
+            for i in score:
+              if i['label'] == 'LABEL_1':
+                print(i)
+                absolute = 1 if i['score'] > 0.5 else 0
+                local = i['score']
             # print(absolute, local)
         
             result[key]={ "values":{
-                         "absolute": round(absolute,3),   
+                         "absolute": absolute,   
                          "local": round(local,3),
                          "global": None,
                         }}
@@ -111,7 +121,7 @@ class Stereotype_it():
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
         tokenizer = AutoTokenizer.from_pretrained(language_model) 
-        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True)
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True, top_k=None)
         return classifier
         
     def get_stereotype(self,  title: str, content: str):
@@ -131,27 +141,19 @@ class Stereotype_it():
         for key, value in features.items():
         
             score = classifier(value, truncation=True)[0]
-            #print(score)
-            absolute = 1 if score['score'] > 0.5 else 0
-            local = score['score']
+            absolute = 0
+            local = 0.0
+            
+            for i in score:
+              if i['label'] == 'LABEL_1':
+                print(i)
+                absolute = 1 if i['score'] > 0.5 else 0
+                local = i['score']
             # print(absolute, local)
         
             result[key]= { "values":{
-                         "absolute": round(absolute,3),   
+                         "absolute": absolute,   
                          "local": round(local,3),
                          "global": None,
                         }}
         return result
-
-if __name__ == '__main__':
-    irony = Irony_it()
-    flame = Flame_it()
-    stereotype = Stereotype_it()
-
-    txt = "io sono io"
-    c = 'domani li sento'
-    print(irony.get_irony(txt, c))
-
-
-   # ...
-
