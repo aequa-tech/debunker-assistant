@@ -122,7 +122,7 @@ paths:
       operationId: getExplanation
       
       parameters: 
-        - $ref: "#/components/parameters/analysisId"
+        - $ref: "#/components/parameters/analysis_id"
         - $ref: "#/components/parameters/explanationType"
       
       security: 
@@ -584,7 +584,7 @@ components:
       type: object
       description: description
       properties: 
-        analysisId:
+        analysis_id:
           $ref: "#/components/schemas/id"
         informalStyle:
           $ref: "#/components/schemas/informalStyle"
@@ -820,7 +820,7 @@ components:
       schema: 
         $ref: "#/components/schemas/charLimit"
     
-    analysisId:
+    analysis_id:
       name: analysis-id
       in: query
       required: true
