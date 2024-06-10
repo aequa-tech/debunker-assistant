@@ -13,7 +13,7 @@ class Sentiment_en():
 
     @lru_cache(maxsize=32)
     def __my_pipeline(self, model_name):
-        classifier = pipeline("text-classification", model_name,max_length=512, truncation=True)
+        classifier = pipeline("text-classification", model_name, max_length=512, truncation=True)
         return classifier
 
     @lru_cache(maxsize=32)
@@ -38,16 +38,12 @@ class Sentiment_en():
         }
 
         features = {"title": title, "content": content}
-        # classifier= pipeline("text-classification", self.model_name)
-        # classifier=self.__my_pipeline(self.model_name)
-
         classifier = self.__my_pipeline(self.model_name)
         
         for key, value in features.items():
-            print(value)
+            # print(value)
             results = classifier(value, truncation=True)
-            # results = classifier(value)
-            print(key, results)
+            # print(key, results)
             positivity = 0.0
             negativity = 0.0
             negativity_absolute = 0
@@ -115,7 +111,6 @@ class Emotion_en():
 
     def __init__(self):
         self.model_name = "j-hartmann/emotion-english-distilroberta-base"
-        # self.classifier = pipeline("text-classification", self.model_name)
 
     @lru_cache(maxsize=32)
     def my_pipeline(self, model_name):
@@ -153,9 +148,8 @@ class Emotion_en():
         }
 
         features = {"title": title, "content": content}
-        # classifier=self.my_pipeline(self.model_name)
-        # classifier = pipeline("text-classification", self.model_name)
         classifier = self.my_pipeline(self.model_name)
+
         for key, value in features.items():
             results = classifier(value, max_length=512, truncation=True)
             joy = 0.0
@@ -166,8 +160,8 @@ class Emotion_en():
             sadness_absolute = 0
             fear_absolute = 0
             anger_absolute = 0
+            
             if results[0]['label'] == 'joy':
-
                 joy = (results[0]['score'] + 1 ) / (1 + 1)
                 joy_absolute = 1 if results[0]['score'] >= 0.5 else 0
             if results[0]['label'] == 'sadness':
@@ -252,8 +246,4 @@ class Emotion_en():
     def get_emotion_anger(self, title, content):
 
         return self.__get_emotion(title, content, phenomena="anger")
-
-
-if __name__ == '__main__':
-    ...
 
