@@ -23,7 +23,7 @@ class Irony_en():
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
         tokenizer = AutoTokenizer.from_pretrained(language_model) 
-        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True)
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True, top_k = None)
         return classifier
    
     def get_irony(self, title: str, content: str):
@@ -44,13 +44,18 @@ class Irony_en():
         for key, value in features.items():
         
             score = classifier(value, truncation=True)[0]
-            print(score)
-            absolute = 1 if score['score'] > 0.5 else 0
-            local = score['score']
+            absolute = 0
+            local = 0.0
+
+            for i in score:
+              if i['label'] == 'irony':
+                # print(i)
+                absolute = 1 if i['score'] > 0.5 else 0
+                local = i['score']
             # print(absolute, local)
         
             result[key]={ "values": {
-                         "absolute": round(absolute,3),   
+                         "absolute": absolute,   
                          "local": round(local,3),
                          "global": None,
                         }}
@@ -69,7 +74,7 @@ class Flame_en():
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
         tokenizer = AutoTokenizer.from_pretrained(language_model) 
-        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True)
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True, top_k = None)
         return classifier
         
     def get_flame(self, title: str, content: str):
@@ -87,13 +92,17 @@ class Flame_en():
         for key, value in features.items():
         
             score = classifier(value, truncation=True)[0]
-            print(score)
-            absolute = 1 if score['score'] > 0.5 else 0
-            local = score['score']
-            # print(absolute, local)
+            absolute = 0
+            local = 0.0
+            
+            for i in score:
+              if i['label'] == 'hate':
+                # print(i)
+                absolute = 1 if i['score'] > 0.5 else 0
+                local = i['score']
         
             result[key]={ "values": {
-                         "absolute": round(absolute,3),   
+                         "absolute": absolute,   
                          "local": round(local,3),
                          "global": None,
                         }}
@@ -114,7 +123,7 @@ class Stereotype_en():
     @lru_cache(maxsize=32)
     def __my_pipeline(self, language_model, model_name):
         tokenizer = AutoTokenizer.from_pretrained(language_model) 
-        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer,max_length=512, truncation=True)
+        classifier = pipeline("text-classification", model=model_name, tokenizer=tokenizer, max_length=512, truncation=True, top_k = None)
         return classifier
         
     def get_stereotype(self,  title: str, content: str):
@@ -134,15 +143,19 @@ class Stereotype_en():
         for key, value in features.items():
         
             score = classifier(value, truncation=True)[0]
-            print(score)
-            absolute = 1 if score['score'] > 0.5 else 0
-            local = score['score']
+            absolute = 0
+            local = 0.0
+            
+            for i in score:
+              if i['label'] == 'LABEL_1':
+                print(i)
+                absolute = 1 if i['score'] > 0.5 else 0
+                local = i['score']
             # print(absolute, local)
         
             result[key]={ "values": {
-                         "absolute": round(absolute,3),   
+                         "absolute": absolute,   
                          "local": round(local,3),
                          "global": None,
                         }}
         return result
-        
