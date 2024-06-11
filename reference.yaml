@@ -442,7 +442,7 @@ components:
       type: object
       description: description
       properties:
-        title:
+        values:
           $ref: "#/components/schemas/evaluationOutput"
 
     informalFeatures:
