@@ -628,11 +628,11 @@ components:
     explanationDanger:
       description: all the explanations of dangerous features
       properties:
-        explanationFlame:
+        flame:
           $ref: "#/components/schemas/explanationFlame"
-        explanationStereotype:
+        stereotype:
           $ref: "#/components/schemas/explanationStereotype"
-        explanationIrony:
+        irony:
           $ref: "#/components/schemas/explanationIrony"
 
     explanationAnger:
