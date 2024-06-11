@@ -354,6 +354,8 @@ components:
       properties:
         title:
           $ref: "#/components/schemas/evaluationOutput"
+        content:
+          $ref: "#/components/schemas/evaluationOutput"
 
     negativeSentiment:
       type: object
