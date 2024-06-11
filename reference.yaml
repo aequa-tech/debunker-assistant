@@ -715,9 +715,9 @@ components:
         explanation-type:
           type: string
           enum:
-            - affectiveStyle
-            - dangerousStyle
-            - networkAnalysis
+            - explanationAffective
+            - explanationDanger
+            - explanationNetworkAnalysis
 
     statusMessage:
       type: string
