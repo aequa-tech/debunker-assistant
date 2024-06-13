@@ -215,17 +215,27 @@ components:
       description: a score associated to a feature in the range 0-1
       minimum: 0
       maximum: 1
+    
+    scoreTypeNull:
+      type: "null"
 
     evaluationOutput:
       type: object
       description: the structure of a response as it is returned to the user
       properties:
         absolute:
-          $ref: "#/components/schemas/categoricalValue"
+          oneOf:
+            - $ref: "#/components/schemas/categoricalValue"
+            - $ref: "#/components/schemas/scoreTypeNull"
         local:
-          $ref: "#/components/schemas/scoreType1"
+          oneOf:
+            - $ref: "#/components/schemas/categoricalValue"
+            - $ref: "#/components/schemas/scoreTypeNull"
         global:
-          $ref: "#/components/schemas/scoreType1"
+          oneOf:
+            - $ref: "#/components/schemas/categoricalValue"
+            - $ref: "#/components/schemas/scoreTypeNull"
+
 
     token:
       type: string
