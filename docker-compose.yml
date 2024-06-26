@@ -4,7 +4,10 @@
 version: '3'
 services:
   debunker:
-    #container_name: debunker
+    container_name: debunker-assistant
+    environment:
+      - DEBUNKER_USERNAME=debunker-username
+      - DEBUNKER_PASSWORD=debunker-password
     build: '.'
     restart: always
     ports:
@@ -28,6 +31,7 @@ networks:
   static-network:
     driver: bridge
     ipam:
+      driver: default
       config:
         - subnet: 10.12.0.0/16
           gateway: 10.12.0.1

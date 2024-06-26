@@ -1,6 +1,14 @@
-import numpy as np
+# import debugpy
+# debugpy.listen(("0.0.0.0", 5678))
+
+import os
 import uvicorn
-from fastapi import FastAPI, Depends, Response, status
+
+import secrets
+from typing import Annotated
+
+from fastapi import FastAPI, Depends, Response, status, HTTPException
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.middleware.cors import CORSMiddleware
 
 from database import engine, Base, Urls, get_db, Requests
@@ -32,6 +40,7 @@ from explainability.explainer import Affective,Danger
 basePath="/internal/v1/"
 
 app = FastAPI()
+security = HTTPBasic()
 origins = ["*"]
 
 app.add_middleware(
@@ -103,15 +112,39 @@ apis = {
     }
 }
 
+def basic_auth(credentials: Annotated[HTTPBasicCredentials, Depends(security)]):
+    current_username = credentials.username.encode('utf8')
+    correct_username = os.getenv("DEBUNKER_USERNAME").encode('utf8')
+    is_correct_username = secrets.compare_digest(current_username, correct_username)
+
+    current_password = credentials.password.encode('utf8')
+    correct_password = os.getenv("DEBUNKER_PASSWORD").encode('utf8')
+    is_correct_password = secrets.compare_digest(current_password, correct_password)
+
+    if not (is_correct_username and is_correct_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Unauthorized",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    return True
+
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request, exc):
+    if exc.status_code == 401:
+        return Response(content='Unauthorized', status_code=exc.status_code)
+    else:
+        return Response(content=str(exc.detail), status_code=exc.status_code)
 
 @app.post(basePath+"scrape",status_code=status.HTTP_200_OK,description='retrieve the title and the body of an article')
-async def api_scrape(inputUrl   : str = None,
-                     language   : str = "en",
-                     retry      : str = False,
-                     maxRetries : str = 5,
-                     timeout    : str = 10,
-                     maxChars   : str = 10000,
-                 db: Session = Depends(get_db)):
+async def api_scrape(authorized: Annotated[bool, Depends(basic_auth)],
+                     inputUrl: str = None,
+                     language: str = "en",
+                     retry: str = False,
+                     maxRetries: str = 5,
+                     timeout: str = 10,
+                     maxChars: str = 10000,
+                     db: Session = Depends(get_db)):
     response = Response
     if inputUrl is None:
         message = 'bad request'
@@ -146,7 +179,6 @@ async def api_scrape(inputUrl   : str = None,
         return response(content=message, status_code=status.HTTP_400_BAD_REQUEST,media_type='text')
 
 
-    
     #fine verifica dei parametri
 
 
@@ -161,7 +193,7 @@ async def api_scrape(inputUrl   : str = None,
 
 
         return response(content=json.dumps(result),status_code=status.HTTP_200_OK)
-    
+
     #caso 2: l'articolo non è in db, è necessario recuperarlo
     else:
         webScraper=News()
@@ -183,23 +215,22 @@ async def api_scrape(inputUrl   : str = None,
             result = {'request_id':url_model.request_id,
                         }
 
-
             return response(content=json.dumps(result),status_code=status.HTTP_200_OK)
-    
+
         else:
             message = "we didn't find the page that you requested"
             return response(content=message,status_code=status.HTTP_400_BAD_REQUEST)
 
 
-
 @app.post(basePath+"internal/scrape")
-async def api_scrape(inputUrl   : str = None,
-                     language   : str = "en",
-                     retry      : str = None,
-                     maxRetries : str = None,
-                     timeout    : str = None,
-                     maxChars   : str = None,
-                 db: Session = Depends(get_db)):
+async def api_scrape(authorized: Annotated[bool, Depends(basic_auth)],
+                     inputUrl: str = None,
+                     language: str = "en",
+                     retry: str = None,
+                     maxRetries: str = None,
+                     timeout: str = None,
+                     maxChars: str = None,
+                     db: Session = Depends(get_db)):
 
     if inputUrl is None:
         return {'status': 400}
@@ -270,14 +301,14 @@ async def api_scrape(inputUrl   : str = None,
         return  jsonResult
 
 
-
-@app.get(basePath+"evaluation",status_code=status.HTTP_200_OK,description="""the output of this API call is a json in which 
-         outputs are organized in three levels. It is possible to find all dimensions of evaluation (eg: 'informal style') and 
+@app.get(basePath+"evaluation",status_code=status.HTTP_200_OK,description="""the output of this API call is a json in which
+         outputs are organized in three levels. It is possible to find all dimensions of evaluation (eg: 'informal style') and
          all the features that contribute to determine them (eg: the presence of exclamation marks in a title).""")
-async def article_evaluation (language : str = "en",
-                 request_id   : str = None,
-                 db: Session = Depends(get_db)):
-    
+async def article_evaluation (authorized: Annotated[bool, Depends(basic_auth)],
+                              language: str = "en",
+                              request_id: str = None,
+                              db: Session = Depends(get_db)):
+
     response = Response
 
     #inizio memorizzazione la richiesta:
@@ -299,7 +330,6 @@ async def article_evaluation (language : str = "en",
         message = "bad request"
         return response(content=message,status_code=status.HTTP_400_BAD_REQUEST)
     #fine verifica dei parametri
-
 
     #inizio verifica se l'articolo è già in db
     url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
@@ -326,10 +356,13 @@ async def article_evaluation (language : str = "en",
 
 @app.get(basePath+"explanations",status_code=status.HTTP_200_OK,description="""the output of these api is an explanation related to
           a given set of predictions. With explanation we mean the piece of text that contributes the most to the classification""")
-async def explanation(analysis_id : str, explanation_type : str, language : str = "en",
-                      db: Session = Depends(get_db)
-                      ):
+async def explanation(authorized: Annotated[bool, Depends(basic_auth)],
+                      analysis_id: str,
+                      explanation_type: str,
+                      language: str = "en",
+                      db: Session = Depends(get_db)):
     response = Response
+
     ### how to get the evaluation_id from the db?
     request=Requests()
     request.request_id=analysis_id
@@ -346,12 +379,16 @@ async def explanation(analysis_id : str, explanation_type : str, language : str 
     elif explanation_type == 'explanationAffective':
         content = apis['explanations'][explanation_type](title, content, language)
     else:
-        return response(content="Avaluation type not available",status_code=status.HTTP_200_OK)
+        return response(content="Explanation type not available",status_code=status.HTTP_200_OK)
 
     return response(content=json.dumps(content))
 
 @app.get(basePath+"{language}/{group}/{request_id}")
-async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: Session = Depends(get_db)):
+async def getGeneralAggregateAPIs(language,
+                                  group: str,
+                                  request_id: str,
+                                  db: Session = Depends(get_db)):
+
     url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
     result={}
 
@@ -405,7 +442,11 @@ async def getGeneralAggregateAPIs(language, group : str, request_id : str, db: S
         return {'status':400,'message':'request_id not available. Recover the content of the url by /api/v2/scrape first.'}
 
 @app.get(basePath+"{language}/{group}/{phenomenon}/{request_id}")
-async def getGeneralAPI(language,group : str, phenomenon : str, request_id : str, db: Session = Depends(get_db)):
+async def getGeneralAPI(language,
+                        group: str,
+                        phenomenon: str,
+                        request_id: str,
+                        db: Session = Depends(get_db)):
 
     if group in apis.keys():
 
@@ -539,7 +580,4 @@ scheduler.start()
 """
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="10.12.03", port=8080) #10.12.0.3
-
-
-
+    uvicorn.run(app, host="10.12.0.3", port=8080) #10.12.0.3
