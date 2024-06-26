@@ -3,7 +3,6 @@
 # Builder
 version: '3'
 services:
-
   debunker:
     container_name: debunker-assistant
     environment:
@@ -13,19 +12,19 @@ services:
     restart: always
     ports:
      - '8080:8080'
-    #  - '5678:5678'
+     - '5678:5678'
     networks:
       static-network:
         ipv4_address: 10.12.0.3
     tty: true
     stdin_open: true
   chrome:
-   container_name: debunker-chrome
-   image: selenium/standalone-chrome:85.0
-   hostname: chrome
-   ports:
+    container_name: debunker-chrome
+    image: seleniarm/standalone-chromium
+    hostname: chrome
+    ports:
       - "4444:4444"
-   networks:
+    networks:
       static-network:
         ipv4_address: 10.12.0.4
 networks:
