@@ -2,7 +2,7 @@ db:
   dbname_it: debunker_italian_sites
   dbname_en: debunker_english_sites
   user: aequa
-  password: L4K3Rb0st0n
+  password: ''
   host: localhost
   port: 5432
 
