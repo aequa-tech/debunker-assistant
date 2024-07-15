@@ -42,10 +42,11 @@ class Explainer:
         return classifier
 
     def __max(self, data,label):
-        label=1 #da rivedere
+        label = 1 #da rivedere (al momento funziona solo con i classificatori binari dei modelli aequa-tech)
         max = np.max(data[:,:,label].values)
         index = np.where(data[:,:,label].values == max)[1][0]
         word = np.take(data[:,:,label].data, index)
+        print('\n-->', index, max, word)
         return word.strip(), max
     
     @lru_cache(maxsize=32)
@@ -61,19 +62,19 @@ class Explainer:
         features = {"title" : title}#"content" : content}
         
         for key, value in features.items():
-            print(value)
-            print(type(value),model)
+            value = value.strip()
             classifier = self.__my_pipeline(model)
             results = classifier(value,truncation=True)
+            print(results, '\n')
 
             #classifier.model.config.label2id=classifier.model.config.id2label.copy()
-            #print(results)
-            classifier.model.config.label2id={v: k for k, v in enumerate([x['label'] for x in results[0]])}
+            classifier.model.config.label2id={v: k for k, v in enumerate([x['label'] for x in results[0]])} #da rivedere (al momento funziona solo con i classificatori binari dei modelli aequa-tech)
             #classifier.model.config.id2label.update({k: v for k, v in enumerate([x['label'] for x in results[0]])})
 
             shap_model = shap.models.TransformersPipeline(classifier, rescale_to_logits=False)
             explainer = shap.Explainer(shap_model)
             shap_values = explainer([value])
+            print('**', shap_values)
 
         return shap_values
     
@@ -162,12 +163,10 @@ if __name__ == "__main__":
 
     from transformers import pipeline
 
-    pipe = pipeline("text-classification", model="aequa-tech/irony-it")
-
     explainer_danger=Danger()
     result=explainer_danger.danger_explanation("questo è un titolo di prova","prova","it")
     print(result)
     explainer_affective=Affective()
-    result=explainer_affective.affective_explanation("questo è un titolo di prova","prova","it")
+    result=explainer_affective.affective_explanation("questo è un titolo di prova","prova","en")
     print(result)
 
