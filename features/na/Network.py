@@ -1,11 +1,14 @@
-from database import DomainsLabelDistribution
+from database import DomainsLabelDistribution, get_db
+from fastapi import Dependse
+from sqlalchemy.orm import Session
+
 import tldextract
 
 
 class Network():
 
 
-    def get_backpropagation_untrustability(self, url, db):
+    def get_backpropagation_untrustability(self, url, db: Session = Depends(get_db)):
 
         domain=tldextract.extract(url).registered_domain
         labelDistribution=db.query(DomainsLabelDistribution).filter(DomainsLabelDistribution.domain == domain).first()
@@ -19,5 +22,3 @@ class Network():
 
         else:
             None
-
-

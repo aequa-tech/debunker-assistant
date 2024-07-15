@@ -155,22 +155,12 @@ async def api_scrape(authorized: Annotated[bool, Depends(basic_auth)],
 
     hash_id = hashlib.md5(inputUrl.encode('utf-8')).hexdigest()
 
-    #inizio memorizzazione la richiesta:
-    """potremmo pensare di salvare anche l'IP del richiedente"""
     request=Requests()
     request.request_id=hash_id
     request.api="scrape"
     request.timestamp=datetime.now()
     db.add(request)
     db.commit()
-    #fine memorizzazione della richiests
-
-    #inizio verifica dei parametri:
-    """dobbiamo:
-    - verificare che i paramentri obbligatori siano presenti
-    - verificare che i valori siano ammissibili
-    - scrivere dei messaggi d'errore a seconda del parametro mancante o con valori non ammessi"""
-
 
     if language is None:
         language="en"
@@ -178,20 +168,13 @@ async def api_scrape(authorized: Annotated[bool, Depends(basic_auth)],
         message = "bad request"
         return response(content=message, status_code=status.HTTP_400_BAD_REQUEST,media_type='text')
 
-
-    #fine verifica dei parametri
-
-
     #inizio verifica se l'articolo è già in db
     url_object=db.query(Urls).filter(Urls.request_id == hash_id).first()
 
     #caso 1: l'articolo è già in db
     if url_object is not None:
 
-        result = {'request_id':url_object.request_id,
-                        }
-
-
+        result = {'request_id':url_object.request_id}
         return response(content=json.dumps(result),status_code=status.HTTP_200_OK)
 
     #caso 2: l'articolo non è in db, è necessario recuperarlo
@@ -223,7 +206,7 @@ async def api_scrape(authorized: Annotated[bool, Depends(basic_auth)],
 
 
 @app.post(basePath+"internal/scrape")
-async def api_scrape(authorized: Annotated[bool, Depends(basic_auth)],
+async def internal_api_scrape(authorized: Annotated[bool, Depends(basic_auth)],
                      inputUrl: str = None,
                      language: str = "en",
                      retry: str = None,
@@ -311,41 +294,31 @@ async def article_evaluation (authorized: Annotated[bool, Depends(basic_auth)],
 
     response = Response
 
-    #inizio memorizzazione la richiesta:
-    """potremmo pensare di salvare anche l'IP del richiedente"""
     request=Requests()
     request.request_id=request_id
     request.api="evaluation"
     request.timestamp=datetime.now()
     db.add(request)
     db.commit()
-    #fine memorizzazione della richiests
 
-    #inizio verifica dei parametri:
-    """dobbiamo:
-    - verificare che i paramentri obbligatori siano presenti
-    - verificare che i valori siano ammissibili
-    - scrivere dei messaggi d'errore a seconda del parametro mancante o con valori non ammessi"""
     if request_id is None:
         message = "bad request"
         return response(content=message,status_code=status.HTTP_400_BAD_REQUEST)
-    #fine verifica dei parametri
 
-    #inizio verifica se l'articolo è già in db
     url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
     if url_object is None:
         message = 'forbidden request'
         return response(content=message,status_code=status.HTTP_403_FORBIDDEN)
-    #fine verifica se l'articolo è già in db
 
+    db.close()
 
     content={"analysis_id": request_id, #per ora ho messo lo stesso di request_id
-              "informalStyle": await getGeneralAggregateAPIs(language,"informalStyle",request_id,db),
-              "readability":  await getGeneralAggregateAPIs(language,"readability",request_id,db),
-              "clickBait":  await getGeneralAggregateAPIs(language,"clickBait",request_id,db),
-              "affectiveStyle":  await getGeneralAggregateAPIs(language,"affectiveStyle",request_id,db),
-              "dangerousStyle":  await getGeneralAggregateAPIs(language,"dangerousStyle",request_id,db),
-              "untrustability":  await getGeneralAggregateAPIs(language,"untrustability",request_id,db),
+              "informalStyle": getGeneralAggregateAPIs(language,"informalStyle",request_id),
+              "readability":  getGeneralAggregateAPIs(language,"readability",request_id),
+              "clickBait": getGeneralAggregateAPIs(language,"clickBait",request_id),
+              "affectiveStyle": getGeneralAggregateAPIs(language,"affectiveStyle",request_id),
+              "dangerousStyle": getGeneralAggregateAPIs(language,"dangerousStyle",request_id),
+              "untrustability": getGeneralAggregateAPIs(language,"untrustability",request_id),
             }
 
     if content['untrustability'] is None:
@@ -383,11 +356,10 @@ async def explanation(authorized: Annotated[bool, Depends(basic_auth)],
 
     return response(content=json.dumps(content))
 
-@app.get(basePath+"{language}/{group}/{request_id}")
-async def getGeneralAggregateAPIs(language,
-                                  group: str,
-                                  request_id: str,
-                                  db: Session = Depends(get_db)):
+def getGeneralAggregateAPIs(language,
+                            group: str,
+                            request_id: str,
+                            db: Session = Depends(get_db)):
 
     url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
     result={}
@@ -405,7 +377,7 @@ async def getGeneralAggregateAPIs(language,
                 overall   = []
                 result['disaggregated']={}
                 for key, value in apis[group].items():
-                    res = value(url_object.url,db)
+                    res = value(url_object.url)
                     if res is None:
                         return None
                     else:
@@ -454,7 +426,7 @@ async def getGeneralAPI(language,
 
             url_object = db.query(Urls).filter(Urls.request_id == request_id).first()
             if url_object is not None:
-                res = network.get_backpropagation_untrustability(url_object.url, db)
+                res = network.get_backpropagation_untrustability(url_object.url)
 
                 return res
 
@@ -472,112 +444,6 @@ async def getGeneralAPI(language,
 
         return {'status':500,'message':'Endpoint not available'}
 
-
-"""
-
-
-
-
-@app.get("/api/v2/report_url/{request_id}")
-async def getReportUrl(request_id : str, db: Session = Depends(get_db)):
-    url_object=db.query(Urls).filter(Urls.request_id == request_id).first()
-
-    if url_object is not None:
-        url_object.is_reported=1
-        db.commit()
-
-
-        return { 'status': 200, 'message': 'url has been successfully reported'}
-    else:
-        return { 'status': 400, 'message': 'request_id unavailable'}
-
-
-@app.post("/api/v2/report_domain")
-async def getReportDomain(url : str, db: Session = Depends(get_db)):
-
-
-    webScraper = News()
-    result = webScraper.scrape(url)
-    jsonResult = json.loads(result)
-
-    if jsonResult['status'] == 200:
-
-        try:
-            result=db.query(DomainsWhois).filter(DomainsWhois.domain==urlparse(url).netloc).first()
-            if result is None:
-                print('reported DomainsWhois',urlparse(url).netloc)
-                domains_whois_model = DomainsWhois()
-                domains_whois_model.domain = urlparse(url).netloc#tldextract.extract(url).registered_domain
-                db.add(domains_whois_model)
-                db.commit()
-
-            result=db.query(DomainsNetworkMetrics).filter(DomainsNetworkMetrics.domain==urlparse(url).netloc).first()
-            if result is None:
-                print('reported DomainsNetworkMetrics',urlparse(url).netloc)
-                domains_network_metrics = DomainsNetworkMetrics()
-                domains_network_metrics.domain = urlparse(url).netloc#tldextract.extract(url).registered_domain
-                db.add(domains_network_metrics)
-                db.commit()
-
-            return { 'status': 200, 'message': 'domain has been successfully reported'}
-        except IntegrityError:
-            return { 'status': 500, 'message': 'IntegrityError'}
-    else:
-        return {'status': 400, 'message': 'the domain is not available or does not exist'}
-
-
-@app.get("/api/v1/available_domains/{page}/{page_size}")
-async def getAvailableDomains(page: int, page_size: int, db: Session = Depends(get_db)):
-
-    print(page,page_size)
-    domains = db.query(DomainsWhois).order_by(DomainsWhois.domain.asc()).offset(page*page_size).limit(page_size)
-    print(domains)
-
-    return { 'status': 200,
-                 'message': 'the request was successful (random values)',
-                 'result': {
-                             'urls': [domain.domain for domain in domains ]
-                        }
-           }
-
-@app.get("/api/v1/available_urls/{page}/{page_size}")
-async def getAvailableUrls(page: int, page_size: int, db: Session = Depends(get_db)):
-
-    print(page,page_size)
-    urls = db.query(Urls).order_by(Urls.url.asc()).offset(page*page_size).limit(page_size)
-    print(urls)
-
-    return { 'status': 200,
-                 'message': 'the request was successful (random values)',
-                 'result': {
-                             'urls': [url.url for url in urls ]
-                        }
-           }
-
-
-
-
-
-scheduler=BackgroundScheduler()
-def NetworkCrawler():
-    print("Starting background processes")
-
-    ThreadNetworkCrawler().retrieveDomains()
-
-    ThreadWhoIs().retrieveDomains()
-
-    ThreadNetworkMetrics().retrieveDomains()
-
-
-
-
-tomorrow_start = datetime.combine(datetime.today(), time(0, 0)) + timedelta(1)
-
-scheduler.add_job(NetworkCrawler, 'interval', hours=24,max_instances=1,next_run_time=tomorrow_start)
-#scheduler.add_job(NetworkCrawler, 'interval', minutes=1,max_instances=1)#,next_run_time=tomorrow_start)
-scheduler.start()
-
-"""
 
 if __name__ == "__main__":
     uvicorn.run(app, host="10.12.0.3", port=8080) #10.12.0.3

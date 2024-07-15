@@ -8,12 +8,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Date, Text,TIMESTAMP
 from datetime import datetime
 
-
-
-
-
-#SQLALCHEMY_DATABASE_URL = "sqlite:///./debunker.db"
-#SQLALCHEMY_DATABASE_URL = "mysql+mysqlconnector://root:309urje4@db:3306/debunker?charset=utf8mb4"
 SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://debunker:A283hnd(902!)?]@db.aequa-tech.com:54321/debunker"
 
 
