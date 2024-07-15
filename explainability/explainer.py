@@ -14,8 +14,8 @@ class Explainer:
     def __init__(self,language):
 
         if language=="en":
-            self.sentiment_model = 'neuraly/bert-base-italian-cased-sentiment'
-            self.affective_model = "MilaNLProc/feel-it-italian-emotion"
+            self.sentiment_model = 'cardiffnlp/twitter-roberta-base-sentiment-latest'
+            self.affective_model = "j-hartmann/emotion-english-distilroberta-base"
             self.sentiment = ['positive', 'negative']
             self.affective = ['anger', 'fear', 'joy', 'sadness']
 
