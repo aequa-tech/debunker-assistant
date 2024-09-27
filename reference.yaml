@@ -166,12 +166,25 @@ components:
     id:
       type: string
       description: an unique id used for handling next APIs requests
+    
+    title:
+      type: string
+      description: the title of the article
+
+    sentences:
+      type: array
+      description: a list of sentences
+
 
     scrapeOutput:
       type: object
       properties:
         request_id:
           $ref: "#/components/schemas/id"
+        title:
+          $ref: "#/components/schemas/title"
+        content:
+          $ref: "#components/schemas/sentences"
 
     language:
       description: the language of the article that you want to analyze. Actually you can choose between Italian (it) and English (en)
@@ -218,7 +231,7 @@ components:
     
     scoreTypeNull:
       type: "null"
-
+    
     evaluationOutput:
       type: object
       description: the structure of a response as it is returned to the user

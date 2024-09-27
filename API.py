@@ -15,6 +15,8 @@ from database import engine, Base, Urls, get_db, Requests
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
+from gathering import summarize
+
 import numpy
 import hashlib
 import json
@@ -202,17 +204,22 @@ async def api_scrape(authorized: Annotated[bool, Depends(basic_auth)],
         print(result)
 
         if jsonResult['status'] == 200:
+            ranker = summarize.Ranker(jsonResult['result']['content'][0:maxChars])
+            ranked = [x['sentence'] for x in ranker.rank_sents()]
+
             url_model = Urls()
             url_model.request_id   = hash_id
             url_model.url          = inputUrl
             url_model.title        = jsonResult['result']['title'][0:maxChars]
-            url_model.content      = jsonResult['result']['content'][0:maxChars]
+            url_model.content      = ranked
             url_model.date         = datetime.strptime(jsonResult['result']['date'], '%Y-%M-%d')
             url_model.urls         = json.dumps(jsonResult['result']['urls'])
             db.add(url_model)
             db.commit()
             #jsonResult['result']['request_id'] = hash_id
             result = {'request_id':url_model.request_id,
+                      'title':url_model.title,
+                      'content':url_model.content
                         }
 
             return response(content=json.dumps(result),status_code=status.HTTP_200_OK)
