@@ -1,6 +1,7 @@
 # import debugpy
 # debugpy.listen(("0.0.0.0", 5678))
-
+import nltk
+nltk.download('punkt_tab')
 import os
 import uvicorn
 

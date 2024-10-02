@@ -5,14 +5,13 @@ version: '3'
 services:
   debunker:
     container_name: debunker-assistant
-    environment:
-      - DEBUNKER_USERNAME=debunker-username
-      - DEBUNKER_PASSWORD=debunker-password
+    env_file:
+      - .env
     build: '.'
     restart: always
-    ports:
-     - '8080:8080'
-     - '5678:5678'
+    #ports:
+    # - '8080:8080'
+    # - '5678:5678'
     networks:
       static-network:
         ipv4_address: 10.12.0.3
